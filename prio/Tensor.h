@@ -13,10 +13,10 @@ class Tensor
 		chunk* start;
 	public:
 		Tensor();
-		addvalue(double values[CHUNKSIZE], int crdx, int crdy, int crdz);
+		void init(double data[CHUNKSIZE], int crdx, int crdy, int crdz);
 		~Tensor();
-		change(char tenname[], double val, int crdx, int crdy, int crdz);
-		show(char tenname[], int crdx, int crdy, int crdz);
-		show(char tenname[]);	
+		void change(char tenname[], double val, int crdx, int crdy, int crdz);
+		void show(int crdx, int crdy, int crdz);
+		void show();	
 };
 #endif	

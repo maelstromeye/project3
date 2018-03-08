@@ -10,8 +10,10 @@ int detecc (std::string order);
 void help (std::string what);
 int main(void)
 {
-	using namespace std; 
-	string command;
+	using std::cout;
+	using std::cin; 
+	using std::endl;
+	std::string command;
 	cout<<"Welcome, here you can test the tensor class I've created. Type 'help' for a list of commands."<<endl;
 	while(1)
 	{
@@ -23,6 +25,13 @@ int main(void)
 				break;
 			case 2:
 				cout<<"new";
+				Tensor::Tensor ichi;
+				double tab[4];
+				cin>>tab[0];
+				cin>>tab[1];
+				cin>>tab[2];
+				cin>>tab[3];
+				ichi.init(tab, 0, 0, 0);
 				break;
 			case 3:
 				cout<<"del";
