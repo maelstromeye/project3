@@ -14,9 +14,10 @@ class Tensor
 	public:
 		Tensor();
 		void init(double data[CHUNKSIZE], int crdx, int crdy, int crdz);
-		~Tensor();
+		friend std::istream &operator>>(std::istream &input, Tensor &tensor);
+		/*~Tensor();
 		void change(char tenname[], double val, int crdx, int crdy, int crdz);
-		void show(int crdx, int crdy, int crdz);
+		void show(int crdx, int crdy, int crdz);*/
 		void show();	
 };
 #endif	

@@ -1,6 +1,8 @@
 #include <iostream>
 #include <cstring>
 #include <stdio.h>
+#include <vector>
+#include "Tensor.h"
 #define CUPD "update"
 #define CNEW "create"
 #define CDEL "delete"
@@ -10,10 +12,13 @@ int detecc (std::string order);
 void help (std::string what);
 int main(void)
 {
-	using std::cout;
-	using std::cin; 
-	using std::endl;
-	std::string command;
+	using namespace std; 
+	double tab[4];
+	int namecount=0;
+	vector<string> names;	//imiona uzywane przez uzytkowika
+	vector<Tensor> Tensors;
+	Tensor ichi;
+	string command;
 	cout<<"Welcome, here you can test the tensor class I've created. Type 'help' for a list of commands."<<endl;
 	while(1)
 	{
@@ -24,14 +29,15 @@ int main(void)
 				cout<<"upd";
 				break;
 			case 2:
-				cout<<"new";
-				Tensor::Tensor ichi;
-				double tab[4];
-				cin>>tab[0];
-				cin>>tab[1];
-				cin>>tab[2];
-				cin>>tab[3];
-				ichi.init(tab, 0, 0, 0);
+				cout<<"Type a name for your new tensor"<<endl;
+				cin.get();	
+				getline(cin, command);
+				names.push_back(command);
+				cout<<"Your new tensor is called: "<<names[namecount]<<endl;
+				cin>>ichi;
+				namecount++;
+				
+				
 				break;
 			case 3:
 				cout<<"del";
