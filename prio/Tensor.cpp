@@ -2,7 +2,6 @@
 #include <string>
 #include <stdio.h>
 #include <new>
-#include <cmath>
 Tensor::Tensor()	//konstruktor
 {
 	start=NULL;
@@ -17,27 +16,26 @@ void Tensor::init(double data[CHUNKSIZE], int crdx, int crdy, int crdz)	//dodawa
 		start->crdy=0;
 		start->crdz=0;
 	}
-	chunk* temp; //tymczasowy pointer
-	for(temp=start; (temp->crdx!=crdx)||(crdy<temp->crdy)||(crdy>temp->crdy+CHUNKSIZE)||(crdz<temp->crdz)||(crdz>temp->crdz+CHUNKSIZE); temp=temp->next)	//znajdujemy na liscie chunk o odpowiednich wspolrzednych
+	chunk* temp1;
+	chunk* temp2; //tymczasowe pointeru
+	for(temp1=start; !((temp1->crdx==crdx)&&((crdy>=temp1->crdy)&&(crdy<=temp1->crdy+CHUNKSIZE))&&((crdz>=temp1->crdz)&&(crdz<=temp1->crdz+CHUNKSIZE))); temp1=temp1->next)	//znajdujemy na liscie chunk o odpowiednich wspolrzednych
 	{
-		if (temp->next==NULL)	//odpowiedniej wspolrzednej moze nie byc wogole
+		if (temp1->next==NULL)	//odpowiedniej wspolrzednej moze nie byc wogole
 		{
-			temp=new chunk;
-			temp->next=NULL;
-			temp->crdx=crdx;
-			temp->crdy=crdy;
-			temp->crdz=crdz;
+			temp2=temp1;
+			temp1=new chunk;
+			temp1->next=NULL;
+			temp1->crdx=crdx;
+			temp1->crdy=crdy;
+			temp1->crdz=crdz;
+			temp2->next=temp1;
 			break;
 		}	
 	}
 	int i;	//counter
-	for(i=0; i<CHUNKSIZE;(temp->values[crdz%4][crdy%4][i])=data[i],std::cout<<temp->values[crdz%4][crdy%4][i]<<" ", i++); //assignujemy nowe dane
+	for(i=0; i<CHUNKSIZE;(temp1->values[crdz%4][crdy%4][i])=data[i],std::cout<<temp1->values[crdz%4][crdy%4][i]<<" ", i++); //assignujemy nowe dane
 	std::cout<<std::endl;
 	return;
-}
-void Tensor::show()
-{
-	std::cout<<start->values[0];
 }
 std::istream &operator>>(std::istream &input, Tensor &tensor)	//wczytanie z klawiatury
 {
@@ -60,9 +58,9 @@ std::istream &operator>>(std::istream &input, Tensor &tensor)	//wczytanie z klaw
 					space=input.get();
 					if((!isdigit(space))&&(space!='\n')&&(space!='-'))	//jezeli nie akcpetowalny
 					{
-						std::cin.ignore(INT_MAX,'\n');
 						std::cout<<"Unexpected input data. Input the vector again, starting with x="<<crdx<<std::endl;
 						read=0;
+						fseek(stdin, 0, SEEK_END);
 						for(i=0;i<CHUNKSIZE;data[i]=NAN, i++);	//ustawienie wektora danych na NAN-y
 						continue;
 					}
@@ -154,7 +152,6 @@ std::istream &operator>>(std::istream &input, Tensor &tensor)	//wczytanie z klaw
 				}
 				if(read!=0)
 				{
-					if(!flagx) dimx+=read;
 					tensor.init(data, crdx, crdy, crdz);
 					for(i=0;i<CHUNKSIZE;data[i]=NAN, i++);
 					read=0;
@@ -163,6 +160,7 @@ std::istream &operator>>(std::istream &input, Tensor &tensor)	//wczytanie z klaw
 		}
 		if(flagy==false) dimy=crdy-1;	//lockujemy maxymalna wspolrzedna y
 		flagy=true;
+		read=0;
 		crdx=0;
 		crdy=0;
 		crdz++;
@@ -172,16 +170,21 @@ std::istream &operator>>(std::istream &input, Tensor &tensor)	//wczytanie z klaw
 			space=input.get();
 			if((space!='y')&&(space!='n'))
 			{
-				std::cin.ignore(INT_MAX,'\n');
+				fseek(stdin, 0, SEEK_END);
 				std::cout<<"Unexpected input data. Input the vector again."<<std::endl;
 				continue;
 			}
 			if(space=='n') space='\n';
+			input.get();
 			break;
 		}
 	}
 	while(space!='\n');
-	std::cout<<"Tensor accepted."<<std::endl;
+	std::cout<<"Tensor accepted. Dimx="<<tensor.dimx()<<std::endl;
 	return input;
+}
+std::ostream &operator<<(std::ostream &output, Tensor &tensor)
+{
+	
 }
 

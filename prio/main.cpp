@@ -36,14 +36,14 @@ int main(void)
 				cout<<"Your new tensor is called: "<<names[namecount]<<endl;
 				cin>>ichi;
 				namecount++;
-				
+			
 				
 				break;
 			case 3:
 				cout<<"del";
 				break;
 			case 4:
-				cout<<"sho";
+				cout<<ichi;
 				break;
 			case 5:
 				cin>>command;
