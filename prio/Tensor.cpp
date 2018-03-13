@@ -10,6 +10,7 @@ void Tensor::init(double data[CHUNKSIZE], int crdx, int crdy, int crdz)	//dodawa
 {
 	if (start==NULL)	//jezeli nie bylo wczesniej obiektu
 	{
+		std::cout<<"new chunk"<<std::endl;
 		start=new chunk;
 		start->next=NULL;
 		start->crdx=0;
@@ -18,10 +19,11 @@ void Tensor::init(double data[CHUNKSIZE], int crdx, int crdy, int crdz)	//dodawa
 	}
 	chunk* temp1;
 	chunk* temp2; //tymczasowe pointeru
-	for(temp1=start; !((temp1->crdx==crdx)&&((crdy>=temp1->crdy)&&(crdy<=temp1->crdy+CHUNKSIZE))&&((crdz>=temp1->crdz)&&(crdz<=temp1->crdz+CHUNKSIZE))); temp1=temp1->next)	//znajdujemy na liscie chunk o odpowiednich wspolrzednych
+	for(temp1=start; !((temp1->crdx==crdx)&&((crdy>=temp1->crdy)&&(crdy<temp1->crdy+CHUNKSIZE))&&((crdz>=temp1->crdz)&&(crdz<temp1->crdz+CHUNKSIZE))); temp1=temp1->next)	//znajdujemy na liscie chunk o odpowiednich wspolrzednych
 	{
 		if (temp1->next==NULL)	//odpowiedniej wspolrzednej moze nie byc wogole
 		{
+			std::cout<<"new chunk"<<std::endl;
 			temp2=temp1;
 			temp1=new chunk;
 			temp1->next=NULL;
@@ -34,7 +36,7 @@ void Tensor::init(double data[CHUNKSIZE], int crdx, int crdy, int crdz)	//dodawa
 	}
 	int i;	//counter
 	for(i=0; i<CHUNKSIZE;(temp1->values[crdz%4][crdy%4][i])=data[i],std::cout<<temp1->values[crdz%4][crdy%4][i]<<" ", i++); //assignujemy nowe dane
-	std::cout<<std::endl;
+	std::cout<<"at: "<<temp1->crdx<<" "<<temp1->crdy<<" "<<temp1->crdz<<" "<<std::endl;
 	return;
 }
 std::istream &operator>>(std::istream &input, Tensor &tensor)	//wczytanie z klawiatury
@@ -134,7 +136,7 @@ std::istream &operator>>(std::istream &input, Tensor &tensor)	//wczytanie z klaw
 				space=input.get();
 				if((!isdigit(space))&&(space!='\n')&&(space!='-'))
 				{
-					std::cin.ignore(INT_MAX,'\n');
+					fseek(stdin, 0, SEEK_END);
 					std::cout<<"Unexpected input data. Input the vector again."<<std::endl;
 					continue;
 				}
@@ -149,25 +151,27 @@ std::istream &operator>>(std::istream &input, Tensor &tensor)	//wczytanie z klaw
 		{
 			//std::cout<<"assuming 0s"<<std::endl;
 			for(;crdy<dimy;crdy++)	//read staje sie sentinelem dla petli
-			{	
-				crdx=0;						
-				for(read=0;crdx+read<dimx;read++)
+			{						
+				for(crdx=0;read<dimx-crdx;)	//iteruje tyle razy ile wejsc brakuje
 				{
-					data[read]=0;
+					data[read]=0;	//symulacja inputowania 0
+					read++;
 					if(read==CHUNKSIZE)
 					{
-						tensor.init(data, crdx, crdy+1, crdz);
+						tensor.init(data, crdx, crdy, crdz);
 						for(i=0;i<CHUNKSIZE;data[i]=NAN, i++);
+						read=0;
 						crdx+=CHUNKSIZE;
-						read=-1;
 					}
 				}
-				if(read!=0)
+				if(read!=0)	//nie zostalo cos zapisane (nie pasowalo do CHUNKSIZE)
 				{
-					tensor.init(data, crdx, crdy+1, crdz);
+					//std::cout<<"finishing saving"<<std::endl;
+					if(flagx==0) dimx+=read;
+					tensor.init(data, crdx, crdy, crdz);
 					for(i=0;i<CHUNKSIZE;data[i]=NAN, i++);
 					read=0;
-				}	
+				}
 			}
 		}
 		if(crdy%CHUNKSIZE!=0)	//inicjalizujemy nastepny rzad do NAN-ow (przydatne do rozpoznawania maksymalnych wymiarow)
@@ -193,6 +197,7 @@ std::istream &operator>>(std::istream &input, Tensor &tensor)	//wczytanie z klaw
 			}
 			if(space=='n') space='\n';
 			input.get();
+			tensor.dimz=crdz;
 			break;
 		}
 	}
@@ -208,8 +213,9 @@ std::ostream &operator<<(std::ostream &output, Tensor &tensor)
 	iy=tensor.dimy();
 	ix=tensor.dimx();
 	temp=tensor.start;
-	for(crdz=0;;crdz++)
+	for(crdz=0;crdz<tensor.dimz;crdz++)
 	{	
+		output<<"z="<<crdz<<std::endl;
 		for(crdy=0;crdy<iy;crdy++)
 		{
 			for(crdx=0, i=0;crdx<ix;crdx++, i++)
@@ -219,12 +225,28 @@ std::ostream &operator<<(std::ostream &output, Tensor &tensor)
 				temp=temp->next;
 				i=0;
 				}
-				output<<temp->values[crdz][crdy][i]<<" ";
+				output<<temp->values[crdz%CHUNKSIZE][crdy%CHUNKSIZE][i]<<" ";
 			}
 			output<<std::endl;
 			temp=tensor.start;
+			if(crdy>=CHUNKSIZE-1) 
+			{
+				for(;!(((crdy+1>=temp->crdy)&&(crdy+1<temp->crdy+CHUNKSIZE))&&((crdz>=temp->crdz)&&(crdz<temp->crdz+CHUNKSIZE)));temp=temp->next);	//error
+			}
 		}
-		break;
+		output<<"tri";
+		temp=tensor.start;
+		output<<"xd";
+		if(crdz>=CHUNKSIZE-1) 
+		{
+			for(;!((crdz+1>=temp->crdz)&&(crdz+1<temp->crdz+CHUNKSIZE));temp=temp->next)
+			{
+				output<<"raz";
+			}
+			;	//faulty
+		}
+		output<<"dwa";
 	}
+	return output;
 }
 

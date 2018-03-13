@@ -36,6 +36,7 @@ class Tensor
 			}
 			return i+temp->crdy;
 		}
+		int dimz;
 		chunk* start;
 	public:
 		Tensor();
