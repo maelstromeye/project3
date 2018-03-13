@@ -43,8 +43,8 @@ std::istream &operator>>(std::istream &input, Tensor &tensor)	//wczytanie z klaw
 	int crdx, crdy, crdz, read, dimx, dimy, i;	//obecne wspolrzedna x,y,z jakie czytamy, ilosc wczytanych liczb, maxymalna wspolrzedna w wymiarze x, y, counter 
 	for(i=0;i<CHUNKSIZE;data[i]=NAN, i++);	//ustawiamy nany
 	dimx=dimy=crdx=crdy=crdz=read=0;
-	bool flagx, flagy;	//czy maxymalna wspolrzedna wymiaru juz byla ustalona
-	flagx=flagy=false;
+	int flagx, flagy;	//czy maxymalna wspolrzedna wymiaru juz byla ustalona
+	flagx=flagy=0;
 	char space;	//przechowywanie znakow innych niz liczby
 	do
 	{
@@ -53,6 +53,7 @@ std::istream &operator>>(std::istream &input, Tensor &tensor)	//wczytanie z klaw
 		{
 			do
 			{
+				//std::cout<<"read x"<<std::endl;
 				while(1)	//czy akceptowalny znak
 				{
 					space=input.get();
@@ -67,19 +68,24 @@ std::istream &operator>>(std::istream &input, Tensor &tensor)	//wczytanie z klaw
 					input.putback(space);	//jezeli dobry to wraca do bufora
 					break;
 				}
-				if((flagx==true)&&(crdx+read==dimx))	//jezeli ktos wpisal za duzo to obcinamy
+				//std::cout<<"a fine char"<<std::endl;
+				if((flagx==1)&&(crdx+read==dimx))	//jezeli ktos wpisal za duzo to obcinamy
 				{
+					//std::cout<<"katto"<<std::endl;
 					if (read!=0) tensor.init(data, crdx, crdy, crdz);	//zapisujemy jezeli cos bylo wpisane prawidlowo
 					crdx=dimx;
 					read=0;
 					fseek(stdin,1,SEEK_END);	//o reszcie zapominamy
 					break;
 				}
+				//std::cout<<"a fine number"<<std::endl;
 				input>>data[read];	//pobor liczby
 				read++;
+				//std::cout<<"I read "<<read<<std::endl;
 				if(read==CHUNKSIZE)	//jezeli jest gotowy do zapisu
 				{
-					if(!flagx) dimx+=CHUNKSIZE;	//powiekszenie maxymalnej wspolrzednej, jezeli jeszcze nie jest zablokowana
+					//std::cout<<"saved!"<<std::endl;
+					if(flagx==0) dimx+=CHUNKSIZE;	//powiekszenie maxymalnej wspolrzednej, jezeli jeszcze nie jest zablokowana
 					tensor.init(data, crdx, crdy, crdz);	//wpisanie danych
 					for(i=0;i<CHUNKSIZE;data[i]=NAN, i++);	//tablica danych na NAN
 					read=0;
@@ -88,8 +94,10 @@ std::istream &operator>>(std::istream &input, Tensor &tensor)	//wczytanie z klaw
 				space=input.get();	//pobieramy znak rozdielajacy badz enter
 			}
 			while(space!='\n');	//jezeli enter, przechodzimy do nizszej kolumny
-			if((crdx+read!=dimx)&&(flagx==true))	//za malo rzeczy bylo wpisane, assume 0s
+			//std::cout<<crdx+read<<" "<<dimx<<" "<<flagx<<std::endl;
+			if((crdx+read!=dimx)&&(flagx==1))	//za malo rzeczy bylo wpisane, assume 0s
 			{
+				//std::cout<<"assuming 0s"<<std::endl;
 				for(;read<dimx-crdx;)	//iteruje tyle razy ile wejsc brakuje
 				{
 					data[read]=0;	//symulacja inputowania 0
@@ -105,15 +113,17 @@ std::istream &operator>>(std::istream &input, Tensor &tensor)	//wczytanie z klaw
 			}
 			if(read!=0)	//nie zostalo cos zapisane (nie pasowalo do CHUNKSIZE)
 			{
-				if(!flagx) dimx+=read;
+				//std::cout<<"finishing saving"<<std::endl;
+				if(flagx==0) dimx+=read;
 				tensor.init(data, crdx, crdy, crdz);
 				for(i=0;i<CHUNKSIZE;data[i]=NAN, i++);
 				read=0;
 			}
-			flagx=true;	//juz zmienilismy maksymalna wspolrzedna x
+			flagx=1;	//juz zmienilismy maksymalna wspolrzedna x
 			crdx=0;
 			read=0;
-			if((crdy==dimy)&&(flagy==true))	//jezeli ktos by probowal dac za duzo linijek, niech nie probuje
+			//std::cout<<"nexty yes"<<std::endl;
+			if((crdy+1==dimy)&&(flagy==1))	//jezeli ktos by probowal dac za duzo linijek, niech nie probuje
 			{
 				input.putback(space);
 				break;
@@ -133,10 +143,12 @@ std::istream &operator>>(std::istream &input, Tensor &tensor)	//wczytanie z klaw
 			}
 		}
 		while(space!='\n');
+		//std::cout<<"nextz"<<std::endl;
 		input.get();	//zerujemy wejscie
-		if((crdy<=dimy)&&(flagy==true))	//ktos dal za malo linijek
+		if((crdy<=dimy)&&(flagy==1))	//ktos dal za malo linijek
 		{
-			for(;crdy-1<dimy;crdy++)	//read staje sie sentinelem dla petli
+			//std::cout<<"assuming 0s"<<std::endl;
+			for(;crdy<dimy;crdy++)	//read staje sie sentinelem dla petli
 			{	
 				crdx=0;						
 				for(read=0;crdx+read<dimx;read++)
@@ -144,22 +156,27 @@ std::istream &operator>>(std::istream &input, Tensor &tensor)	//wczytanie z klaw
 					data[read]=0;
 					if(read==CHUNKSIZE)
 					{
-						tensor.init(data, crdx, crdy, crdz);
+						tensor.init(data, crdx, crdy+1, crdz);
 						for(i=0;i<CHUNKSIZE;data[i]=NAN, i++);
 						crdx+=CHUNKSIZE;
-						read=0;
+						read=-1;
 					}
 				}
 				if(read!=0)
 				{
-					tensor.init(data, crdx, crdy, crdz);
+					tensor.init(data, crdx, crdy+1, crdz);
 					for(i=0;i<CHUNKSIZE;data[i]=NAN, i++);
 					read=0;
 				}	
 			}
 		}
-		if(flagy==false) dimy=crdy-1;	//lockujemy maxymalna wspolrzedna y
-		flagy=true;
+		if(crdy%CHUNKSIZE!=0)	//inicjalizujemy nastepny rzad do NAN-ow (przydatne do rozpoznawania maksymalnych wymiarow)
+		{
+			for(i=0;i<CHUNKSIZE;data[i]=NAN, i++);
+			tensor.init(data, dimx-((dimx%CHUNKSIZE==0)?CHUNKSIZE:dimx%CHUNKSIZE), crdy, crdz);
+		}
+		if(flagy==0) dimy=crdy;	//lockujemy maxymalna wspolrzedna y
+		flagy=1;
 		read=0;
 		crdx=0;
 		crdy=0;
@@ -180,11 +197,34 @@ std::istream &operator>>(std::istream &input, Tensor &tensor)	//wczytanie z klaw
 		}
 	}
 	while(space!='\n');
-	std::cout<<"Tensor accepted. Dimx="<<tensor.dimx()<<std::endl;
+	std::cout<<"Tensor accepted. Dimx="<<tensor.dimx()<<" Dimy="<<tensor.dimy()<<std::endl;
 	return input;
 }
 std::ostream &operator<<(std::ostream &output, Tensor &tensor)
 {
-	
+	if(tensor.start==NULL) return output;
+	Tensor::chunk* temp;
+	int crdx,crdy,crdz, ix, iy, i;
+	iy=tensor.dimy();
+	ix=tensor.dimx();
+	temp=tensor.start;
+	for(crdz=0;;crdz++)
+	{	
+		for(crdy=0;crdy<iy;crdy++)
+		{
+			for(crdx=0, i=0;crdx<ix;crdx++, i++)
+			{
+				if((crdx%CHUNKSIZE==0)&&(crdx!=0)) 
+				{
+				temp=temp->next;
+				i=0;
+				}
+				output<<temp->values[crdz][crdy][i]<<" ";
+			}
+			output<<std::endl;
+			temp=tensor.start;
+		}
+		break;
+	}
 }
 

@@ -16,21 +16,25 @@ class Tensor
 		{
 			if (start==NULL) return 0;
 			chunk* temp;
-			int i, n;
-			for(temp=start, n=0;temp->next!=NULL;temp=temp->next)
-			{
-				n++;
-				if	(temp->crdx>temp->next->crdx) break;
-			}
+			int i;
+			for(temp=start;temp->next!=NULL;temp=temp->next);
 			for(i=0;i<CHUNKSIZE;i++)
 			{
-				if(std::isnan(temp->values[0][0][i])!=0) return i+CHUNKSIZE*n;
+				if(std::isnan(temp->values[0][0][i])!=0) return temp->crdx+i;
 			}
-			return i+CHUNKSIZE*n;
+			return i+temp->crdx;
 		}
 		int dimy()
 		{
-			
+			if (start==NULL) return 0;
+			chunk* temp;
+			int i;
+			for(temp=start;temp->next!=NULL;temp=temp->next);
+			for(i=0;i<CHUNKSIZE;i++)
+			{
+				if(std::isnan(temp->values[0][i][0])!=0) return temp->crdy+i;
+			}
+			return i+temp->crdy;
 		}
 		chunk* start;
 	public:
