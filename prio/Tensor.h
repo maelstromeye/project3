@@ -45,8 +45,14 @@ class Tensor
 		friend std::istream &operator>>(std::istream &input, Tensor &tensor);
 		friend std::ostream &operator<<(std::ostream &output, Tensor &tensor);
 		int reveal (int crdx, int crdy, int y);
-		Tensor& operator+=(Tensor &tensor);
+		bool operator+=(Tensor &tensor);
+		bool operator-=(Tensor &tensor);
+		bool operator*=(Tensor &tensor);
+		bool operator==(Tensor &tensor);
+		bool operator!=(Tensor &tensor);
 		Tensor& operator+(Tensor &tensor);
+		Tensor& operator-(Tensor &tensor);
+		Tensor& operator*(Tensor &tensor);
 		~Tensor();	
 };
 #endif	

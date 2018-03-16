@@ -81,8 +81,8 @@ int main(void)
 				cout<<ichi;
 				san=(ni+ichi);
 				cout<<san;
-				san+=ichi;
-				cout<<ni;
+				ichi+=ichi;
+				cout<<ichi;
 				break;
 			case 5:
 				cout<<"Input crdx, then crdy, then crdz."<<endl;
