@@ -50,9 +50,9 @@ class Tensor
 		bool operator*=(Tensor &tensor);
 		bool operator==(Tensor &tensor);
 		bool operator!=(Tensor &tensor);
-		Tensor& operator+(Tensor &tensor);
-		Tensor& operator-(Tensor &tensor);
-		Tensor& operator*(Tensor &tensor);
-		~Tensor();	
+		Tensor operator+(Tensor &tensor);
+		Tensor operator-(Tensor &tensor);
+		Tensor operator*(Tensor &tensor);
+		~Tensor();
 };
-#endif	
+#endif

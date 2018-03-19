@@ -32,7 +32,7 @@ void Tensor::init(double data[CHUNKSIZE], int crdx, int crdy, int crdz)	//dodawa
 			temp1->crdz=crdz;
 			temp2->next=temp1;
 			break;
-		}	
+		}
 	}
 	int i;	//counter
 	for(i=0; i<CHUNKSIZE;(temp1->values[crdz%4][crdy%4][i])=data[i],std::cout<<temp1->values[crdz%4][crdy%4][i]<<" ", i++); //assignujemy nowe dane
@@ -72,7 +72,7 @@ Tensor::~Tensor()
 }
 bool Tensor::operator+=(Tensor &tensor)
 {
-	if ((this->dimx()!=tensor.dimx())||(this->dimy()!=tensor.dimy())||(this->dimz!=tensor.dimz)) 
+	if ((this->dimx()!=tensor.dimx())||(this->dimy()!=tensor.dimy())||(this->dimz!=tensor.dimz))
 	{
 		std::cout<<"Dimensions mismatch, aborting."<<std::endl;
 		return false;
@@ -85,13 +85,13 @@ bool Tensor::operator+=(Tensor &tensor)
 	ix=this->dimx();
 	iy=this->dimy();
 	for(crdz=0;crdz<tensor.dimz;crdz++)
-	{	
+	{
 		for(crdy=0;crdy<iy;crdy++)
 		{
 			for(crdx=0, i=0;crdx+i<ix;i++)
 			{
 				((thisptr->values[crdz%CHUNKSIZE][crdy%CHUNKSIZE][i])+=(tensptr->values[crdz%CHUNKSIZE][crdy%CHUNKSIZE][i]));
-				if (i==CHUNKSIZE-1) 
+				if (i==CHUNKSIZE-1)
 				{
 				crdx+=CHUNKSIZE;
 				tensptr=tensptr->next;
@@ -108,7 +108,7 @@ bool Tensor::operator+=(Tensor &tensor)
 }
 bool Tensor::operator-=(Tensor &tensor)
 {
-	if ((this->dimx()!=tensor.dimx())||(this->dimy()!=tensor.dimy())||(this->dimz!=tensor.dimz)) 
+	if ((this->dimx()!=tensor.dimx())||(this->dimy()!=tensor.dimy())||(this->dimz!=tensor.dimz))
 	{
 		std::cout<<"Dimensions mismatch, aborting."<<std::endl;
 		return false;
@@ -121,13 +121,13 @@ bool Tensor::operator-=(Tensor &tensor)
 	ix=this->dimx();
 	iy=this->dimy();
 	for(crdz=0;crdz<tensor.dimz;crdz++)
-	{	
+	{
 		for(crdy=0;crdy<iy;crdy++)
 		{
 			for(crdx=0, i=0;crdx+i<ix;i++)
 			{
 				((thisptr->values[crdz%CHUNKSIZE][crdy%CHUNKSIZE][i])-=(tensptr->values[crdz%CHUNKSIZE][crdy%CHUNKSIZE][i]));
-				if (i==CHUNKSIZE-1) 
+				if (i==CHUNKSIZE-1)
 				{
 				crdx+=CHUNKSIZE;
 				tensptr=tensptr->next;
@@ -144,7 +144,7 @@ bool Tensor::operator-=(Tensor &tensor)
 }
 bool Tensor::operator*=(Tensor &tensor)
 {
-	if ((this->dimx()!=tensor.dimx())||(this->dimy()!=tensor.dimy())||(this->dimz!=tensor.dimz)) 
+	if ((this->dimx()!=tensor.dimx())||(this->dimy()!=tensor.dimy())||(this->dimz!=tensor.dimz))
 	{
 		std::cout<<"Dimensions mismatch, aborting."<<std::endl;
 		return false;
@@ -157,13 +157,13 @@ bool Tensor::operator*=(Tensor &tensor)
 	ix=this->dimx();
 	iy=this->dimy();
 	for(crdz=0;crdz<tensor.dimz;crdz++)
-	{	
+	{
 		for(crdy=0;crdy<iy;crdy++)
 		{
 			for(crdx=0, i=0;crdx+i<ix;i++)
 			{
 				((thisptr->values[crdz%CHUNKSIZE][crdy%CHUNKSIZE][i])*=(tensptr->values[crdz%CHUNKSIZE][crdy%CHUNKSIZE][i]));
-				if (i==CHUNKSIZE-1) 
+				if (i==CHUNKSIZE-1)
 				{
 				crdx+=CHUNKSIZE;
 				tensptr=tensptr->next;
@@ -178,10 +178,10 @@ bool Tensor::operator*=(Tensor &tensor)
 	}
 	return true;
 }
-Tensor& Tensor::operator+(Tensor &tensor)
+Tensor Tensor::operator+(Tensor &tensor)
 {
 	Tensor empty;
-	if ((this->dimx()!=tensor.dimx())||(this->dimy()!=tensor.dimy())||(this->dimz!=tensor.dimz)) 
+	if ((this->dimx()!=tensor.dimx())||(this->dimy()!=tensor.dimy())||(this->dimz!=tensor.dimz))
 	{
 		std::cout<<"Dimensions mismatch, aborting."<<std::endl;
 		return empty;
@@ -196,13 +196,13 @@ Tensor& Tensor::operator+(Tensor &tensor)
 	double data[CHUNKSIZE];
 	for(i=0;i<CHUNKSIZE;data[i]=NAN, i++);
 	for(crdz=0;crdz<tensor.dimz;crdz++)
-	{	
+	{
 		for(crdy=0;crdy<iy;crdy++)
 		{
 			for(crdx=0, i=0;crdx+i<ix;i++)
 			{
 				data[i]=((thisptr->values[crdz%CHUNKSIZE][crdy%CHUNKSIZE][i])+(tensptr->values[crdz%CHUNKSIZE][crdy%CHUNKSIZE][i]));
-				if (i==CHUNKSIZE-1) 
+				if (i==CHUNKSIZE-1)
 				{
 				empty.init(data, crdx, crdy, crdz);
 				for(i=0;i<CHUNKSIZE;data[i]=NAN, i++);
@@ -212,7 +212,7 @@ Tensor& Tensor::operator+(Tensor &tensor)
 				i=-1;
 				}
 			}
-			if(i!=0)	
+			if(i!=0)
 			{
 				empty.init(data, crdx, crdy, crdz);
 				for(i=0;i<CHUNKSIZE;data[i]=NAN, i++);
@@ -228,14 +228,14 @@ Tensor& Tensor::operator+(Tensor &tensor)
 		else break;
 	}
 	empty.dimz=tensor.dimz;
-	std::cout<<"Dimx="<<empty.dimx()<<" Dimy="<<empty.dimy()<<std::endl;
+	std::cout<<"Dimx="<<empty.dimx()<<" Dimy="<<empty.dimy()<<" Dimz="<<empty.dimz<<std::endl;
 	std::cout<<empty;
 	return empty;
 }
-Tensor& Tensor::operator-(Tensor &tensor)
+Tensor Tensor::operator-(Tensor &tensor)
 {
 	Tensor empty;
-	if ((this->dimx()!=tensor.dimx())||(this->dimy()!=tensor.dimy())||(this->dimz!=tensor.dimz)) 
+	if ((this->dimx()!=tensor.dimx())||(this->dimy()!=tensor.dimy())||(this->dimz!=tensor.dimz))
 	{
 		std::cout<<"Dimensions mismatch, aborting."<<std::endl;
 		return empty;
@@ -250,13 +250,13 @@ Tensor& Tensor::operator-(Tensor &tensor)
 	double data[CHUNKSIZE];
 	for(i=0;i<CHUNKSIZE;data[i]=NAN, i++);
 	for(crdz=0;crdz<tensor.dimz;crdz++)
-	{	
+	{
 		for(crdy=0;crdy<iy;crdy++)
 		{
 			for(crdx=0, i=0;crdx+i<ix;i++)
 			{
 				data[i]=((thisptr->values[crdz%CHUNKSIZE][crdy%CHUNKSIZE][i])-(tensptr->values[crdz%CHUNKSIZE][crdy%CHUNKSIZE][i]));
-				if (i==CHUNKSIZE-1) 
+				if (i==CHUNKSIZE-1)
 				{
 				empty.init(data, crdx, crdy, crdz);
 				for(i=0;i<CHUNKSIZE;data[i]=NAN, i++);
@@ -266,7 +266,7 @@ Tensor& Tensor::operator-(Tensor &tensor)
 				i=-1;
 				}
 			}
-			if(i!=0)	
+			if(i!=0)
 			{
 				empty.init(data, crdx, crdy, crdz);
 				for(i=0;i<CHUNKSIZE;data[i]=NAN, i++);
@@ -286,10 +286,10 @@ Tensor& Tensor::operator-(Tensor &tensor)
 	std::cout<<empty;
 	return empty;
 }
-Tensor& Tensor::operator*(Tensor &tensor)
+Tensor Tensor::operator*(Tensor &tensor)
 {
 	Tensor empty;
-	if ((this->dimx()!=tensor.dimx())||(this->dimy()!=tensor.dimy())||(this->dimz!=tensor.dimz)) 
+	if ((this->dimx()!=tensor.dimx())||(this->dimy()!=tensor.dimy())||(this->dimz!=tensor.dimz))
 	{
 		std::cout<<"Dimensions mismatch, aborting."<<std::endl;
 		return empty;
@@ -304,13 +304,13 @@ Tensor& Tensor::operator*(Tensor &tensor)
 	double data[CHUNKSIZE];
 	for(i=0;i<CHUNKSIZE;data[i]=NAN, i++);
 	for(crdz=0;crdz<tensor.dimz;crdz++)
-	{	
+	{
 		for(crdy=0;crdy<iy;crdy++)
 		{
 			for(crdx=0, i=0;crdx+i<ix;i++)
 			{
 				data[i]=((thisptr->values[crdz%CHUNKSIZE][crdy%CHUNKSIZE][i])*(tensptr->values[crdz%CHUNKSIZE][crdy%CHUNKSIZE][i]));
-				if (i==CHUNKSIZE-1) 
+				if (i==CHUNKSIZE-1)
 				{
 				empty.init(data, crdx, crdy, crdz);
 				for(i=0;i<CHUNKSIZE;data[i]=NAN, i++);
@@ -320,7 +320,7 @@ Tensor& Tensor::operator*(Tensor &tensor)
 				i=-1;
 				}
 			}
-			if(i!=0)	
+			if(i!=0)
 			{
 				empty.init(data, crdx, crdy, crdz);
 				for(i=0;i<CHUNKSIZE;data[i]=NAN, i++);
@@ -339,10 +339,10 @@ Tensor& Tensor::operator*(Tensor &tensor)
 	std::cout<<"Dimx="<<empty.dimx()<<" Dimy="<<empty.dimy()<<std::endl;
 	std::cout<<empty;
 	return empty;
-}	
+}
 bool Tensor::operator==(Tensor &tensor)
 {
-	if ((this->dimx()!=tensor.dimx())||(this->dimy()!=tensor.dimy())||(this->dimz!=tensor.dimz)) 
+	if ((this->dimx()!=tensor.dimx())||(this->dimy()!=tensor.dimy())||(this->dimz!=tensor.dimz))
 	{
 		return false;
 	}
@@ -354,13 +354,13 @@ bool Tensor::operator==(Tensor &tensor)
 	ix=this->dimx();
 	iy=this->dimy();
 	for(crdz=0;crdz<tensor.dimz;crdz++)
-	{	
+	{
 		for(crdy=0;crdy<iy;crdy++)
 		{
 			for(crdx=0, i=0;crdx+i<ix;i++)
 			{
 				if(((thisptr->values[crdz%CHUNKSIZE][crdy%CHUNKSIZE][i])!=(tensptr->values[crdz%CHUNKSIZE][crdy%CHUNKSIZE][i]))) return false;
-				if (i==CHUNKSIZE-1) 
+				if (i==CHUNKSIZE-1)
 				{
 				crdx+=CHUNKSIZE;
 				tensptr=tensptr->next;
@@ -377,7 +377,7 @@ bool Tensor::operator==(Tensor &tensor)
 }
 bool Tensor::operator!=(Tensor &tensor)
 {
-	if ((this->dimx()!=tensor.dimx())||(this->dimy()!=tensor.dimy())||(this->dimz!=tensor.dimz)) 
+	if ((this->dimx()!=tensor.dimx())||(this->dimy()!=tensor.dimy())||(this->dimz!=tensor.dimz))
 	{
 		return true;
 	}
@@ -389,13 +389,13 @@ bool Tensor::operator!=(Tensor &tensor)
 	ix=this->dimx();
 	iy=this->dimy();
 	for(crdz=0;crdz<tensor.dimz;crdz++)
-	{	
+	{
 		for(crdy=0;crdy<iy;crdy++)
 		{
 			for(crdx=0, i=0;crdx+i<ix;i++)
 			{
 				if(((thisptr->values[crdz%CHUNKSIZE][crdy%CHUNKSIZE][i])!=(tensptr->values[crdz%CHUNKSIZE][crdy%CHUNKSIZE][i]))) return true;
-				if (i==CHUNKSIZE-1) 
+				if (i==CHUNKSIZE-1)
 				{
 				crdx+=CHUNKSIZE;
 				tensptr=tensptr->next;
@@ -414,7 +414,7 @@ bool Tensor::operator!=(Tensor &tensor)
 std::istream &operator>>(std::istream &input, Tensor &tensor)	//wczytanie z klawiatury
 {
 	double data[CHUNKSIZE];	//przechowywanie pojedynczego wprowadzonego wektora
-	int crdx, crdy, crdz, read, dimx, dimy, i;	//obecne wspolrzedna x,y,z jakie czytamy, ilosc wczytanych liczb, maxymalna wspolrzedna w wymiarze x, y, counter 
+	int crdx, crdy, crdz, read, dimx, dimy, i;	//obecne wspolrzedna x,y,z jakie czytamy, ilosc wczytanych liczb, maxymalna wspolrzedna w wymiarze x, y, counter
 	for(i=0;i<CHUNKSIZE;data[i]=NAN, i++);	//ustawiamy nany
 	dimx=dimy=crdx=crdy=crdz=read=0;
 	int flagx, flagy;	//czy maxymalna wspolrzedna wymiaru juz byla ustalona
@@ -522,7 +522,7 @@ std::istream &operator>>(std::istream &input, Tensor &tensor)	//wczytanie z klaw
 		{
 			//std::cout<<"assuming 0s"<<std::endl;
 			for(;crdy<dimy;crdy++)	//read staje sie sentinelem dla petli
-			{						
+			{
 				for(crdx=0;read<dimx-crdx;)	//iteruje tyle razy ile wejsc brakuje
 				{
 					data[read]=0;	//symulacja inputowania 0
@@ -585,14 +585,14 @@ std::ostream &operator<<(std::ostream &output, Tensor &tensor)
 	ix=tensor.dimx();
 	temp=tensor.start;
 	for(crdz=0;crdz<tensor.dimz;crdz++)
-	{	
+	{
 		output<<"z="<<crdz<<std::endl;
 		for(crdy=0;crdy<iy;crdy++)
 		{
 			for(crdx=0, i=0;crdx+i<ix;i++)
 			{
 				output<<temp->values[crdz%CHUNKSIZE][crdy%CHUNKSIZE][i]<<" ";
-				if(i==CHUNKSIZE-1) 
+				if(i==CHUNKSIZE-1)
 				{
 				temp=temp->next;
 				i=-1;
