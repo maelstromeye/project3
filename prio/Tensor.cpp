@@ -69,6 +69,8 @@ Tensor::~Tensor()
 		temp2=temp1;
 	}
 	delete temp1;
+	start=NULL;
+	return;
 }
 bool Tensor::operator+=(Tensor &tensor)
 {
@@ -229,7 +231,6 @@ Tensor Tensor::operator+(Tensor &tensor)
 	}
 	empty.dimz=tensor.dimz;
 	std::cout<<"Dimx="<<empty.dimx()<<" Dimy="<<empty.dimy()<<" Dimz="<<empty.dimz<<std::endl;
-	std::cout<<empty;
 	return empty;
 }
 Tensor Tensor::operator-(Tensor &tensor)
@@ -283,7 +284,6 @@ Tensor Tensor::operator-(Tensor &tensor)
 	}
 	empty.dimz=tensor.dimz;
 	std::cout<<"Dimx="<<empty.dimx()<<" Dimy="<<empty.dimy()<<std::endl;
-	std::cout<<empty;
 	return empty;
 }
 Tensor Tensor::operator*(Tensor &tensor)
@@ -337,7 +337,6 @@ Tensor Tensor::operator*(Tensor &tensor)
 	}
 	empty.dimz=tensor.dimz;
 	std::cout<<"Dimx="<<empty.dimx()<<" Dimy="<<empty.dimy()<<std::endl;
-	std::cout<<empty;
 	return empty;
 }
 bool Tensor::operator==(Tensor &tensor)
@@ -496,10 +495,10 @@ std::istream &operator>>(std::istream &input, Tensor &tensor)	//wczytanie z klaw
 			flagx=1;	//juz zmienilismy maksymalna wspolrzedna x
 			crdx=0;
 			read=0;
-			//std::cout<<"nexty yes"<<std::endl;
 			if((crdy+1==dimy)&&(flagy==1))	//jezeli ktos by probowal dac za duzo linijek, niech nie probuje
 			{
 				input.putback(space);
+				crdy++;
 				break;
 			}
 			crdy++;	//nizsza kolumna
@@ -518,7 +517,7 @@ std::istream &operator>>(std::istream &input, Tensor &tensor)	//wczytanie z klaw
 		}
 		while(space!='\n');
 		input.get();	//zerujemy wejscie
-		if((crdy<=dimy)&&(flagy==1))	//ktos dal za malo linijek
+		if((crdy<dimy)&&(flagy==1))	//ktos dal za malo linijek
 		{
 			//std::cout<<"assuming 0s"<<std::endl;
 			for(;crdy<dimy;crdy++)	//read staje sie sentinelem dla petli
@@ -558,7 +557,7 @@ std::istream &operator>>(std::istream &input, Tensor &tensor)	//wczytanie z klaw
 		crdz++;
 		while(1)
 		{
-			std::cout<<"Continue to z="<<crdz<<" y/n"<<std::endl;
+			std::cout<<"Continue to z="<<crdz<<" y/n ?"<<std::endl;
 			space=input.get();
 			if((space!='y')&&(space!='n'))
 			{

@@ -76,7 +76,10 @@ int main(void)
 				names.push_back(command);
 				cout<<"Your new tensor is called: "<<names[namecount]<<endl;
 				cin>>ichi;
+				cout<<"accpet?"<<endl;
 				Tensors.push_back(ichi);
+				cout<<"accept"<<endl;
+				ichi.~Tensor();
 				namecount++;
 				break;
 			case 3:
@@ -267,10 +270,9 @@ int find(string what)
 	int i;
 	for(i=0;i<namecount;i++)
 	{
-		nani=names.at(i);
+		nani=names[i];
 		if (nani==what) return i;
 	}
-	cout<<"No such tensor."<<endl;
 	return -1;
 }
 void help (string what)
