@@ -1,4 +1,4 @@
-#include <iostream>
+/*#include <iostream>
 #include <cstring>
 #include <stdio.h>
 #include <vector>
@@ -300,3 +300,4 @@ void help (string what)
 		}
 		return;
 }
+*/

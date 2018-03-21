@@ -40,14 +40,15 @@ class Tensor
 		chunk* start;
 	public:
 		Tensor();
+		void setz(int crdz);
 		int change(double data, int crdx, int crdy, int crdz);
 		void init(double data[CHUNKSIZE], int crdx, int crdy, int crdz);
 		friend std::istream &operator>>(std::istream &input, Tensor &tensor);
-		friend std::ostream &operator<<(std::ostream &output, Tensor &tensor);
+		friend std::ostream &operator<<(std::ostream &output, Tensor tensor);
 		int reveal (int crdx, int crdy, int y);
-		bool operator+=(Tensor &tensor);
-		bool operator-=(Tensor &tensor);
-		bool operator*=(Tensor &tensor);
+		Tensor& operator+=(const Tensor &tensor);
+		Tensor& operator-=(const Tensor &tensor);
+		Tensor& operator*=(const Tensor &tensor);
 		bool operator==(Tensor &tensor);
 		bool operator!=(Tensor &tensor);
 		Tensor operator+(Tensor &tensor);
