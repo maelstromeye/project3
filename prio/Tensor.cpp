@@ -7,31 +7,31 @@ Tensor::Tensor()	//konstruktor
 	start=NULL;
 	dimz=0;
 }
-int Tensor::dimy()
+int Tensor::dimy()  //znajduje dlugosc wspolrzednej y
 {
 	if (start==NULL) return 0;
-	chunk* temp;
-	int i;
-	for(temp=start;temp->next!=NULL;temp=temp->next);
+	chunk* temp;    //pointer pomocniczy
+	int i;  //counter
+	for(temp=start;temp->next!=NULL;temp=temp->next);   //szukamy konca listy
 	for(i=0;i<CHUNKSIZE;i++)
 	{
-		if(std::isnan(temp->values[0][i][0])!=0) return temp->crdy+i;
+		if(std::isnan(temp->values[0][i][0])!=0) return temp->crdy+i;   //na koncu listy umieszczam marker zlozony z NANow, wykrywany jest tutaj
 	}
-	return i+temp->crdy;
+	return i+temp->crdy;    //jezeli marker nie istnial (dimy%CHUNKSIZE==0)
 }
-int Tensor::dimx()	//detecc me jak duzo jest wersow
+int Tensor::dimx()	//znajduje dlugosc wspolrzednej x
 {
 	if (start==NULL) return 0;
-	chunk* temp;
-	int i;
-	for(temp=start;temp->next!=NULL;temp=temp->next);
+	chunk* temp;    //pointer pomocniczy
+	int i;  //counter
+	for(temp=start;temp->next!=NULL;temp=temp->next);   //szukamy konca listy
 	for(i=0;i<CHUNKSIZE;i++)
 	{
-		if(std::isnan(temp->values[0][0][i])!=0) return temp->crdx+i;
+		if(std::isnan(temp->values[0][0][i])!=0) return temp->crdx+i;   //na koncu wersu sa markery NAN, wykrywamy je
 	}
-	return i+temp->crdx;
+	return i+temp->crdx; //jezeli dimx%CHUNKSIZE==0
 }
-void Tensor::setz(int crdz)
+void Tensor::setz(int crdz) //ustalenie dlugosci wspolrzednej z
 {
     dimz=crdz;
 }
@@ -39,7 +39,6 @@ void Tensor::init(double data[CHUNKSIZE], int crdx, int crdy, int crdz)	//dodawa
 {
 	if (start==NULL)	//jezeli nie bylo wczesniej obiektu
 	{
-		//std::cout<<"new chunk"<<std::endl;
 		start=new chunk;
 		start->next=NULL;
 		start->crdx=0;
@@ -52,7 +51,6 @@ void Tensor::init(double data[CHUNKSIZE], int crdx, int crdy, int crdz)	//dodawa
 	{
 		if (temp1->next==NULL)	//odpowiedniej wspolrzednej moze nie byc wogole
 		{
-			//std::cout<<"new chunk"<<std::endl;
 			temp2=temp1;
 			temp1=new chunk;
 			temp1->next=NULL;
@@ -64,105 +62,85 @@ void Tensor::init(double data[CHUNKSIZE], int crdx, int crdy, int crdz)	//dodawa
 		}
 	}
 	int i;	//counter
-	for(i=0; i<CHUNKSIZE;(temp1->values[crdz%4][crdy%4][i])=data[i]/*,std::cout<<temp1->values[crdz%4][crdy%4][i]<<" "*/, i++); //assignujemy nowe dane
-	//std::cout<<"at: "<<crdx<<" "<<crdy<<" "<<crdz<<" "<<std::endl;
+	for(i=0; i<CHUNKSIZE;(temp1->values[crdz%4][crdy%4][i])=data[i], i++); //assignujemy nowe dane
 	return;
 }
-int Tensor::change(double data, int crdx, int crdy, int crdz)
+int Tensor::change(double data, int crdx, int crdy, int crdz)   //zmiana wartosci na wspolrzednej
 {
-	if((crdx>=dimx())||(crdy>=dimy())||(crdz>=dimz)||(crdx<0)||(crdy<0)||(crdz<0)) return 0;
-	chunk* temp;
-	for(temp=start; !(((crdx>=temp->crdx)&&(crdx<temp->crdx+CHUNKSIZE))&&((crdy>=temp->crdy)&&(crdy<temp->crdy+CHUNKSIZE))&&((crdz>=temp->crdz)&&(crdz<temp->crdz+CHUNKSIZE))); temp=temp->next);
-	temp->values[crdz%CHUNKSIZE][crdy%CHUNKSIZE][crdx%CHUNKSIZE]=data;
+	if((crdx>=dimx())||(crdy>=dimy())||(crdz>=dimz)||(crdx<0)||(crdy<0)||(crdz<0)) return 0;    //ktos podal nieprawidlowa wspolrzedna
+	chunk* temp;    //pointer pomocniczy
+	for(temp=start; !(((crdx>=temp->crdx)&&(crdx<temp->crdx+CHUNKSIZE))&&((crdy>=temp->crdy)&&(crdy<temp->crdy+CHUNKSIZE))&&((crdz>=temp->crdz)&&(crdz<temp->crdz+CHUNKSIZE))); temp=temp->next);   //znadujemy chunk o odpowiednich wspolrzednych
+	temp->values[crdz%CHUNKSIZE][crdy%CHUNKSIZE][crdx%CHUNKSIZE]=data;  //zmieniamy dana
 	return 1;
 }
-int Tensor::reveal(int crdx, int crdy, int crdz)
+int Tensor::reveal(int crdx, int crdy, int crdz)    //pokazanie wartosci na danej wspolrzednej
 {
-	if((crdx>=dimx())||(crdy>=dimy())||(crdz>=dimz)||(crdx<0)||(crdy<0)||(crdz<0)) return 0;
-	chunk* temp;
-	for(temp=start; !(((crdx>=temp->crdx)&&(crdx<temp->crdx+CHUNKSIZE))&&((crdy>=temp->crdy)&&(crdy<temp->crdy+CHUNKSIZE))&&((crdz>=temp->crdz)&&(crdz<temp->crdz+CHUNKSIZE))); temp=temp->next);
-	std::cout<<temp->values[crdz%CHUNKSIZE][crdy%CHUNKSIZE][crdx%CHUNKSIZE]<<std::endl;
+	if((crdx>=dimx())||(crdy>=dimy())||(crdz>=dimz)||(crdx<0)||(crdy<0)||(crdz<0)) return 0;    //ktos podal nieprawidlowe wspolrzedne
+	chunk* temp;    //pointer pomocniczy
+	for(temp=start; !(((crdx>=temp->crdx)&&(crdx<temp->crdx+CHUNKSIZE))&&((crdy>=temp->crdy)&&(crdy<temp->crdy+CHUNKSIZE))&&((crdz>=temp->crdz)&&(crdz<temp->crdz+CHUNKSIZE))); temp=temp->next);   //znajdujemy chunk o odpowiednich wspolrzednych
+	std::cout<<temp->values[crdz%CHUNKSIZE][crdy%CHUNKSIZE][crdx%CHUNKSIZE]<<std::endl; //wypisanie danej
 	return 1;
 }
-void Tensor::cleanse(void)
+void Tensor::cleanse(void)  //niszczenie wyciekow pamieci
 {
-    chunk* temp1;
+    chunk* temp1;   //pointery pomocnicze
 	chunk* temp2;
-	if (start==NULL) return;
+	if (start==NULL) return;    //nie ma danych
 	temp1=start;
 	temp2=start;
-	while(temp1->next!=NULL)
+	while(temp1->next!=NULL)    //az do konca
 	{
-		temp1=temp1->next;
+		temp1=temp1->next;  //usuwanie danych
 		delete temp2;
 		temp2=temp1;
 	}
-	delete temp1;
+	delete temp1;   //usuwanie ostatniej danej
+	start=NULL; //powrot do stanu 0
+	dimz=0;
+}
+Tensor::~Tensor()   //destruktor
+{
 	start=NULL;
 	dimz=0;
 }
-Tensor::~Tensor()
+Tensor& Tensor::operator+=(Tensor &tensor) //+=
 {
-	/*chunk* temp1;
-	chunk* temp2;
-	if (start==NULL) return;
-	temp1=start;
-	temp2=start;
-	std::cout<<"ra";
-	while(temp1->next!=NULL)
-	{
-	    std::cout<<"ta";
-		temp1=temp1->next;
-		std::cout<<"la";
-		delete temp2;
-		std::cout<<"ka";
-		temp2=temp1;
-		std::cout<<"ha";
-	}
-	delete temp1;*/
-	start=NULL;
-	dimz=0;
-}
-Tensor& Tensor::operator+=(Tensor &tensor)
-{
-    Tensor zero;
-	if ((this->dimx()!=tensor.dimx())||(this->dimy()!=tensor.dimy())||(this->dimz!=tensor.dimz)||(tensor.start==NULL))
+    Tensor zero;    //tensor pusty. do zwrocenia jezeli nieprawidlowe dane
+	if ((this->dimx()!=tensor.dimx())||(this->dimy()!=tensor.dimy())||(this->dimz!=tensor.dimz)||(tensor.start==NULL))  //niekompatybilne tensory
 	{
 		std::cout<<"Dimensions mismatch, aborting."<<std::endl;
 		return zero;
 	}
-	chunk* tensptr;
+	chunk* tensptr; //pointery pomocnicze
 	chunk* thisptr;
 	tensptr=tensor.start;
 	thisptr=this->start;
-	int crdz, crdy, crdx, i, iy, ix;
-	double number;
-	ix=tensor.dimx();
+	int crdz, crdy, crdx, i, iy, ix;    //wspolrzedne na ktorych jestesmy, counter, wspolrzedne maksymalne, jakich nie mozemy osiagnac
+	ix=tensor.dimx();   //przypisujemy wspolrzedne nieosiagalne
 	iy=tensor.dimy();
-	for(crdz=0;crdz<tensor.dimz;crdz++)
+	for(crdz=0;crdz<tensor.dimz;crdz++) //petla dla wymiaru z
 	{
-		for(crdy=0;crdy<iy;crdy++)
+		for(crdy=0;crdy<iy;crdy++)  //petla dla wymiaru y
 		{
-			for(crdx=0, i=0;crdx+i<ix;i++)
+			for(crdx=0, i=0;crdx+i<ix;i++)  //petla dla wymiaru x
 			{
-				number=(thisptr->values[crdz%CHUNKSIZE][crdy%CHUNKSIZE][i])+(tensptr->values[crdz%CHUNKSIZE][crdy%CHUNKSIZE][i]);
-				thisptr->values[crdz%CHUNKSIZE][crdy%CHUNKSIZE][i]=number;
-				if (i==CHUNKSIZE-1)
+				(thisptr->values[crdz%CHUNKSIZE][crdy%CHUNKSIZE][i])+=(tensptr->values[crdz%CHUNKSIZE][crdy%CHUNKSIZE][i]); //dodanie
+				if (i==CHUNKSIZE-1) //jezeli dodalismy caly jeden wektor
 				{
 				crdx+=CHUNKSIZE;
-				tensptr=tensptr->next;
+				tensptr=tensptr->next;  //przeskakujemy na nastepny pointer
 				thisptr=thisptr->next;
 				i=-1;
 				}
 			}
-			if(crdy!=iy-1) for(tensptr=tensor.start, thisptr=this->start;!(((crdy+1>=tensptr->crdy)&&(crdy+1<tensptr->crdy+CHUNKSIZE))&&((crdz>=tensptr->crdz)&&(crdz<tensptr->crdz+CHUNKSIZE)));tensptr=tensptr->next, thisptr=thisptr->next);
+			if(crdy!=iy-1) for(tensptr=tensor.start, thisptr=this->start;!(((crdy+1>=tensptr->crdy)&&(crdy+1<tensptr->crdy+CHUNKSIZE))&&((crdz>=tensptr->crdz)&&(crdz<tensptr->crdz+CHUNKSIZE)));tensptr=tensptr->next, thisptr=thisptr->next); //wybor pointera o odpowiednim y
 		}
-		if(crdz!=tensor.dimz-1) for(tensptr=tensor.start, thisptr=this->start;!((crdz+1>=tensptr->crdz)&&(crdz+1<tensptr->crdz+CHUNKSIZE));tensptr=tensptr->next, thisptr=thisptr->next);
+		if(crdz!=tensor.dimz-1) for(tensptr=tensor.start, thisptr=this->start;!((crdz+1>=tensptr->crdz)&&(crdz+1<tensptr->crdz+CHUNKSIZE));tensptr=tensptr->next, thisptr=thisptr->next);   //wybor pointera o odpowiednimk z
 		else break;
 	}
 	return *this;
 }
-Tensor& Tensor::operator-=(Tensor &tensor)
+Tensor& Tensor::operator-=(Tensor &tensor)  //analogiccznie do +=
 {
     Tensor zero;
 	if ((this->dimx()!=tensor.dimx())||(this->dimy()!=tensor.dimy())||(this->dimz!=tensor.dimz)||(tensor.start==NULL))
@@ -199,7 +177,7 @@ Tensor& Tensor::operator-=(Tensor &tensor)
 	}
 	return *this;
 }
-Tensor& Tensor::operator*=(Tensor &tensor)
+Tensor& Tensor::operator*=(Tensor &tensor) //analogicznie do +=
 {
 	Tensor zero;
 	if ((this->dimx()!=tensor.dimx())||(this->dimy()!=tensor.dimy())||(this->dimz!=tensor.dimz)||(tensor.start==NULL))
@@ -236,59 +214,59 @@ Tensor& Tensor::operator*=(Tensor &tensor)
 	}
 	return *this;
 }
-Tensor Tensor::operator+(Tensor &tensor)
+Tensor Tensor::operator+(Tensor &tensor)    //+
 {
-	Tensor zero;
-	if ((this->dimx()!=tensor.dimx())||(this->dimy()!=tensor.dimy())||(this->dimz!=tensor.dimz)||(tensor.start==NULL))
+	Tensor zero;    //pusty pointer, ew go zwrocimy
+	if ((this->dimx()!=tensor.dimx())||(this->dimy()!=tensor.dimy())||(this->dimz!=tensor.dimz)||(tensor.start==NULL))  //niekompatybilne tensory
 	{
 		std::cout<<"Dimensions mismatch, aborting."<<std::endl;
 		return zero;
 	}
-	chunk* tensptr;
+	chunk* tensptr; //pointer tymczasowy
 	chunk* thisptr;
 	tensptr=tensor.start;
 	thisptr=this->start;
-	int crdz, crdy, crdx, i, iy, ix;
-	ix=this->dimx();
+	int crdz, crdy, crdx, i, iy, ix;    //wspolrzende obecne, counter, wspolrzedne nieosiagalne
+	ix=this->dimx();    //ustaiwamy wspolrzedne nieosiagalne
 	iy=this->dimy();
-	double data[CHUNKSIZE];
-	for(i=0;i<CHUNKSIZE;data[i]=NAN, i++);
-	for(crdz=0;crdz<tensor.dimz;crdz++)
+	double data[CHUNKSIZE]; //holder danych
+	for(i=0;i<CHUNKSIZE;data[i]=NAN, i++);  //inicjalizujemy do NAN
+	for(crdz=0;crdz<tensor.dimz;crdz++) //PETLA DLA WYMIARU Z
 	{
-		for(crdy=0;crdy<iy;crdy++)
+		for(crdy=0;crdy<iy;crdy++)  //petla dla wymiaru y
 		{
-			for(crdx=0, i=0;crdx+i<ix;i++)
+			for(crdx=0, i=0;crdx+i<ix;i++)  //petla dla wmiaru x
 			{
-				data[i]=((thisptr->values[crdz%CHUNKSIZE][crdy%CHUNKSIZE][i])+(tensptr->values[crdz%CHUNKSIZE][crdy%CHUNKSIZE][i]));
-				if (i==CHUNKSIZE-1)
+				data[i]=((thisptr->values[crdz%CHUNKSIZE][crdy%CHUNKSIZE][i])+(tensptr->values[crdz%CHUNKSIZE][crdy%CHUNKSIZE][i]));    //przypisanie dnaych
+				if (i==CHUNKSIZE-1) //jezeli wektor gotowy do zapisania
 				{
-				zero.init(data, crdx, crdy, crdz);
-				for(i=0;i<CHUNKSIZE;data[i]=NAN, i++);
-				crdx+=CHUNKSIZE;
-				tensptr=tensptr->next;
+				zero.init(data, crdx, crdy, crdz);  //inicjalizujemy do tensora zero
+				for(i=0;i<CHUNKSIZE;data[i]=NAN, i++);  //NANujemy dane
+				crdx+=CHUNKSIZE;    //nastepna wspolrzedna
+				tensptr=tensptr->next;  //anstepny pointer
 				thisptr=thisptr->next;
 				i=-1;
 				}
 			}
-			if(i!=0)
+			if(i!=0)    //jezeli zostalo cos do zapisania po petli to zapisujemy
 			{
 				zero.init(data, crdx, crdy, crdz);
 				for(i=0;i<CHUNKSIZE;data[i]=NAN, i++);
 			}
-			if(crdy!=iy-1) for(tensptr=tensor.start, thisptr=this->start;!(((crdy+1>=tensptr->crdy)&&(crdy+1<tensptr->crdy+CHUNKSIZE))&&((crdz>=tensptr->crdz)&&(crdz<tensptr->crdz+CHUNKSIZE)));tensptr=tensptr->next, thisptr=thisptr->next);
+			if(crdy!=iy-1) for(tensptr=tensor.start, thisptr=this->start;!(((crdy+1>=tensptr->crdy)&&(crdy+1<tensptr->crdy+CHUNKSIZE))&&((crdz>=tensptr->crdz)&&(crdz<tensptr->crdz+CHUNKSIZE)));tensptr=tensptr->next, thisptr=thisptr->next); //lokalizujemy odpowiednie miejsce na liscie
 		}
-		if(crdy%CHUNKSIZE!=0)
+		if(crdy%CHUNKSIZE!=0)   //ustawiamy marker NAN dla funkcji dimy()
 		{
 			for(i=0;i<CHUNKSIZE;data[i]=NAN, i++);
 			zero.init(data, ix-((ix%CHUNKSIZE==0)?CHUNKSIZE:ix%CHUNKSIZE), crdy, crdz);
 		}
-		if(crdz!=tensor.dimz-1) for(tensptr=tensor.start, thisptr=this->start;!((crdz+1>=tensptr->crdz)&&(crdz+1<tensptr->crdz+CHUNKSIZE));tensptr=tensptr->next, thisptr=thisptr->next);
+		if(crdz!=tensor.dimz-1) for(tensptr=tensor.start, thisptr=this->start;!((crdz+1>=tensptr->crdz)&&(crdz+1<tensptr->crdz+CHUNKSIZE));tensptr=tensptr->next, thisptr=thisptr->next);   //lokalizujemy odpowiednie miejsce na liscie
 		else break;
 	}
-	zero.dimz=tensor.dimz;
-	return zero;
+	zero.dimz=tensor.dimz; //ustawiamy dimz
+	return zero;    //zwracay gotowy pointer, uzytkownik musi usunac zallokowana pamiec gotowa funkcja cleanse();
 }
-Tensor Tensor::operator-(Tensor &tensor)
+Tensor Tensor::operator-(Tensor &tensor)    //analogicznie do +
 {
 	Tensor zero;
 	if ((this->dimx()!=tensor.dimx())||(this->dimy()!=tensor.dimy())||(this->dimz!=tensor.dimz)||(tensor.start==NULL))
@@ -340,7 +318,7 @@ Tensor Tensor::operator-(Tensor &tensor)
 	zero.dimz=tensor.dimz;
 	return zero;
 }
-Tensor Tensor::operator*(Tensor &tensor)
+Tensor Tensor::operator*(Tensor &tensor)    //analogicznie do +
 {
 	Tensor zero;
 	if ((this->dimx()!=tensor.dimx())||(this->dimy()!=tensor.dimy())||(this->dimz!=tensor.dimz)||(tensor.start==NULL))
@@ -392,7 +370,7 @@ Tensor Tensor::operator*(Tensor &tensor)
 	zero.dimz=tensor.dimz;
 	return zero;
 }
-bool Tensor::operator==(Tensor &tensor)
+bool Tensor::operator==(Tensor &tensor) //analogicznie do +=, tylko zamiast dodawania sprawdzenie waruku i ew zwrocenie
 {
 	if ((this->dimx()!=tensor.dimx())||(this->dimy()!=tensor.dimy())||(this->dimz!=tensor.dimz)||(tensor.start==NULL))
 	{
@@ -427,7 +405,7 @@ bool Tensor::operator==(Tensor &tensor)
 	}
 	return true;
 }
-bool Tensor::operator!=(Tensor &tensor)
+bool Tensor::operator!=(Tensor &tensor) //analogicznie do ==
 {
 	if ((this->dimx()!=tensor.dimx())||(this->dimy()!=tensor.dimy())||(this->dimz!=tensor.dimz)||(tensor.start==NULL))
 	{
@@ -604,7 +582,7 @@ std::istream &operator>>(std::istream &input, Tensor &tensor)	//wczytanie z klaw
 		crdx=0;
 		crdy=0;
 		crdz++;
-		while(1)
+		while(1)    //czy kontynuowac wpisywanie do nastepnego z
 		{
 			std::cout<<"Continue to z="<<crdz<<" y/n ?"<<std::endl;
 			space=input.get();
@@ -624,33 +602,33 @@ std::istream &operator>>(std::istream &input, Tensor &tensor)	//wczytanie z klaw
 	std::cout<<"Tensor accepted. Dimx="<<tensor.dimx()<<" Dimy="<<tensor.dimy()<<std::endl;
 	return input;
 }
-std::ostream &operator<<(std::ostream &output, Tensor tensor)
+std::ostream &operator<<(std::ostream &output, Tensor tensor)   //wypisanie
 {
-	if(tensor.start==NULL) return output;
-	Tensor::chunk* temp;
-	int crdx,crdy,crdz, ix, iy, i;
-	iy=tensor.dimy();
+	if(tensor.start==NULL) return output;   //brak danych
+	Tensor::chunk* temp;    //pomocniczy pointer
+	int crdx,crdy,crdz, ix, iy, i;  //wspolrzedne na ktprych jestesmy, wspolrzedne nieosiagalne, counter
+	iy=tensor.dimy();   //przypisanie wspolrzednych nieosiagalnych
 	ix=tensor.dimx();
 	temp=tensor.start;
-	for(crdz=0;crdz<tensor.dimz;crdz++)
+	for(crdz=0;crdz<tensor.dimz;crdz++) //petla wymiaru z
 	{
 		output<<"z="<<crdz<<std::endl;
-		for(crdy=0;crdy<iy;crdy++)
+		for(crdy=0;crdy<iy;crdy++)  //petla wymiaru y
 		{
-			for(crdx=0, i=0;crdx+i<ix;i++)
+			for(crdx=0, i=0;crdx+i<ix;i++)  //petla wymiaru x
 			{
-				output<<temp->values[crdz%CHUNKSIZE][crdy%CHUNKSIZE][i]<<" ";
-				if(i==CHUNKSIZE-1)
+				output<<temp->values[crdz%CHUNKSIZE][crdy%CHUNKSIZE][i]<<" ";   //wypisanie
+				if(i==CHUNKSIZE-1)  //przejscie do nastepnego pointera
 				{
 				temp=temp->next;
 				i=-1;
-				crdx+=CHUNKSIZE;
+				crdx+=CHUNKSIZE;    //...i nastepnej wpsolrzednej
 				}
 			}
 			output<<std::endl;
-			if(crdy!=iy-1) for(temp=tensor.start;!(((crdy+1>=temp->crdy)&&(crdy+1<temp->crdy+CHUNKSIZE))&&((crdz>=temp->crdz)&&(crdz<temp->crdz+CHUNKSIZE)));temp=temp->next);
+			if(crdy!=iy-1) for(temp=tensor.start;!(((crdy+1>=temp->crdy)&&(crdy+1<temp->crdy+CHUNKSIZE))&&((crdz>=temp->crdz)&&(crdz<temp->crdz+CHUNKSIZE)));temp=temp->next);  //lokalizacja iejsca na liscie
 		}
-		if(crdz!=tensor.dimz-1) for(temp=tensor.start;!((crdz+1>=temp->crdz)&&(crdz+1<temp->crdz+CHUNKSIZE));temp=temp->next);
+		if(crdz!=tensor.dimz-1) for(temp=tensor.start;!((crdz+1>=temp->crdz)&&(crdz+1<temp->crdz+CHUNKSIZE));temp=temp->next);  //lokalizacja miejsca na liscie
 		else return output;
 	}
 	return output;
