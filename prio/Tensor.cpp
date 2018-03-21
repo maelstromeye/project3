@@ -7,6 +7,30 @@ Tensor::Tensor()	//konstruktor
 	start=NULL;
 	dimz=0;
 }
+int Tensor::dimy()
+{
+	if (start==NULL) return 0;
+	chunk* temp;
+	int i;
+	for(temp=start;temp->next!=NULL;temp=temp->next);
+	for(i=0;i<CHUNKSIZE;i++)
+	{
+		if(std::isnan(temp->values[0][i][0])!=0) return temp->crdy+i;
+	}
+	return i+temp->crdy;
+}
+int Tensor::dimx()	//detecc me jak duzo jest wersow
+{
+	if (start==NULL) return 0;
+	chunk* temp;
+	int i;
+	for(temp=start;temp->next!=NULL;temp=temp->next);
+	for(i=0;i<CHUNKSIZE;i++)
+	{
+		if(std::isnan(temp->values[0][0][i])!=0) return temp->crdx+i;
+	}
+	return i+temp->crdx;
+}
 void Tensor::setz(int crdz)
 {
     dimz=crdz;
@@ -60,9 +84,26 @@ int Tensor::reveal(int crdx, int crdy, int crdz)
 	std::cout<<temp->values[crdz%CHUNKSIZE][crdy%CHUNKSIZE][crdx%CHUNKSIZE]<<std::endl;
 	return 1;
 }
+void Tensor::cleanse(void)
+{
+    chunk* temp1;
+	chunk* temp2;
+	if (start==NULL) return;
+	temp1=start;
+	temp2=start;
+	while(temp1->next!=NULL)
+	{
+		temp1=temp1->next;
+		delete temp2;
+		temp2=temp1;
+	}
+	delete temp1;
+	start=NULL;
+	dimz=0;
+}
 Tensor::~Tensor()
 {
-	chunk* temp1;
+	/*chunk* temp1;
 	chunk* temp2;
 	if (start==NULL) return;
 	temp1=start;
@@ -72,13 +113,17 @@ Tensor::~Tensor()
 	{
 	    std::cout<<"ta";
 		temp1=temp1->next;
+		std::cout<<"la";
 		delete temp2;
+		std::cout<<"ka";
 		temp2=temp1;
+		std::cout<<"ha";
 	}
-	delete temp1;
+	delete temp1;*/
 	start=NULL;
+	dimz=0;
 }
-Tensor& Tensor::operator+=(const Tensor &tensor)
+Tensor& Tensor::operator+=(Tensor &tensor)
 {
     Tensor zero;
 	if ((this->dimx()!=tensor.dimx())||(this->dimy()!=tensor.dimy())||(this->dimz!=tensor.dimz)||(tensor.start==NULL))
@@ -91,6 +136,7 @@ Tensor& Tensor::operator+=(const Tensor &tensor)
 	tensptr=tensor.start;
 	thisptr=this->start;
 	int crdz, crdy, crdx, i, iy, ix;
+	double number;
 	ix=tensor.dimx();
 	iy=tensor.dimy();
 	for(crdz=0;crdz<tensor.dimz;crdz++)
@@ -99,7 +145,8 @@ Tensor& Tensor::operator+=(const Tensor &tensor)
 		{
 			for(crdx=0, i=0;crdx+i<ix;i++)
 			{
-				(thisptr->values[crdz%CHUNKSIZE][crdy%CHUNKSIZE][i])+=(tensptr->values[crdz%CHUNKSIZE][crdy%CHUNKSIZE][i]);
+				number=(thisptr->values[crdz%CHUNKSIZE][crdy%CHUNKSIZE][i])+(tensptr->values[crdz%CHUNKSIZE][crdy%CHUNKSIZE][i]);
+				thisptr->values[crdz%CHUNKSIZE][crdy%CHUNKSIZE][i]=number;
 				if (i==CHUNKSIZE-1)
 				{
 				crdx+=CHUNKSIZE;
@@ -111,11 +158,11 @@ Tensor& Tensor::operator+=(const Tensor &tensor)
 			if(crdy!=iy-1) for(tensptr=tensor.start, thisptr=this->start;!(((crdy+1>=tensptr->crdy)&&(crdy+1<tensptr->crdy+CHUNKSIZE))&&((crdz>=tensptr->crdz)&&(crdz<tensptr->crdz+CHUNKSIZE)));tensptr=tensptr->next, thisptr=thisptr->next);
 		}
 		if(crdz!=tensor.dimz-1) for(tensptr=tensor.start, thisptr=this->start;!((crdz+1>=tensptr->crdz)&&(crdz+1<tensptr->crdz+CHUNKSIZE));tensptr=tensptr->next, thisptr=thisptr->next);
-		//else break;
+		else break;
 	}
 	return *this;
 }
-Tensor& Tensor::operator-=(const Tensor &tensor)
+Tensor& Tensor::operator-=(Tensor &tensor)
 {
     Tensor zero;
 	if ((this->dimx()!=tensor.dimx())||(this->dimy()!=tensor.dimy())||(this->dimz!=tensor.dimz)||(tensor.start==NULL))
@@ -148,11 +195,11 @@ Tensor& Tensor::operator-=(const Tensor &tensor)
 			if(crdy!=iy-1) for(tensptr=tensor.start, thisptr=this->start;!(((crdy+1>=tensptr->crdy)&&(crdy+1<tensptr->crdy+CHUNKSIZE))&&((crdz>=tensptr->crdz)&&(crdz<tensptr->crdz+CHUNKSIZE)));tensptr=tensptr->next, thisptr=thisptr->next);
 		}
 		if(crdz!=tensor.dimz-1) for(tensptr=tensor.start, thisptr=this->start;!((crdz+1>=tensptr->crdz)&&(crdz+1<tensptr->crdz+CHUNKSIZE));tensptr=tensptr->next, thisptr=thisptr->next);
-		//else break;
+		else break;
 	}
 	return *this;
 }
-Tensor& Tensor::operator*=(const Tensor &tensor)
+Tensor& Tensor::operator*=(Tensor &tensor)
 {
 	Tensor zero;
 	if ((this->dimx()!=tensor.dimx())||(this->dimy()!=tensor.dimy())||(this->dimz!=tensor.dimz)||(tensor.start==NULL))
@@ -185,7 +232,7 @@ Tensor& Tensor::operator*=(const Tensor &tensor)
 			if(crdy!=iy-1) for(tensptr=tensor.start, thisptr=this->start;!(((crdy+1>=tensptr->crdy)&&(crdy+1<tensptr->crdy+CHUNKSIZE))&&((crdz>=tensptr->crdz)&&(crdz<tensptr->crdz+CHUNKSIZE)));tensptr=tensptr->next, thisptr=thisptr->next);
 		}
 		if(crdz!=tensor.dimz-1) for(tensptr=tensor.start, thisptr=this->start;!((crdz+1>=tensptr->crdz)&&(crdz+1<tensptr->crdz+CHUNKSIZE));tensptr=tensptr->next, thisptr=thisptr->next);
-		//else break;
+		else break;
 	}
 	return *this;
 }
@@ -236,7 +283,7 @@ Tensor Tensor::operator+(Tensor &tensor)
 			zero.init(data, ix-((ix%CHUNKSIZE==0)?CHUNKSIZE:ix%CHUNKSIZE), crdy, crdz);
 		}
 		if(crdz!=tensor.dimz-1) for(tensptr=tensor.start, thisptr=this->start;!((crdz+1>=tensptr->crdz)&&(crdz+1<tensptr->crdz+CHUNKSIZE));tensptr=tensptr->next, thisptr=thisptr->next);
-		//else break;
+		else break;
 	}
 	zero.dimz=tensor.dimz;
 	return zero;
@@ -288,7 +335,7 @@ Tensor Tensor::operator-(Tensor &tensor)
 			zero.init(data, ix-((ix%CHUNKSIZE==0)?CHUNKSIZE:ix%CHUNKSIZE), crdy, crdz);
 		}
 		if(crdz!=tensor.dimz-1) for(tensptr=tensor.start, thisptr=this->start;!((crdz+1>=tensptr->crdz)&&(crdz+1<tensptr->crdz+CHUNKSIZE));tensptr=tensptr->next, thisptr=thisptr->next);
-		//else break;
+		else break;
 	}
 	zero.dimz=tensor.dimz;
 	return zero;
@@ -340,7 +387,7 @@ Tensor Tensor::operator*(Tensor &tensor)
 			zero.init(data, ix-((ix%CHUNKSIZE==0)?CHUNKSIZE:ix%CHUNKSIZE), crdy, crdz);
 		}
 		if(crdz!=tensor.dimz-1) for(tensptr=tensor.start, thisptr=this->start;!((crdz+1>=tensptr->crdz)&&(crdz+1<tensptr->crdz+CHUNKSIZE));tensptr=tensptr->next, thisptr=thisptr->next);
-		//else break;
+		else break;
 	}
 	zero.dimz=tensor.dimz;
 	return zero;
@@ -376,7 +423,7 @@ bool Tensor::operator==(Tensor &tensor)
 			if(crdy!=iy-1) for(tensptr=tensor.start, thisptr=this->start;!(((crdy+1>=tensptr->crdy)&&(crdy+1<tensptr->crdy+CHUNKSIZE))&&((crdz>=tensptr->crdz)&&(crdz<tensptr->crdz+CHUNKSIZE)));tensptr=tensptr->next, thisptr=thisptr->next);
 		}
 		if(crdz!=tensor.dimz-1) for(tensptr=tensor.start, thisptr=this->start;!((crdz+1>=tensptr->crdz)&&(crdz+1<tensptr->crdz+CHUNKSIZE));tensptr=tensptr->next, thisptr=thisptr->next);
-		//else break;
+		else break;
 	}
 	return true;
 }
@@ -411,7 +458,7 @@ bool Tensor::operator!=(Tensor &tensor)
 			if(crdy!=iy-1) for(tensptr=tensor.start, thisptr=this->start;!(((crdy+1>=tensptr->crdy)&&(crdy+1<tensptr->crdy+CHUNKSIZE))&&((crdz>=tensptr->crdz)&&(crdz<tensptr->crdz+CHUNKSIZE)));tensptr=tensptr->next, thisptr=thisptr->next);
 		}
 		if(crdz!=tensor.dimz-1) for(tensptr=tensor.start, thisptr=this->start;!((crdz+1>=tensptr->crdz)&&(crdz+1<tensptr->crdz+CHUNKSIZE));tensptr=tensptr->next, thisptr=thisptr->next);
-		//else break;
+		else break;
 	}
 	return false;
 }
@@ -604,7 +651,7 @@ std::ostream &operator<<(std::ostream &output, Tensor tensor)
 			if(crdy!=iy-1) for(temp=tensor.start;!(((crdy+1>=temp->crdy)&&(crdy+1<temp->crdy+CHUNKSIZE))&&((crdz>=temp->crdz)&&(crdz<temp->crdz+CHUNKSIZE)));temp=temp->next);
 		}
 		if(crdz!=tensor.dimz-1) for(temp=tensor.start;!((crdz+1>=temp->crdz)&&(crdz+1<temp->crdz+CHUNKSIZE));temp=temp->next);
-		//else return output;
+		else return output;
 	}
 	return output;
 }
