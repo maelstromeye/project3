@@ -14,14 +14,17 @@ bool promuj(void);
 bool promuj_n(void);
 bool zmien(void);
 bool zmien_n(void);
-bool pokaz(void);
-void klick(void);
+void pokaz(vector<Instytut> &wydzial);
+void klik(void);
+vector<int> sortuj(vector<string> stringi);
 int main()
 {
-    Pracownik_a dziekan=Pracownik_a(0,1,"");
+    Pracownik_a dziekan;
     vector<Pracownik_a> prodziekani;
     vector<Instytut> wydzial;
     string command;
+    int numer, i;
+    bool d;
     while(1)
     {
         pomoc();
@@ -32,9 +35,53 @@ int main()
                 elka();
                 break;
             case 2:
-                if(!(dodaj(wydzial)));
+                d=dodaj(wydzial);  //czy dodac dziekana
+                if(!d)
                 {
-
+                    while(1)    //dodawanie dziekana
+                    {
+                        system("CLS");
+                        cout<<"Dziekan - d"<<endl<<"Prodziekan - p"<<endl;
+                        getline(cin,command);
+                        if(command=="d") numer=0;
+                        else if(command=="p") numer=1;
+                        else
+                        {
+                            cout<<"Nieoczekiwana komenda. Wybierz jeszcze raz."<<endl;
+                            klik();
+                            continue;
+                        }
+                        system("CLS");
+                        if((!numer)&&(!dziekan.pusty()))
+                        {
+                            cout<<"Uwaga: Wydzial posiada dziekana. Kontynuacja doprowadzi do zwolnienia obecnego dziekana. Aby jednak dodac prodziekana, wpisz 'p'. Aby dodac dziekana mimo to, kliknij enter."<<endl;
+                            getline(cin,command);
+                            if(command=="p") numer=1;
+                            system("CLS");
+                        }
+                        cout<<"Wpisz profesje naukowa"<<endl<<"non - brak dyplomu"<<endl<<"lic - licencjat"<<endl<<"eng - inzynier"<<endl<<"mag - magister"<<endl<<"dok - doktor"<<endl<<"dhb - doktor habilitowany"<<endl<<"pro - profesor"<<endl;
+                        getline(cin,command);
+                        i=stop(command);
+                        if(!(i+1))
+                        {
+                            system("CLS");
+                            cout<<"Nieznany stopien. Powtorz krok."<<endl;
+                            klik();
+                            continue;
+                        }
+                        system("CLS");
+                        cout<<"Wpisz imie pracownika."<<endl;
+                        getline(cin,command);
+                        if(numer) prodziekani.push_back(Pracownik_a(i,2,command));
+                        else dziekan=Pracownik_a(i,1,command);
+                        system("CLS");
+                        cout<<"Dodano pracownika:"<<endl;
+                        if(numer) prodziekani[prodziekani.size()-1].druk();
+                        else dziekan.druk();
+                        klik();
+                        system("CLS");
+                        break;
+                    }
                 }
                 break;
             case 3:
@@ -56,11 +103,11 @@ int main()
                 zmien_n();
                 break;
             case 9:
-                pokaz();
+                pokaz(wydzial);
                 break;
             default:
                 cout<<"Nieznana komenda"<<endl;
-                klick();
+                klik();
                 break;
         }
     }
@@ -101,6 +148,8 @@ bool dodaj(vector<Instytut> &wydzial)
 {
     int numer,i,j;
     string command;
+    vector<string> stringi;
+    vector<int> kolej;
     char b;
     system("CLS");
     cout<<"Do jakiego instytutu ma nalezec pracownik?"<<endl;
@@ -108,12 +157,38 @@ bool dodaj(vector<Instytut> &wydzial)
     cout<<"Aby dodac dziekana, badz prodziekana, wpisz '++'."<<endl;
     while(1)
     {
+        if(!wydzial.empty())
+        {
+            cout<<"Obecne instytuty:"<<endl;
+            stringi.clear();
+            kolej.clear();
+            for(i=0;i<wydzial.size();i++)
+            {
+                stringi.push_back(wydzial[i].coto());
+            }
+            kolej=sortuj(stringi);
+            for(i=0;i<wydzial.size();i++)
+            {
+                cout<<wydzial[kolej[i]].coto()<<endl;
+            }
+        }
         getline(cin,command);
+        if(command=="++") return false;
         if(command=="+")
         {
             system("CLS");
             cout<<"Wpisz nazwe nowego instytutu."<<endl;
             getline(cin,command);
+            for(i=0;i<wydzial.size();i++)
+            {
+                if(wydzial[i].identyfikuj(command)) break;
+            }
+            if(i!=wydzial.size())
+            {
+                system("CLS");
+                cout<<"Nazwa instytutu zajeta. Wpisz nazwe instytutu jeszcze raz, badz '+' zeby dodac nowy zaklad, badz '++' aby dodac dziekana lub prodziekana."<<endl;
+                continue;
+            }
             i=wydzial.size();
             wydzial.push_back(Instytut(command));
             system("CLS");
@@ -130,10 +205,9 @@ bool dodaj(vector<Instytut> &wydzial)
                 wydzial[i].push_back(Zaklad(command));
                 wydzial[i][wydzial[i].size()-1].dodaj();
                 cout<<"W instytucie:"<<endl<<wydzial[i].coto()<<endl;
-                klick();
+                klik();
                 return true;
             }
-            if(command=="++") return false;
         }
         else
         {
@@ -147,26 +221,143 @@ bool dodaj(vector<Instytut> &wydzial)
                 cout<<"Instytut nie znaleziony. Wpisz nazwe instytutu jeszcze raz, badz '+' zeby dodac nowy instytut, badz '++' aby dodac dziekana lub prodziekana"<<endl;
                 continue;
             }
+            system("CLS");
+                cout<<"Do jakiego zakladu ma nalezec pracownik?"<<endl<<"Aby utworzyc nowy zaklad, wpisz '+'."<<endl<<"Aby dodac dyrektora instytutu, badz jego zastepce wpisz '++'"<<endl;
             while(1)
             {
-                system("CLS");
-                cout<<"Do jakiego zakladu ma nalezec pracownik?"<<endl;
-                cout<<"Aby utworzyc nowy zaklad, wpisz '+'."<<endl;
+                if(!wydzial[i].empty())
+                {
+                    cout<<"Obecne zaklady:"<<endl;
+                    stringi.clear();
+                    kolej.clear();
+                    for(j=0;j<wydzial[i].size();j++)
+                    {
+                        stringi.push_back(wydzial[i][j].coto());
+                    }
+                    kolej=sortuj(stringi);
+                    for(j=0;j<wydzial[i].size();j++)
+                    {
+                        cout<<wydzial[i][kolej[j]].coto()<<endl;
+                    }
+                }
+                getline(cin,command);
+                if(command=="+")
+                {
+                    system("CLS");
+                    cout<<"Wpisz nazwe nowego zakladu."<<endl;
+                    getline(cin,command);
+                    for(j=0;j<wydzial[i].size();j++)
+                    {
+                        if(wydzial[i][j].identyfikuj(command)) break;
+                    }
+                    if(j!=wydzial[i].size())
+                    {
+                        system("CLS");
+                        cout<<"Nazwa zakladu zajeta. Wpisz nazwe zakladu jeszcze raz, badz '+' zeby dodac nowy zaklad, badz '++' aby dodac dyrektora instytutu lub jego zastepce."<<endl;
+                        continue;
+                    }
+                    wydzial[i].push_back(Zaklad(command));
+                    wydzial[i][wydzial[i].size()-1].dodaj();
+                    cout<<"W instytucie:"<<endl<<wydzial[i].coto()<<endl;
+                    klik();
+                    return true;
+                }
+                if(command=="++")
+                {
+                    wydzial[i].inicjuj();
+                    return true;
+                }
+                for(j=0;j<wydzial[i].size();j++)
+                {
+                    if(wydzial[i][j].identyfikuj(command)) break;
+                }
+                if(j==wydzial[i].size())
+                {
+                    system("CLS");
+                    cout<<"Zaklad nie znaleziony. Wpisz nazwe zakladu jeszcze raz, badz '+' zeby dodac nowy zaklad, badz '++' aby dodac dyrektora instytutu lub jego zastepce."<<endl;
+                    continue;
+                }
+                wydzial[i][j].dodaj();
+                cout<<"W instytucie:"<<endl<<wydzial[i].coto()<<endl;
+                klik();
+                return true;
             }
         }
     }
 }
-void klick(void)
-{
-    string temp;
-    cout<<"Kliknij enter aby kontynuowac."<<endl;
-    getline(cin,temp);
-    system("CLS");
-}
+
 bool zwolnij(void){}
 bool degraduj(void){}
 bool promuj(void){}
 bool promuj_n(void){}
 bool zmien(void){}
 bool zmien_n(void){}
-bool pokaz(void){}
+void pokaz(vector<Instytut> &wydzial)
+{/*
+    vector<string> stringi;
+    vector<int> koleji,kolejz,kolejp;
+    int i,j,k;
+    for(i=0;i<wydzial.size();i++)
+    {
+        stringi.push_back(wydzial[i].coto());
+    }
+    koleji=sortuj(stringi);
+    for(i=0;i<wydzial.size();i++)
+    {
+        cout<<"W instytucie:"<<endl<<wydzial[koleji[j]].coto()<<endl<<"Pracownicy administracyjni to:"<<endl;
+
+
+        klik();
+        kolejz.clear();
+        stringi.clear();
+        for(j=0;j<wydzial[koleji[i]].size();j++)
+        {
+            stringi.push_back(wydzial[koleji[i]][j].coto());
+        }
+        kolejz=sortuj(stringi);
+        for(i=0;i<wydzial.size();i++)
+        {
+            cout<<"W zakladzie:"<<wydzial[koleji[i]][kolejz[j]].coto()<<endl<<"Pracownicy to:"<<endl;
+            kolejp.clear();
+            stringi.clear();
+            for(k=0;k<wydzial[koleji[i]][kolejz[j]].size();k++)
+            {
+                stringi.push_back(wydzial[koleji[i]][kolejz[j]][k].coto());
+            }
+            stringi.push_back(wydzial[koleji[i]][kolejz[j]].ktorzadzi());
+            kolejp=sortuj(stringi);
+            for(k=0;k<wydzial[koleji[i]][kolejz[j]].size();k++)
+            {
+                cout<<wydzial[koleji[i]][kolejz[j]][kolejp[k]].coto();
+            }
+        }
+    }
+return;*/
+}
+vector<int> sortuj(vector<string> stringi)  //napisz funkcje dostajaca wektor by reference i naprawiajaca go prz dodawaniu
+{
+    vector<int> kolej;
+    int i,j,numer;
+    string temp;
+    temp="~";
+    if(stringi.size()==1)
+    {
+        kolej.push_back(0);
+        return kolej;
+    }
+    for(j=0;j<stringi.size();j++)
+    {
+        for(i=0;i<stringi.size();i++)
+        {
+            if(stringi[i]<temp)
+            {
+                temp=stringi[i];
+                numer=i;
+            }
+        }
+        stringi[numer]="~";
+        temp="~";
+        kolej.push_back(numer);
+    }
+    return kolej;
+}

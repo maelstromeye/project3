@@ -29,42 +29,7 @@ class Naukowiec
             else stop=Stopien(x);
             return true;
         }
-        virtual void druk(void)
-        {
-            using namespace std;
-            switch (stop)
-            {
-                case non:
-                    cout<<imie<<endl;
-                    break;
-                case lic:
-                    cout<<"Licencjat"<<endl;
-                    cout<<imie<<endl;
-                    break;
-                case eng:
-                    cout<<"Inzynier"<<endl;
-                    cout<<imie<<endl;
-                    break;
-                case mag:
-                    cout<<"Magister"<<endl;
-                    cout<<imie<<endl;
-                    break;
-                case dok:
-                    cout<<"Doktor"<<endl;
-                    cout<<imie<<endl;
-                    break;
-                case dhb:
-                    cout<<"Doktor habilitowany"<<endl;
-                    cout<<imie<<endl;
-                    break;
-                case pro:
-                    cout<<"Profesor"<<endl;
-                    cout<<imie<<endl;
-                default:
-                    break;
-            }
-            return;
-        }
+        std::string coto(void) {return imie;}
         friend class Pracownik_n;
         friend class Pracownik_a;
 };
@@ -104,71 +69,7 @@ class Pracownik_n : public Naukowiec
             else praca=Praca_n(x);
             return true;
         }
-        void druk(void)
-        {
-            using namespace std;
-            switch (stop)
-            {
-                case non:
-                    cout<<imie<<endl;
-                    break;
-                case lic:
-                    cout<<"Licencjat"<<endl;
-                    cout<<imie<<endl;
-                    break;
-                case eng:
-                    cout<<"Inzynier"<<endl;
-                    cout<<imie<<endl;
-                    break;
-                case mag:
-                    cout<<"Magister"<<endl;
-                    cout<<imie<<endl;
-                    break;
-                case dok:
-                    cout<<"Doktor"<<endl;
-                    cout<<imie<<endl;
-                    break;
-                case dhb:
-                    cout<<"Doktor habilitowany"<<endl;
-                    cout<<imie<<endl;
-                    break;
-                case pro:
-                    cout<<"Profesor"<<endl;
-                    cout<<imie<<endl;
-                default:
-                    break;
-            }
-            switch (praca)
-            {
-                case lkt:
-                    cout<<"Lektor"<<endl;
-                    break;
-                case asy:
-                    cout<<"Asystent"<<endl;
-                    break;
-                case wyk:
-                    cout<<"Wykladowca"<<endl;
-                    break;
-                case adu:
-                    cout<<"Adiunkt"<<endl;
-                    break;
-                case stw:
-                    cout<<"Starszy Wykladowca"<<endl;
-                    break;
-                case pnz:
-                    cout<<"Profesor Nadzwyczajny"<<endl;
-                    break;
-                case doc:
-                    cout<<"Docent"<<endl;
-                    break;
-                case prz:
-                    cout<<"Profesor Zwyczajny"<<endl;
-                    break;
-                default:
-                    break;
-            }
-            return;
-        }
+        void druk(void);
 };
 
 class Pracownik_a : public Naukowiec
@@ -194,62 +95,7 @@ class Pracownik_a : public Naukowiec
             else praca=Praca_a(x);
             return true;
         }
-        void druk(void)
-        {
-            using namespace std;
-            switch (stop)
-            {
-                case non:
-                    cout<<imie<<endl;
-                    break;
-                case lic:
-                    cout<<"Licencjat"<<endl;
-                    cout<<imie<<endl;
-                    break;
-                case eng:
-                    cout<<"Inzynier"<<endl;
-                    cout<<imie<<endl;
-                    break;
-                case mag:
-                    cout<<"Magister"<<endl;
-                    cout<<imie<<endl;
-                    break;
-                case dok:
-                    cout<<"Doktor"<<endl;
-                    cout<<imie<<endl;
-                    break;
-                case dhb:
-                    cout<<"Doktor habilitowany"<<endl;
-                    cout<<imie<<endl;
-                    break;
-                case pro:
-                    cout<<"Profesor"<<endl;
-                    cout<<imie<<endl;
-                default:
-                    break;
-            }
-            switch (praca)
-            {
-                case kza:
-                    cout<<"Kierownik zakladu"<<endl;
-                    break;
-                case dzi:
-                    cout<<"Dziekan"<<endl;
-                    break;
-                case prd:
-                    cout<<"Prodziekan"<<endl;
-                    break;
-                case din:
-                    cout<<"Dyrektor Instytutu"<<endl;
-                    break;
-                case zdi:
-                    cout<<"Zastepca Dyrektora Instytutu"<<endl;
-                    break;
-                default:
-                    break;
-            }
-            return;
-        }
+        void druk(void);
         Pracownik_a(void) {praca=kza; Naukowiec(); return;}
         Pracownik_a(int x, int y, std::string nazwa) : Naukowiec(x, nazwa) {praca=Praca_a(y); return;}
 };
@@ -266,6 +112,10 @@ class Zaklad : public std::vector<Pracownik_n>
         ~Zaklad(void) {this->clear(); return;};
         void dodaj(void);
         bool identyfikuj(std::string czyto) {if(czyto==imie) return true; return false;}
+        void druk(void) {for(int i=0;i<this->size();i++){this->at(i).druk();}kierownik.druk();return;}
+        std::string coto(void) {return imie;}
+        std::string ktorzadzi(void) {return kierownik.coto();}
+        bool pusty(void) {if(kierownik.pusty()) return true; return false;}
 };
 
 class Instytut : public std::vector<Zaklad>
@@ -279,6 +129,7 @@ class Instytut : public std::vector<Zaklad>
         void dodaj(int x, std::string nazwa, bool kto) {if(kto) zastepcy.push_back(Pracownik_a(x,4,nazwa)); else dyrektor=Pracownik_a(x,3,nazwa); return;}   //dodaj zastepce badz dyrektora
         void ostatni(bool kto) {if(kto) zastepcy[zastepcy.size()-1].druk(); else dyrektor.druk(); return;}  //drukuj ostatnio dodanego zastepce(true) badz dyrektora (false)
         std::string coto(void) {return imie;}   //nazwa instytutu
+        bool pusty(void) {if(dyrektor.pusty()) return true; return false;}
         void inicjuj(void);
         Instytut(void) {dyrektor=Pracownik_a(0,3,"?");imie="?";return;}
         Instytut(std::string nazwa) {imie=nazwa;return;}

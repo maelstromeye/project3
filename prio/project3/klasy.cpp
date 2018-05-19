@@ -38,6 +38,127 @@ void klik(void)
     getline(cin,temp);
     system("CLS");
 }
+void Pracownik_a::druk(void)
+{
+    switch (stop)
+    {
+        case non:
+            cout<<imie<<endl;
+            break;
+        case lic:
+            cout<<"Licencjat"<<endl;
+            cout<<imie<<endl;
+            break;
+        case eng:
+            cout<<"Inzynier"<<endl;
+            cout<<imie<<endl;
+            break;
+        case mag:
+            cout<<"Magister"<<endl;
+            cout<<imie<<endl;
+            break;
+        case dok:
+            cout<<"Doktor"<<endl;
+            cout<<imie<<endl;
+            break;
+        case dhb:
+            cout<<"Doktor habilitowany"<<endl;
+            cout<<imie<<endl;
+            break;
+        case pro:
+            cout<<"Profesor"<<endl;
+            cout<<imie<<endl;
+        default:
+            break;
+    }
+    switch (praca)
+    {
+        case kza:
+            cout<<"Kierownik zakladu"<<endl;
+            break;
+        case dzi:
+            cout<<"Dziekan"<<endl;
+            break;
+        case prd:
+            cout<<"Prodziekan"<<endl;
+            break;
+        case din:
+            cout<<"Dyrektor Instytutu"<<endl;
+            break;
+        case zdi:
+            cout<<"Zastepca Dyrektora Instytutu"<<endl;
+            break;
+        default:
+            break;
+    }
+    return;
+}
+
+void Pracownik_n::druk(void)
+{
+    switch (stop)
+    {
+        case non:
+            cout<<imie<<endl;
+            break;
+        case lic:
+            cout<<"Licencjat"<<endl;
+            cout<<imie<<endl;
+            break;
+        case eng:
+            cout<<"Inzynier"<<endl;
+            cout<<imie<<endl;
+            break;
+        case mag:
+            cout<<"Magister"<<endl;
+            cout<<imie<<endl;
+            break;
+        case dok:
+            cout<<"Doktor"<<endl;
+            cout<<imie<<endl;
+            break;
+        case dhb:
+            cout<<"Doktor habilitowany"<<endl;
+            cout<<imie<<endl;
+            break;
+        case pro:
+            cout<<"Profesor"<<endl;
+            cout<<imie<<endl;
+        default:
+            break;
+    }
+    switch (praca)
+    {
+        case lkt:
+            cout<<"Lektor"<<endl;
+            break;
+        case asy:
+            cout<<"Asystent"<<endl;
+            break;
+        case wyk:
+            cout<<"Wykladowca"<<endl;
+            break;
+        case adu:
+            cout<<"Adiunkt"<<endl;
+            break;
+        case stw:
+            cout<<"Starszy Wykladowca"<<endl;
+            break;
+        case pnz:
+            cout<<"Profesor Nadzwyczajny"<<endl;
+            break;
+        case doc:
+            cout<<"Docent"<<endl;
+            break;
+        case prz:
+            cout<<"Profesor Zwyczajny"<<endl;
+            break;
+        default:
+            break;
+    }
+    return;
+}
+
 void Instytut::inicjuj(void)
 {
     string command;
@@ -52,6 +173,13 @@ void Instytut::inicjuj(void)
             if(command=="z") numer=1;
             if(command=="d") numer=0;
             system("CLS");
+            if((!numer)&&(!this->pusty()))
+            {
+                cout<<"Uwaga: Instytut posiada dyrektora. Kontynuacja doprowadzi do zwolnienia obecnego dyrektora."<<endl<<"Jezeli jednak chcesz jednak dodac zastepce dyrektora, wpisz 'z'. Jezeli chcesz kontynuowac mimo to, kliknij enter."<<endl;
+                getline(cin,command);
+                if(command=="z") numer=1;
+                system("CLS");
+            }
             cout<<"Wpisz profesje naukowa"<<endl<<"non - brak dyplomu"<<endl<<"lic - licencjat"<<endl<<"eng - inzynier"<<endl<<"mag - magister"<<endl<<"dok - doktor"<<endl<<"dhb - doktor habilitowany"<<endl<<"pro - profesor"<<endl;
             getline(cin,command);
             j=stop(command);
@@ -74,11 +202,10 @@ void Instytut::inicjuj(void)
             klik();
             return;
         }
+        cout<<"Nieoczekiwana komenda. Wybierz jeszcze raz."<<endl;
+        klik();
     }
 }
-//enum Stopien {non, lic, eng, mag, dok, dhb, pro};
-//enum Praca_n {lkt, asy, wyk, adu, stw, pnz, doc, prz};
-//enum Praca_a {kza, dzi, prd, din, zdi};
 void Zaklad::dodaj(void)
 {
     int i,j;
@@ -100,6 +227,13 @@ void Zaklad::dodaj(void)
         getline(cin,command);
         if(command=="kza")
         {
+            if(!this->pusty())
+            {
+                cout<<"Uwaga: Zaklad posiada juz kierownika. Kontynuacja doprowadzi do zwolnienia obecnego kierownika."<<endl<<"Jezeli chcesz jednak dodac innego pracownika, wpisz '+'. Jezeli chcesz kontynuowac mimo to, kliknij enter"<<endl;
+                getline(cin,command);
+                system("CLS");
+                if(command=="+") continue;
+            }
             system("CLS");
             cout<<"Wpisz imie pracownika"<<endl;
             getline(cin,command);
@@ -108,7 +242,6 @@ void Zaklad::dodaj(void)
             cout<<"Dodano pracownika:"<<endl;
             kierownik.druk();
             cout<<"W zakladzie:"<<endl<<imie<<endl;
-            klik();
             return;
         }
         j=praca(command);
