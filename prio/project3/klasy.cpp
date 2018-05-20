@@ -38,6 +38,34 @@ void klik(void)
     getline(cin,temp);
     system("CLS");
 }
+template <typename type>
+void sortuj(vector<type> &stringi)
+{
+    int i,j,numer;
+    string temp;
+    type obiekt;
+    temp="~";
+    for(j=0;j<stringi.size();j++)
+    {
+        for(i=j;i<stringi.size();i++)
+        {
+            if(stringi[i].coto()<temp)
+            {
+                temp=stringi[i].coto();
+                numer=i;
+            }
+        }
+        if(numer==j)
+        {
+            j++;
+            continue;
+        }
+        obiekt=stringi[numer];
+        stringi[numer]=stringi[j];
+        stringi[j]=obiekt;
+    }
+    return;
+}
 void Pracownik_a::druk(void)
 {
     switch (stop)
@@ -199,6 +227,7 @@ void Instytut::inicjuj(void)
             this->ostatni(numer);
             cout<<"W instytucie:"<<endl;
             cout<<this->coto()<<endl;
+            if(numer) sortuj(zastepcy);
             klik();
             return;
         }

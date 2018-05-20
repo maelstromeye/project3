@@ -16,7 +16,8 @@ bool zmien(void);
 bool zmien_n(void);
 void pokaz(vector<Instytut> &wydzial);
 void klik(void);
-vector<int> sortuj(vector<string> stringi);
+template <typename type>
+void sortuj(vector<type> &stringi);
 int main()
 {
     Pracownik_a dziekan;
@@ -78,6 +79,7 @@ int main()
                         cout<<"Dodano pracownika:"<<endl;
                         if(numer) prodziekani[prodziekani.size()-1].druk();
                         else dziekan.druk();
+                        if(numer) sortuj(prodziekani);
                         klik();
                         system("CLS");
                         break;
@@ -160,16 +162,9 @@ bool dodaj(vector<Instytut> &wydzial)
         if(!wydzial.empty())
         {
             cout<<"Obecne instytuty:"<<endl;
-            stringi.clear();
-            kolej.clear();
             for(i=0;i<wydzial.size();i++)
             {
-                stringi.push_back(wydzial[i].coto());
-            }
-            kolej=sortuj(stringi);
-            for(i=0;i<wydzial.size();i++)
-            {
-                cout<<wydzial[kolej[i]].coto()<<endl;
+                cout<<wydzial[i].coto()<<endl;
             }
         }
         getline(cin,command);
@@ -198,6 +193,7 @@ bool dodaj(vector<Instytut> &wydzial)
             if(command=="+")
             {
                 wydzial[i].inicjuj();
+                sortuj(wydzial);
                 return true;
             }
             else
@@ -206,6 +202,7 @@ bool dodaj(vector<Instytut> &wydzial)
                 wydzial[i][wydzial[i].size()-1].dodaj();
                 cout<<"W instytucie:"<<endl<<wydzial[i].coto()<<endl;
                 klik();
+                sortuj(wydzial);
                 return true;
             }
         }
@@ -228,16 +225,9 @@ bool dodaj(vector<Instytut> &wydzial)
                 if(!wydzial[i].empty())
                 {
                     cout<<"Obecne zaklady:"<<endl;
-                    stringi.clear();
-                    kolej.clear();
                     for(j=0;j<wydzial[i].size();j++)
                     {
-                        stringi.push_back(wydzial[i][j].coto());
-                    }
-                    kolej=sortuj(stringi);
-                    for(j=0;j<wydzial[i].size();j++)
-                    {
-                        cout<<wydzial[i][kolej[j]].coto()<<endl;
+                        cout<<wydzial[i][j].coto()<<endl;
                     }
                 }
                 getline(cin,command);
@@ -260,6 +250,7 @@ bool dodaj(vector<Instytut> &wydzial)
                     wydzial[i][wydzial[i].size()-1].dodaj();
                     cout<<"W instytucie:"<<endl<<wydzial[i].coto()<<endl;
                     klik();
+                    sortuj(wydzial[i]);
                     return true;
                 }
                 if(command=="++")
@@ -280,6 +271,7 @@ bool dodaj(vector<Instytut> &wydzial)
                 wydzial[i][j].dodaj();
                 cout<<"W instytucie:"<<endl<<wydzial[i].coto()<<endl;
                 klik();
+                sortuj(wydzial[i][j]);
                 return true;
             }
         }
@@ -293,7 +285,10 @@ bool promuj_n(void){}
 bool zmien(void){}
 bool zmien_n(void){}
 void pokaz(vector<Instytut> &wydzial)
-{/*
+{
+    sortuj(wydzial);
+    cout<<wydzial[0].coto()<<wydzial[1].coto();
+    /*
     vector<string> stringi;
     vector<int> koleji,kolejz,kolejp;
     int i,j,k;
@@ -332,32 +327,30 @@ void pokaz(vector<Instytut> &wydzial)
             }
         }
     }
-return;*/
+    return;*/
 }
-vector<int> sortuj(vector<string> stringi)  //napisz funkcje dostajaca wektor by reference i naprawiajaca go prz dodawaniu
+template <typename type>
+void sortuj(vector<type> &stringi)
 {
-    vector<int> kolej;
     int i,j,numer;
     string temp;
+    type obiekt;
     temp="~";
-    if(stringi.size()==1)
-    {
-        kolej.push_back(0);
-        return kolej;
-    }
     for(j=0;j<stringi.size();j++)
     {
-        for(i=0;i<stringi.size();i++)
+        for(i=j;i<stringi.size();i++)
         {
-            if(stringi[i]<temp)
+            if(stringi[i].coto()<temp)
             {
-                temp=stringi[i];
+                temp=stringi[i].coto();
                 numer=i;
             }
         }
-        stringi[numer]="~";
+        obiekt=stringi[numer];
+        stringi[numer]=stringi[j];
+        stringi[j]=obiekt;
         temp="~";
-        kolej.push_back(numer);
+        numer=0;
     }
-    return kolej;
+    return;
 }
