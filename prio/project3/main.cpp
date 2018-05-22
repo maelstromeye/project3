@@ -13,9 +13,10 @@ bool degraduj(void);
 bool promuj(void);
 bool promuj_n(void);
 bool zmien(void);
-bool zmien_n(void);
+bool zmien_n(vector<Instytut> &wydzial);
 void pokaz(vector<Instytut> &wydzial);
 void klik(void);
+bool lokalizuj(vector<Instytut> &wydzial,int &i,int &j,int &k);
 template <typename type>
 void sortuj(vector<type> &stringi);
 int main()
@@ -102,7 +103,11 @@ int main()
                 zmien();
                 break;
             case 8:
-                zmien_n();
+                d=zmien_n(wydzial);
+                if(!d)
+                {
+
+                }
                 break;
             case 9:
                 pokaz(wydzial);
@@ -283,51 +288,162 @@ bool degraduj(void){}
 bool promuj(void){}
 bool promuj_n(void){}
 bool zmien(void){}
-bool zmien_n(void){}
-void pokaz(vector<Instytut> &wydzial)
+bool lokalizuj(vector<Instytut> &wydzial,int &i,int &j,int &k)
 {
-    sortuj(wydzial);
-    cout<<wydzial[0].coto()<<wydzial[1].coto();
-    /*
-    vector<string> stringi;
-    vector<int> koleji,kolejz,kolejp;
-    int i,j,k;
-    for(i=0;i<wydzial.size();i++)
+    string command;
+    bool d;
+    system("CLS");
+    cout<<"Na jakim instytucie pracuje pracownik?"<<endl<<"Jezeli pracownik nie jest zwiazany z zadnym instytutem, wpisz '+'."<<endl;
+    while(1)
     {
-        stringi.push_back(wydzial[i].coto());
-    }
-    koleji=sortuj(stringi);
-    for(i=0;i<wydzial.size();i++)
-    {
-        cout<<"W instytucie:"<<endl<<wydzial[koleji[j]].coto()<<endl<<"Pracownicy administracyjni to:"<<endl;
-
-
-        klik();
-        kolejz.clear();
-        stringi.clear();
-        for(j=0;j<wydzial[koleji[i]].size();j++)
-        {
-            stringi.push_back(wydzial[koleji[i]][j].coto());
-        }
-        kolejz=sortuj(stringi);
+        i=j=k=-1;
+        getline(cin, command);
+        if(command=="+") return false;
         for(i=0;i<wydzial.size();i++)
         {
-            cout<<"W zakladzie:"<<wydzial[koleji[i]][kolejz[j]].coto()<<endl<<"Pracownicy to:"<<endl;
-            kolejp.clear();
-            stringi.clear();
-            for(k=0;k<wydzial[koleji[i]][kolejz[j]].size();k++)
+            if(wydzial[i].identyfikuj(command)) break;
+        }
+        if(i==wydzial.size())
+        {
+            system("CLS");
+            cout<<"Instytut nie znaleziony. Wpisz nazwe instytutu jeszcze raz, badz '+' zeby dodac zlokalizowac pracownika niezwiazanego z zadnym instytutem."<<endl;
+            continue;
+        }
+        system("CLS");
+        cout<<"W jakim zakladzie pracuje pracownik?"<<endl<<"Jezeli pracownik nie jest zwiazany z zadnym zakladem wpisz '+'."<<endl;
+        getline(cin, command);
+        if(command=="+")
+        {
+            system("CLS");
+            cout<<"Wpisz imie pracownika."<<endl;
+            getline(cin,command);
+            d=wydzial[i].istnieje(command,k);
+            if(!d)
             {
-                stringi.push_back(wydzial[koleji[i]][kolejz[j]][k].coto());
+                system("CLS");
+                cout<<"Nie znaleziono pracownika. Wpisz nazwe instytutu jeszcze raz, badz '+' zeby dodac zlokalizowac pracownika niezwiazanego z zadnym instytutem."<<endl;
+                continue;
             }
-            stringi.push_back(wydzial[koleji[i]][kolejz[j]].ktorzadzi());
-            kolejp=sortuj(stringi);
-            for(k=0;k<wydzial[koleji[i]][kolejz[j]].size();k++)
+            return false;
+        }
+        for(j=0;j<wydzial[i].size();j++)
+        {
+            if(wydzial[i][j].identyfikuj(command)) break;
+        }
+        if(j==wydzial[i].size())
+        {
+            system("CLS");
+            cout<<"Zaklad nie znaleziony. Wpisz nazwe instytutu jeszcze raz, badz '+' zeby dodac zlokalizowac pracownika niezwiazanego z zadnym instytutem."<<endl;
+            continue;
+        }
+        system("CLS");
+        cout<<"Wpisz imie pracownika."<<endl;
+        getline(cin,command);
+        if(command==wydzial[i][j].ktorzadzi()) return false;
+        for(k=0;k<wydzial[i][j].size();k++)
+        {
+            if(wydzial[i][j][k].coto()==command) break;
+        }
+        if(k==wydzial[i][j].size())
+        {
+            system("CLS");
+            cout<<"Nie znaleziono pracownika. Wpisz nazwe instytutu jeszcze raz, badz '+' zeby dodac zlokalizowac pracownika niezwiazanego z zadnym instytutem."<<endl;
+            continue;
+        }
+        return true;
+    }
+}
+bool zmien_n(vector<Instytut> &wydzial)
+{
+    string command;
+    int i,j,k,o;
+    bool d;
+    system("CLS");
+    d=lokalizuj(wydzial,i,j,k);
+    if((!d)&&(i==-1)) return false;
+    if((!d)&&(j==-1))
+    {
+        while(1)
+        {
+            system("CLS");
+            cout<<"Wpisz nowa profesje naukowa"<<endl<<"non - brak dyplomu"<<endl<<"lic - licencjat"<<endl<<"eng - inzynier"<<endl<<"mag - magister"<<endl<<"dok - doktor"<<endl<<"dhb - doktor habilitowany"<<endl<<"pro - profesor"<<endl;
+            getline(cin,command);
+            o=stop(command);
+            if(!(o+1))
             {
-                cout<<wydzial[koleji[i]][kolejz[j]][kolejp[k]].coto();
+                cout<<"Nieznany stopien. Powtorz krok."<<endl;
+                klik();
+                system("CLS");
+                continue;
             }
+            wydzial[i].zmien_n(o,k);
+            system("CLS");
+            cout<<"Stopien naukowy zmieniony."<<endl;
+            klik();
+            return true;
         }
     }
-    return;*/
+    if((!d)&&(k==-1))
+    {
+        while(1)
+        {
+            system("CLS");
+            cout<<"Wpisz nowa profesje naukowa"<<endl<<"non - brak dyplomu"<<endl<<"lic - licencjat"<<endl<<"eng - inzynier"<<endl<<"mag - magister"<<endl<<"dok - doktor"<<endl<<"dhb - doktor habilitowany"<<endl<<"pro - profesor"<<endl;
+            getline(cin,command);
+            o=stop(command);
+            if(!(o+1))
+            {
+                cout<<"Nieznany stopien. Powtorz krok."<<endl;
+                klik();
+                continue;
+            }
+            wydzial[i][j].zmien_n(o);
+            system("CLS");
+            cout<<"Stopien naukowy zmieniony."<<endl;
+            klik();
+            return true;
+        }
+    }
+    system("CLS");
+    while(1)
+    {
+        system("CLS");
+        cout<<"Wpisz nowa profesje naukowa"<<endl<<"non - brak dyplomu"<<endl<<"lic - licencjat"<<endl<<"eng - inzynier"<<endl<<"mag - magister"<<endl<<"dok - doktor"<<endl<<"dhb - doktor habilitowany"<<endl<<"pro - profesor"<<endl;
+        getline(cin,command);
+        o=stop(command);
+        if(!(o+1))
+        {
+            system("CLS");
+            cout<<"Nieznany stopien. Powtorz krok."<<endl;
+            klik();
+            system("CLS");
+            continue;
+        }
+        wydzial[i][j][k].zmien_n(o);
+        system("CLS");
+        cout<<"Stopien naukowy zmieniony."<<endl;
+        klik();
+        return true;
+    }
+}
+void pokaz(vector<Instytut> &wydzial)
+{
+    int i,j;
+    for(i=0;i<wydzial.size();i++)
+    {
+        system("CLS");
+        cout<<"W instytucie:"<<endl<<wydzial[i].coto()<<endl<<"Pracownicy administracyjni to:"<<endl;
+        wydzial[i].druk();
+        klik();
+        for(j=0;j<wydzial[i].size();j++)
+        {
+            cout<<"W zakladzie:"<<endl<<wydzial[i][j].coto()<<endl<<"Pracownicy to:"<<endl;
+            wydzial[i][j].druk();
+            klik();
+        }
+        system("CLS");
+    }
+    return;
 }
 template <typename type>
 void sortuj(vector<type> &stringi)
