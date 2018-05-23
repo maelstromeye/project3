@@ -110,6 +110,7 @@ int main()
                 }
                 break;
             case 9:
+
                 pokaz(wydzial);
                 break;
             default:
@@ -181,7 +182,7 @@ bool dodaj(vector<Instytut> &wydzial)
             getline(cin,command);
             for(i=0;i<wydzial.size();i++)
             {
-                if(wydzial[i].identyfikuj(command)) break;
+                if(wydzial[i].coto()==command) break;
             }
             if(i!=wydzial.size())
             {
@@ -192,30 +193,15 @@ bool dodaj(vector<Instytut> &wydzial)
             i=wydzial.size();
             wydzial.push_back(Instytut(command));
             system("CLS");
-            cout<<"Wpisz nazwe zakladu w nowym instytucie."<<endl;
-            cout<<"Aby dodac dyrektora instytutu, badz jego zastepce wpisz '+'"<<endl;
-            getline(cin,command);
-            if(command=="+")
-            {
-                wydzial[i].inicjuj();
-                sortuj(wydzial);
-                return true;
-            }
-            else
-            {
-                wydzial[i].push_back(Zaklad(command));
-                wydzial[i][wydzial[i].size()-1].dodaj();
-                cout<<"W instytucie:"<<endl<<wydzial[i].coto()<<endl;
-                klik();
-                sortuj(wydzial);
-                return true;
-            }
+            wydzial[i].dodaj();
+            sortuj(wydzial);
+            return true;
         }
         else
         {
             for(i=0;i<wydzial.size();i++)
             {
-                if(wydzial[i].identyfikuj(command)) break;
+                if(wydzial[i].coto()==command) break;
             }
             if(i==wydzial.size())
             {
@@ -224,61 +210,8 @@ bool dodaj(vector<Instytut> &wydzial)
                 continue;
             }
             system("CLS");
-                cout<<"Do jakiego zakladu ma nalezec pracownik?"<<endl<<"Aby utworzyc nowy zaklad, wpisz '+'."<<endl<<"Aby dodac dyrektora instytutu, badz jego zastepce wpisz '++'"<<endl;
-            while(1)
-            {
-                if(!wydzial[i].empty())
-                {
-                    cout<<"Obecne zaklady:"<<endl;
-                    for(j=0;j<wydzial[i].size();j++)
-                    {
-                        cout<<wydzial[i][j].coto()<<endl;
-                    }
-                }
-                getline(cin,command);
-                if(command=="+")
-                {
-                    system("CLS");
-                    cout<<"Wpisz nazwe nowego zakladu."<<endl;
-                    getline(cin,command);
-                    for(j=0;j<wydzial[i].size();j++)
-                    {
-                        if(wydzial[i][j].identyfikuj(command)) break;
-                    }
-                    if(j!=wydzial[i].size())
-                    {
-                        system("CLS");
-                        cout<<"Nazwa zakladu zajeta. Wpisz nazwe zakladu jeszcze raz, badz '+' zeby dodac nowy zaklad, badz '++' aby dodac dyrektora instytutu lub jego zastepce."<<endl;
-                        continue;
-                    }
-                    wydzial[i].push_back(Zaklad(command));
-                    wydzial[i][wydzial[i].size()-1].dodaj();
-                    cout<<"W instytucie:"<<endl<<wydzial[i].coto()<<endl;
-                    klik();
-                    sortuj(wydzial[i]);
-                    return true;
-                }
-                if(command=="++")
-                {
-                    wydzial[i].inicjuj();
-                    return true;
-                }
-                for(j=0;j<wydzial[i].size();j++)
-                {
-                    if(wydzial[i][j].identyfikuj(command)) break;
-                }
-                if(j==wydzial[i].size())
-                {
-                    system("CLS");
-                    cout<<"Zaklad nie znaleziony. Wpisz nazwe zakladu jeszcze raz, badz '+' zeby dodac nowy zaklad, badz '++' aby dodac dyrektora instytutu lub jego zastepce."<<endl;
-                    continue;
-                }
-                wydzial[i][j].dodaj();
-                cout<<"W instytucie:"<<endl<<wydzial[i].coto()<<endl;
-                klik();
-                sortuj(wydzial[i][j]);
-                return true;
-            }
+            wydzial[i].dodaj();
+            return true;
         }
     }
 }
@@ -290,7 +223,7 @@ bool promuj_n(void){}
 bool zmien(void){}
 bool lokalizuj(vector<Instytut> &wydzial,int &i,int &j,int &k)
 {
-    string command;
+    /*string command;
     bool d;
     system("CLS");
     cout<<"Na jakim instytucie pracuje pracownik?"<<endl<<"Jezeli pracownik nie jest zwiazany z zadnym instytutem, wpisz '+'."<<endl;
@@ -301,7 +234,7 @@ bool lokalizuj(vector<Instytut> &wydzial,int &i,int &j,int &k)
         if(command=="+") return false;
         for(i=0;i<wydzial.size();i++)
         {
-            if(wydzial[i].identyfikuj(command)) break;
+            if(wydzial[i].coto()==command) break;
         }
         if(i==wydzial.size())
         {
@@ -351,11 +284,11 @@ bool lokalizuj(vector<Instytut> &wydzial,int &i,int &j,int &k)
             continue;
         }
         return true;
-    }
+    }*/
 }
 bool zmien_n(vector<Instytut> &wydzial)
 {
-    string command;
+    /*string command;
     int i,j,k,o;
     bool d;
     system("CLS");
@@ -424,23 +357,17 @@ bool zmien_n(vector<Instytut> &wydzial)
         cout<<"Stopien naukowy zmieniony."<<endl;
         klik();
         return true;
-    }
+    }*/
 }
 void pokaz(vector<Instytut> &wydzial)
 {
-    int i,j;
+    int i;
     for(i=0;i<wydzial.size();i++)
     {
         system("CLS");
-        cout<<"W instytucie:"<<endl<<wydzial[i].coto()<<endl<<"Pracownicy administracyjni to:"<<endl;
+        cout<<"W instytucie:"<<endl<<wydzial[i].coto()<<endl<<endl<<"Pracownicy administracyjni to:"<<endl<<endl;
         wydzial[i].druk();
         klik();
-        for(j=0;j<wydzial[i].size();j++)
-        {
-            cout<<"W zakladzie:"<<endl<<wydzial[i][j].coto()<<endl<<"Pracownicy to:"<<endl;
-            wydzial[i][j].druk();
-            klik();
-        }
         system("CLS");
     }
     return;

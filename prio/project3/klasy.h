@@ -38,16 +38,7 @@ class Pracownik_n : public Naukowiec
 {
     private:
         Praca_n praca;
-        bool dosc(void)
-        {
-            if(stop==non) return true;
-            if((praca==prz)||(praca==stw)||(praca==doc)) return true;
-            if((praca==wyk)&&(stop<dok)) return true;
-            if ((praca==asy)&&(stop<dok)) return true;
-            if ((praca==adu)&&(stop<dhb)) return true;
-            if ((praca==pnz)&&(stop<pro)) return true;
-            return false;
-        }
+        bool dosc(void);
     public:
         Pracownik_n(void) {praca=lkt; Naukowiec(); return;}
         Pracownik_n(int x, int y, std::string nazwa) : Naukowiec(x, nazwa) {praca=Praca_n(y); return;}
@@ -100,7 +91,7 @@ class Pracownik_a : public Naukowiec
         Pracownik_a(int x, int y, std::string nazwa) : Naukowiec(x, nazwa) {praca=Praca_a(y); return;}
 };
 
-class Zaklad : public std::vector<Pracownik_n>
+class Zaklad
 {
     private:
         std::string imie;
@@ -109,36 +100,33 @@ class Zaklad : public std::vector<Pracownik_n>
         Zaklad(void) {kierownik=Pracownik_a(0,0,"?");imie="?"; return;}
         Zaklad(std::string nazwa) {kierownik=Pracownik_a(0,0,"?");imie=nazwa;return;}
         Zaklad(int x,std::string nazwi, std::string nazwa) {kierownik=Pracownik_a(x,0,nazwi);imie=nazwa; return;}
-        ~Zaklad(void) {this->clear(); return;};
-        void dodaj(void);
-        bool identyfikuj(std::string czyto) {if(czyto==imie) return true; return false;}
-        void druk(void) {if(kierownik.pusty()) std::cout<<"Brak kierownika zakladu."<<std::endl;else kierownik.druk();for(int i=0;i<this->size();i++){this->at(i).druk();} return;}
+        void druk(void) {if(kierownik.pusty()) return;else kierownik.druk();return;}
         std::string coto(void) {return imie;}
         std::string ktorzadzi(void) {return kierownik.coto();}
         bool pusty(void) {if(kierownik.pusty()) return true; return false;}
         void zmien_n(int x) {kierownik.zmien_n(x);return;}
 };
 
-class Instytut : public std::vector<Zaklad>
+class Instytut : public std::vector<Pracownik_n>
 {
     private:
         Pracownik_a dyrektor;
         std::vector<Pracownik_a> zastepcy;
         std::string imie;
+        std::vector<Zaklad> zaklady;
     public:
-        bool identyfikuj(std::string czyto) {if(czyto==imie) return true; return false;}    //czy to jest ten instytut
-        void dodaj(int x, std::string nazwa, bool kto) {if(kto) zastepcy.push_back(Pracownik_a(x,4,nazwa)); else dyrektor=Pracownik_a(x,3,nazwa); return;}   //dodaj zastepce badz dyrektora
-        void ostatni(bool kto) {if(kto) zastepcy[zastepcy.size()-1].druk(); else dyrektor.druk(); return;}  //drukuj ostatnio dodanego zastepce(true) badz dyrektora (false)
+        void dodaj(void);
+
         std::string coto(void) {return imie;}   //nazwa instytutu
         bool pusty(void) {if(dyrektor.pusty()) return true; return false;}
-        void inicjuj(void);
+        //void inicjuj(void);
         bool istnieje(std::string nazwa, int &x) {if(dyrektor.coto()==nazwa){x=-1;return true;}for(int i=0;i<zastepcy.size();i++){if(zastepcy[i].coto()==nazwa){x=i;return true;}}return false;}
-        void druk(void) {if(dyrektor.pusty()) std::cout<<"Brak dyrektora instytutu."<<std::endl;else dyrektor.druk();for(int i=0;i<zastepcy.size();zastepcy[i].druk(),i++);return;}
+        void druk(void);
         void zmien_n(int x, int y) {if(!(y++)) dyrektor.zmien_n(x);else zastepcy[y].zmien(x); return;}
         Instytut(void) {dyrektor=Pracownik_a(0,3,"?");imie="?";return;}
         Instytut(std::string nazwa) {dyrektor=Pracownik_a(0,3,"?");imie=nazwa;return;}
         Instytut(int x, std::string nazwi, std::string nazwa) {dyrektor=Pracownik_a(0,3,nazwi);imie=nazwa;return;}
-        ~Instytut(void) {this->clear(); return;}
+        ~Instytut(void) {this->clear();zastepcy.clear();zaklady.clear(); return;}
 };
 
 
