@@ -1,0 +1,476 @@
+++
+dzi
+pro
+Zaremba Krzysztof
+++
+prd
+pro
+Tatjewski Piotr
+++
+prd
+dok
+Paczesny Daniel
+++
+prd
+pro
+Zielinski Cezary
+++
+prd
+dok
+Gajo Zbigniew
+
++
+Instytut Automatyki i Informatyki Stosowanej
+din
+pro
+Ogryczak Wlodzimierz
+Instytut Automatyki i Informatyki Stosowanej
+zdi
+dhb
+Lawrynczuk Maciej
+Instytut Automatyki i Informatyki Stosowanej
+zdi
+doc
+Traczyk Tomasz
+Instytut Automatyki i Informatyki Stosowanej
+prz
+pro
+Malinowski Krzysztof
+Instytut Automatyki i Informatyki Stosowanej
+prz
+pro
+Ogryczak Wlodzimierz
+Instytut Automatyki i Informatyki Stosowanej
+prz
+pro
+Pacut Andrzej
+Instytut Automatyki i Informatyki Stosowanej
+prz
+pro
+Sacha Krzysztof
+Instytut Automatyki i Informatyki Stosowanej
+prz
+pro
+Tatjewski Piotr
+Instytut Automatyki i Informatyki Stosowanej
+prz
+pro
+Toczylowski Eugeniusz
+Instytut Automatyki i Informatyki Stosowanej
+prz
+pro
+Zielinski Cezary
+Instytut Automatyki i Informatyki Stosowanej
+pnz
+pro
+Kasprzak Wlodzimierz
+Instytut Automatyki i Informatyki Stosowanej
+pnz
+pro
+Niewiadomska-Szynkiewicz Ewa
+Instytut Automatyki i Informatyki Stosowanej
+pnz
+dhb
+Lawrynczuk Maciej
+Instytut Automatyki i Informatyki Stosowanej
+doc
+dok
+Traczyk Tomasz
+Instytut Automatyki i Informatyki Stosowanej
+adu
+dok
+Arabas Piotr
+Instytut Automatyki i Informatyki Stosowanej
+adu
+dok
+Domanski Pawel
+Instytut Automatyki i Informatyki Stosowanej
+adu
+dok
+Granat Janusz
+Instytut Automatyki i Informatyki Stosowanej
+adu
+dok
+Kamola Mariusz
+Instytut Automatyki i Informatyki Stosowanej
+adu
+dhb
+Karbowski Andrzej
+Instytut Automatyki i Informatyki Stosowanej
+adu
+dok
+Karpowicz Michal
+Instytut Automatyki i Informatyki Stosowanej
+adu
+dok
+Kornuta Tomasz
+Instytut Automatyki i Informatyki Stosowanej
+adu
+dok
+Kozakewicz Adam
+Instytut Automatyki i Informatyki Stosowanej
+adu
+dok
+Kozlowski bartosz
+Instytut Automatyki i Informatyki Stosowanej
+adu
+dok
+Kruk Tomasz
+Instytut Automatyki i Informatyki Stosowanej
+adu
+dok
+Krzemieniowski Adam
+Instytut Automatyki i Informatyki Stosowanej
+adu
+dok
+Marusak Piotr
+Instytut Automatyki i Informatyki Stosowanej
+adu
+dok
+Palka Piotr
+Instytut Automatyki i Informatyki Stosowanej
+adu
+dhb
+Pienkosz Krzysztof
+Instytut Automatyki i Informatyki Stosowanej
+adu
+dok
+Plamowski Sebastian
+Instytut Automatyki i Informatyki Stosowanej
+adu
+dok
+Ratkowski Andrzej
+Instytut Automatyki i Informatyki Stosowanej
+adu
+dok
+Sliwinski Tomasz
+Instytut Automatyki i Informatyki Stosowanej
+adu
+dhb
+Stachurski Andrzej
+Instytut Automatyki i Informatyki Stosowanej
+adu
+dok
+Szlenk Marcin
+Instytut Automatyki i Informatyki Stosowanej
+adu
+dhb
+Szynkiewicz Wojciech
+Instytut Automatyki i Informatyki Stosowanej
+adu
+dok
+Winiarski Tomasz
+Instytut Automatyki i Informatyki Stosowanej
+adu
+dhb
+Zalewski Andrzej
+Instytut Automatyki i Informatyki Stosowanej
+adu
+dok
+Zoltowska Izabela
+Instytut Automatyki i Informatyki Stosowanej
+stw
+dok
+Kaleta Mariusz
+Instytut Automatyki i Informatyki Stosowanej
+stw
+mag
+Gustowski Jerzy
+Instytut Automatyki i Informatyki Stosowanej
+stw
+mag
+Sobczyk Jerzy
+Instytut Automatyki i Informatyki Stosowanej
+asy
+mag
+Chaber Patryk
+Instytut Automatyki i Informatyki Stosowanej
+asy
+mag
+Wojtulewicz Andrzej
+Instytut Automatyki i Informatyki Stosowanej
+asy
+mag
+Stefanczyk Maciej
+Instytut Automatyki i Informatyki Stosowanej
+kza
+Zaklad Sterowania Systemow
+pro
+Malinowski Krzysztof
+Instytut Automatyki i Informatyki Stosowanej
+kza
+Zaklad Automatyki i Inzynierii Oprogramowania
+pro
+Tatjewski Piotr
+Instytut Automatyki i Informatyki Stosowanej
+kza
+Zaklad Badan Operacyjnych i Systemowych
+pro
+Toczylowski Eugeniusz
++
+Instytut Informatyki
+din
+dhb
+Arabas Jaroslaw
+Instytut Informatyki
+zdi
+pro
+Muraszkiewicz Mieczyslaw
+Instytut Informatyki
+zdi
+mag
+Kozuszek Rajmund
+Instytut Informatyki
+prz
+pro
+Mulawka Jan
+Instytut Informatyki
+prz
+pro
+Rybinski Henryk
+Instytut Informatyki
+prz
+pro
+Sosnowksi Janusz
+Instytut Informatyki
+prz
+pro
+Rokita Przemyslaw
+Instytut Informatyki
+prz
+pro
+Kryszkiewicz Marzena
+Instytut Informatyki
+prz
+pro
+Muraszkiewicz Mieczyslaw
+Instytut Informatyki
+pnz
+dhb
+Arabas Jaroslaw
+Instytut Informatyki
+pnz
+dhb
+Gawrysiak Piotr
+Instytut Informatyki
+pnz
+dhb
+Ras Zbigniew
+Instytut Informatyki
+doc
+dok
+Podraza Roman
+Instytut Informatyki
+adu
+dok
+Andruszkiewicz Piotr
+Instytut Informatyki
+adu
+dok
+Bembenik Robert
+Instytut Informatyki
+adu
+dok
+Biedrzycki Rafal
+Instytut Informatyki
+adu
+dok
+Blinowski Grzegorz
+Instytut Informatyki
+adu
+dhb
+Bluemke Ilona
+Instytut Informatyki
+adu
+dok
+Cabaj Krzysztof
+Instytut Informatyki
+adu
+dok
+Chrzaszcz Jerzy
+Instytut Informatyki
+adu
+dok
+Chudziak Jaroslaw
+Instytut Informatyki
+adu
+dok
+Cichosz Pawel
+Instytut Informatyki
+adu
+dok
+Ciecierski Konrad
+Instytut Informatyki
+adu
+dok
+Dabala Lukasz
+Instytut Informatyki
+adu
+dok
+Daszczuk Wiktor
+Instytut Informatyki
+adu
+dok
+Derezinska Anna
+Instytut Informatyki
+adu
+dok
+Dobrowolski Henryk
+Instytut Informatyki
+adu
+dok
+Gambin Tomasz
+Instytut Informatyki
+adu
+dok
+Komorowski Jacek
+Instytut Informatyki
+adu
+dok
+Kompa Kamil
+Instytut Informatyki
+adu
+dok
+Koperwas Jakub
+Instytut Informatyki
+adu
+dok
+Kozdrowski Stanislaw
+Instytut Informatyki
+adu
+dok
+Kozlowski Marek
+Instytut Informatyki
+adu
+dhb
+Martyn Tomasz
+Instytut Informatyki
+adu
+dhb
+Nowak Robert
+Instytut Informatyki
+adu
+dok
+Protaziuk Grzegorz
+Instytut Informatyki
+adu
+dok
+Raczkowski Jacek
+Instytut Informatyki
+adu
+dok
+Rudowski Michal
+Instytut Informatyki
+adu
+dok
+Ryzko Dominik
+Instytut Informatyki
+adu
+dok
+Rzeszut Janusz
+Instytut Informatyki
+adu
+dok
+Skonieczny Lukasz
+Instytut Informatyki
+adu
+dok
+Trzcinski Tomasz
+Instytut Informatyki
+adu
+dok
+Turlej Dariusz
+Instytut Informatyki
+adu
+dok
+Twardowski Bartlomiej
+Instytut Informatyki
+adu
+dok
+Wasiewicz Piotr
+Instytut Informatyki
+adu
+dhb
+Wawrzynski Pawel
+Instytut Informatyki
+adu
+dok
+Wytrebowicz Jacek
+Instytut Informatyki
+adu
+dok
+Zawistowski Pawel
+Instytut Informatyki
+adu
+dok
+Zbikowski Kamil
+Instytut Informatyki
+asy
+dok
+Gawkowski Piotr
+Instytut Informatyki
+asy
+mag
+Grochowski Konrad
+Instytut Informatyki
+asy
+mag
+Kusmirek Wiktor
+Instytut Informatyki
+asy
+mag
+Oleszkiewicz Wiktor
+Instytut Informatyki
+stw
+mag
+Chabko Krzysztof
+Instytut Informatyki
+stw
+dok
+Ciemski Andrzej
+Instytut Informatyki
+stw
+mag
+Grabski Waldemar
+Instytut Informatyki
+stw
+mag
+Gracki Krzysztof
+Instytut Informatyki
+stw
+mag
+Kowalski Henryk
+Instytut Informatyki
+stw
+mag
+Kozuszek Rajmund
+Instytut Informatyki
+stw
+mag
+Mazur Grzegorz
+Instytut Informatyki
+stw
+mag
+Myrcha Julian
+Instytut Informatyki
+stw
+mag
+Parewicz Piotr
+Instytut Informatyki
+stw
+mag
+Pawlowski Marek
+Instytut Informatyki
+stw
+mag
+Radziszewski Pawel
+Instytut Informatyki
+stw
+mag
+Salata Piotr
+Instytut Informatyki
+stw
+mag
+Szymanski Zbigniew
+Instytut Mikrotechniki i Optoelektroniki
+din
