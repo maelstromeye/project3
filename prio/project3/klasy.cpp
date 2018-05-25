@@ -23,14 +23,6 @@ int praca(string command)
     if(command=="prz") return 7;
     return -1;
 }
-bool dosc(int x, int y)
-{
-    if(!x) return true;
-    if((x<=3)&&(y>=3)) return true;
-    if((x==4)&&((y==5)||(y==7))) return true;
-    if((x==5)&&(y==7)) return true;
-    return false;
-}
 void klik(void)
 {
     string temp;
@@ -55,14 +47,10 @@ void sortuj(vector<type> &stringi)
                 numer=i;
             }
         }
-        if(numer==j)
-        {
-            j++;
-            continue;
-        }
         obiekt=stringi[numer];
         stringi[numer]=stringi[j];
         stringi[j]=obiekt;
+        temp="~";
     }
     return;
 }
@@ -186,20 +174,11 @@ void Pracownik_n::druk(void)
     }
     return;
 }
-bool Pracownik_n::dosc(void)
-{
-    if(stop==non) return true;
-    if((praca==prz)||(praca==stw)||(praca==doc)) return true;
-    if((praca==wyk)&&(stop<dok)) return true;
-    if ((praca==asy)&&(stop<dok)) return true;
-    if ((praca==adu)&&(stop<dhb)) return true;
-    if ((praca==pnz)&&(stop<pro)) return true;
-    return false;
-}
 void Instytut::druk(void)
 {
     int i;
     dyrektor.druk();
+    cout<<endl;
     for(i=0;i<zastepcy.size();zastepcy[i].druk(),cout<<endl,i++);
     cout<<"Pracownicy naukowi to:"<<endl<<endl;
     for(i=0;i<this->size();this->at(i).druk(),cout<<endl,i++);
@@ -212,7 +191,7 @@ void Instytut::druk(void)
     }
     return;
 }
-void Instytut::dodaj(void)
+void Instytut::dodaj(istream &inp, bool d)
 {
     int i,j,k;
     i=j=k=0;
@@ -220,12 +199,14 @@ void Instytut::dodaj(void)
     while(1)
     {
         cout<<"Sprecyzuj prace pracownika"<<endl<<"din - dyrektor instytutu"<<endl<<"zdi - zastepca dyrektora"<<endl<<"kza - kierownik zakladu"<<endl<<"lkt - lektor"<<endl<<"asy - asystent"<<endl<<"wyk - wykladowca"<<endl<<"adu - adiunkt"<<endl<<"stw - starszy wykladowca"<<endl<<"pnz - profesor nadzwyczajny"<<endl<<"doc - docent"<<endl<<"prz - profesor zwyczajny"<<endl;
-        getline(cin,command);
+        getline(inp,command,'\n');
+        if(command=="exit") throw 1;
         if(command=="kza")
         {
             system("CLS");
             cout<<"Wpisz nazwe nowego zakladu ktorego pracownik ma byc kierownikiem."<<endl;
-            getline(cin,command);
+            getline(inp,command,'\n');
+            if(command=="exit") throw 1;
             for(k=0;k<zaklady.size();k++)
             {
                 if(zaklady[k].coto()==command) break;
@@ -234,31 +215,33 @@ void Instytut::dodaj(void)
             {
                 system("CLS");
                 cout<<"Istnieje zaklad o podanym imieniu. Powtorz krok."<<endl;
-                klik();
+                if(d) klik();
                 continue;
             }
             nazwa=command;
             system("CLS");
             cout<<"Wpisz profesje naukowa"<<endl<<"non - brak dyplomu"<<endl<<"lic - licencjat"<<endl<<"eng - inzynier"<<endl<<"mag - magister"<<endl<<"dok - doktor"<<endl<<"dhb - doktor habilitowany"<<endl<<"pro - profesor"<<endl;
-            getline(cin,command);
+            getline(inp,command,'\n');
+            if(command=="exit") throw 1;
             i=stop(command);
             if(!(i+1))
             {
                 system("CLS");
                 cout<<"Nieznany stopien. Powtorz krok."<<endl;
-                klik();
+                if(d) klik();
                 continue;
             }
             system("CLS");
             cout<<"Wpisz imie pracownika"<<endl;
-            getline(cin,command);
+            getline(inp,command,'\n');
+            if(command=="exit") throw 1;
             zaklady.push_back(Zaklad(i,command,nazwa));
             system("CLS");
             cout<<"Dodano pracownika:"<<endl;
             zaklady[zaklady.size()-1].druk();
             cout<<"W instytucie:"<<endl<<imie<<endl<<"W zakladzie:"<<endl<<zaklady[zaklady.size()-1].coto()<<endl;
             sortuj(zaklady);
-            klik();
+            if(d) klik();
             return;
         }
         if((command=="din")||(command=="zdi"))
@@ -269,23 +252,25 @@ void Instytut::dodaj(void)
             {
                 system("CLS");
                 cout<<"Instytut posiada dyrektora. Powtorz krok."<<endl;
-                klik();
+                if(d) klik();
                 continue;
             }
             system("CLS");
             cout<<"Wpisz profesje naukowa"<<endl<<"non - brak dyplomu"<<endl<<"lic - licencjat"<<endl<<"eng - inzynier"<<endl<<"mag - magister"<<endl<<"dok - doktor"<<endl<<"dhb - doktor habilitowany"<<endl<<"pro - profesor"<<endl;
-            getline(cin,command);
+            getline(inp,command,'\n');
+            if(command=="exit") throw 1;
             i=stop(command);
             if(!(i+1))
             {
                 system("CLS");
                 cout<<"Nieznany stopien. Powtorz krok."<<endl;
-                klik();
+                if(d) klik();
                 continue;
             }
             system("CLS");
             cout<<"Wpisz imie pracownika"<<endl;
-            getline(cin,command);
+            getline(inp,command,'\n');
+            if(command=="exit") throw 1;
             if(!k)
             {
                 for(k=0;k<zastepcy.size();k++)
@@ -296,7 +281,7 @@ void Instytut::dodaj(void)
                 {
                     system("CLS");
                     cout<<"Istnieje pracownik o podanym imieniu. Powtorz krok."<<endl;
-                    klik();
+                    if(d) klik();
                     continue;
                 }
                 zastepcy.push_back(Pracownik_a(i,4,command));
@@ -305,7 +290,7 @@ void Instytut::dodaj(void)
                 zastepcy[zastepcy.size()-1].druk();
                 cout<<"W instytucie:"<<endl<<imie<<endl;
                 sortuj(zastepcy);
-                klik();
+                if(d) klik();
                 return;
             }
             else
@@ -315,7 +300,7 @@ void Instytut::dodaj(void)
                 cout<<"Dodano pracownika:"<<endl;
                 dyrektor.druk();
                 cout<<"W instytucie:"<<endl<<imie<<endl;
-                klik();
+                if(d) klik();
                 return;
             }
         }
@@ -324,30 +309,25 @@ void Instytut::dodaj(void)
         {
             system("CLS");
             cout<<"Nieznana praca. Powtorz krok."<<endl;
-            klik();
+            if(d) klik();
             continue;
         }
         system("CLS");
         cout<<"Wpisz profesje naukowa"<<endl<<"non - brak dyplomu"<<endl<<"lic - licencjat"<<endl<<"eng - inzynier"<<endl<<"mag - magister"<<endl<<"dok - doktor"<<endl<<"dhb - doktor habilitowany"<<endl<<"pro - profesor"<<endl;
-        getline(cin,command);
+        getline(inp,command,'\n');
+        if(command=="exit") throw 1;
         i=stop(command);
         if(!(i+1))
         {
             system("CLS");
             cout<<"Nieznany stopien. Powtorz krok."<<endl;
-            klik();
-            continue;
-        }
-        if(dosc(i,j))
-        {
-            system("CLS");
-            cout<<"Pracownik nie spelnia wymagan zeby otrzymac wyznaczona pozycje. Powtorz krok."<<endl;
-            klik();
+            if(d) klik();
             continue;
         }
         system("CLS");
         cout<<"Wpisz imie pracownika"<<endl;
-        getline(cin,command);
+        getline(inp,command,'\n');
+        if(command=="exit") throw 1;
         for(k=0;k<this->size();k++)
         {
             if(this->at(k).coto()==command) break;
@@ -356,7 +336,7 @@ void Instytut::dodaj(void)
         {
             system("CLS");
             cout<<"Istnieje pracownik o podanym imieniu. Powtorz krok."<<endl;
-            klik();
+            if(d) klik();
             continue;
         }
         this->push_back(Pracownik_n(i,j,command));
@@ -365,7 +345,8 @@ void Instytut::dodaj(void)
         this->at(this->size()-1).druk();
         cout<<"W instytucie:"<<endl<<imie<<endl;
         sortuj(*this);
-        klik();
+        if(d) klik();
         return;
     }
 }
+

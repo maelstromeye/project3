@@ -5,6 +5,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <vector>
+#include <fstream>
 enum Stopien {non, lic, eng, mag, dok, dhb, pro};
 enum Praca_n {lkt, asy, wyk, adu, stw, pnz, doc, prz};
 enum Praca_a {kza, dzi, prd, din, zdi};
@@ -38,13 +39,12 @@ class Pracownik_n : public Naukowiec
 {
     private:
         Praca_n praca;
-        bool dosc(void);
+        bool zwiazany;
     public:
-        Pracownik_n(void) {praca=lkt; Naukowiec(); return;}
+        Pracownik_n(void) {praca=lkt; Naukowiec(); zwiazany=false; return;}
         Pracownik_n(int x, int y, std::string nazwa) : Naukowiec(x, nazwa) {praca=Praca_n(y); return;}
         bool prom(void)
         {
-            if(this->dosc()) return false;
             praca=Praca_n(praca+2);
             return true;
         }
@@ -67,17 +67,21 @@ class Pracownik_a : public Naukowiec
 {
     private:
         Praca_a praca;
+        Pracownik_a *alterego;
     public:
-        bool deg(void)
-        {
-            if(praca%2==0) return false;
-            praca=Praca_a(praca+1);
-            return true;
-        }
+        Pracownik_a(void) {praca=kza; Naukowiec(); alterego=NULL; return;}
+        Pracownik_a(int x, int y, std::string nazwa) : Naukowiec(x, nazwa) {praca=Praca_a(y); return;}
+        bool zwiazany(void) {if(alterego) return true; return false;}
         bool prom(void)
         {
             if((praca%2!=0)||(praca==kza)) return false;
             praca=Praca_a(praca-1);
+            return true;
+        }
+        bool deg(void)
+        {
+            if(praca%2==0) return false;
+            praca=Praca_a(praca+1);
             return true;
         }
         bool zmien(int x)
@@ -87,8 +91,6 @@ class Pracownik_a : public Naukowiec
             return true;
         }
         void druk(void);
-        Pracownik_a(void) {praca=kza; Naukowiec(); return;}
-        Pracownik_a(int x, int y, std::string nazwa) : Naukowiec(x, nazwa) {praca=Praca_a(y); return;}
 };
 
 class Zaklad
@@ -115,17 +117,16 @@ class Instytut : public std::vector<Pracownik_n>
         std::string imie;
         std::vector<Zaklad> zaklady;
     public:
-        void dodaj(void);
-
+        void dodaj(std::istream &inp, bool d);
         std::string coto(void) {return imie;}   //nazwa instytutu
         bool pusty(void) {if(dyrektor.pusty()) return true; return false;}
-        //void inicjuj(void);
         bool istnieje(std::string nazwa, int &x) {if(dyrektor.coto()==nazwa){x=-1;return true;}for(int i=0;i<zastepcy.size();i++){if(zastepcy[i].coto()==nazwa){x=i;return true;}}return false;}
         void druk(void);
         void zmien_n(int x, int y) {if(!(y++)) dyrektor.zmien_n(x);else zastepcy[y].zmien(x); return;}
         Instytut(void) {dyrektor=Pracownik_a(0,3,"?");imie="?";return;}
         Instytut(std::string nazwa) {dyrektor=Pracownik_a(0,3,"?");imie=nazwa;return;}
-        Instytut(int x, std::string nazwi, std::string nazwa) {dyrektor=Pracownik_a(0,3,nazwi);imie=nazwa;return;}
+        Instytut(std::string nazwa, bool d) {dyrektor=Pracownik_a(0,1,"?");imie=nazwa;return;}
+        Instytut(int x, std::string nazwi, std::string nazwa) {dyrektor=Pracownik_a(x,3,nazwi);imie=nazwa;return;}
         ~Instytut(void) {this->clear();zastepcy.clear();zaklady.clear(); return;}
 };
 

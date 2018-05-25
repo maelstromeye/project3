@@ -7,7 +7,7 @@ void pomoc(void);
 int wykryj(string command);
 int stop(string command);
 void elka(void);
-bool dodaj(vector<Instytut> &wydzial);
+bool dodaj(vector<Instytut> &wydzial, istream& inp, bool d);
 bool zwolnij(void);
 bool degraduj(void);
 bool promuj(void);
@@ -24,9 +24,11 @@ int main()
     Pracownik_a dziekan;
     vector<Pracownik_a> prodziekani;
     vector<Instytut> wydzial;
+    wydzial.push_back(Instytut("Dziekanat",1));
     string command;
     int numer, i;
     bool d;
+    fstream file;
     while(1)
     {
         pomoc();
@@ -34,10 +36,34 @@ int main()
         switch (wykryj(command))
         {
             case 1:
-                elka();
+                file.open("elka.txt", fstream::in);
+                while(file.peek())
+                {
+                    try
+                    {
+                        dodaj(wydzial, file, 0);
+
+
+                    }
+                    catch(int)
+                    {
+                        break;
+                    }
+                    i++;
+                }
+                file.close();
+                system("CLS");
+                cout<<wydzial[0].size()<<endl<<wydzial[1].size();
                 break;
             case 2:
-                d=dodaj(wydzial);  //czy dodac dziekana
+                try
+                {
+                    d=dodaj(wydzial, cin, 1);
+                }  //czy dodac dziekana
+                catch(int)
+                {
+                    break;
+                }
                 if(!d)
                 {
                     while(1)    //dodawanie dziekana
@@ -56,10 +82,9 @@ int main()
                         system("CLS");
                         if((!numer)&&(!dziekan.pusty()))
                         {
-                            cout<<"Uwaga: Wydzial posiada dziekana. Kontynuacja doprowadzi do zwolnienia obecnego dziekana. Aby jednak dodac prodziekana, wpisz 'p'. Aby dodac dziekana mimo to, kliknij enter."<<endl;
-                            getline(cin,command);
-                            if(command=="p") numer=1;
-                            system("CLS");
+                            cout<<"Wydzial posiada dziekana. Powtorz krok."<<endl;
+                            klik();
+                            continue;
                         }
                         cout<<"Wpisz profesje naukowa"<<endl<<"non - brak dyplomu"<<endl<<"lic - licencjat"<<endl<<"eng - inzynier"<<endl<<"mag - magister"<<endl<<"dok - doktor"<<endl<<"dhb - doktor habilitowany"<<endl<<"pro - profesor"<<endl;
                         getline(cin,command);
@@ -151,8 +176,7 @@ int wykryj(string command)
     if(command=="pokaz") return 9;
     return 0;
 }
-void elka(void){};
-bool dodaj(vector<Instytut> &wydzial)
+bool dodaj(vector<Instytut> &wydzial, istream &inp, bool d)
 {
     int numer,i,j;
     string command;
@@ -162,7 +186,8 @@ bool dodaj(vector<Instytut> &wydzial)
     system("CLS");
     cout<<"Do jakiego instytutu ma nalezec pracownik?"<<endl;
     cout<<"Aby utworzyc nowy instytut, wpisz '+'."<<endl;
-    cout<<"Aby dodac dziekana, badz prodziekana, wpisz '++'."<<endl;
+    cout<<"Aby dodac dziekana, badz prodziekana, wpisz 'dziekanat'."<<endl;
+    cout<<"Aby wrocic do menu, wpisz 'exit'."<<endl;
     while(1)
     {
         if(!wydzial.empty())
@@ -173,13 +198,15 @@ bool dodaj(vector<Instytut> &wydzial)
                 cout<<wydzial[i].coto()<<endl;
             }
         }
-        getline(cin,command);
-        if(command=="++") return false;
+        getline(inp,command,'\n');
+        if(command=="dziekanat") return false;
+        if(command=="exit") throw 1;
         if(command=="+")
         {
             system("CLS");
             cout<<"Wpisz nazwe nowego instytutu."<<endl;
-            getline(cin,command);
+            getline(inp,command,'\n');
+            if(command=="exit") throw 1;
             for(i=0;i<wydzial.size();i++)
             {
                 if(wydzial[i].coto()==command) break;
@@ -193,26 +220,23 @@ bool dodaj(vector<Instytut> &wydzial)
             i=wydzial.size();
             wydzial.push_back(Instytut(command));
             system("CLS");
-            wydzial[i].dodaj();
+            wydzial[i].dodaj(inp, d);
             sortuj(wydzial);
             return true;
         }
-        else
+        for(i=0;i<wydzial.size();i++)
         {
-            for(i=0;i<wydzial.size();i++)
-            {
-                if(wydzial[i].coto()==command) break;
-            }
-            if(i==wydzial.size())
-            {
-                system("CLS");
-                cout<<"Instytut nie znaleziony. Wpisz nazwe instytutu jeszcze raz, badz '+' zeby dodac nowy instytut, badz '++' aby dodac dziekana lub prodziekana"<<endl;
-                continue;
-            }
-            system("CLS");
-            wydzial[i].dodaj();
-            return true;
+            if(wydzial[i].coto()==command) break;
         }
+        if(i==wydzial.size())
+        {
+            system("CLS");
+            cout<<"Instytut nie znaleziony. Wpisz nazwe instytutu jeszcze raz, badz '+' zeby dodac nowy instytut, badz '++' aby dodac dziekana lub prodziekana"<<endl;
+            continue;
+        }
+        system("CLS");
+        wydzial[i].dodaj(inp, d);
+        return true;
     }
 }
 
@@ -397,3 +421,4 @@ void sortuj(vector<type> &stringi)
     }
     return;
 }
+
