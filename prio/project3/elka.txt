@@ -1,24 +1,23 @@
-++
+Dziekanat
 dzi
 pro
 Zaremba Krzysztof
-++
+Dziekanat
 prd
 pro
 Tatjewski Piotr
-++
+Dziekanat
 prd
 dok
 Paczesny Daniel
-++
+Dziekanat
 prd
 pro
 Zielinski Cezary
-++
+Dziekanat
 prd
 dok
 Gajo Zbigniew
-
 +
 Instytut Automatyki i Informatyki Stosowanej
 din
@@ -30,7 +29,7 @@ dhb
 Lawrynczuk Maciej
 Instytut Automatyki i Informatyki Stosowanej
 zdi
-doc
+dok
 Traczyk Tomasz
 Instytut Automatyki i Informatyki Stosowanej
 prz
@@ -472,5 +471,4 @@ Instytut Informatyki
 stw
 mag
 Szymanski Zbigniew
-Instytut Mikrotechniki i Optoelektroniki
-din
+exit

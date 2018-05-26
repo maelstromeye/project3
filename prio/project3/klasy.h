@@ -31,6 +31,10 @@ class Naukowiec
             return true;
         }
         std::string coto(void) {return imie;}
+        virtual void druk(void) {return;}
+        virtual bool prom(void) {return false;}
+        virtual bool deg(void) {return false;}
+        virtual bool zmien(int x) {return false;}
         friend class Pracownik_n;
         friend class Pracownik_a;
 };
@@ -39,58 +43,26 @@ class Pracownik_n : public Naukowiec
 {
     private:
         Praca_n praca;
-        bool zwiazany;
     public:
-        Pracownik_n(void) {praca=lkt; Naukowiec(); zwiazany=false; return;}
+        Pracownik_n(void) {praca=lkt; Naukowiec(); return;}
         Pracownik_n(int x, int y, std::string nazwa) : Naukowiec(x, nazwa) {praca=Praca_n(y); return;}
-        bool prom(void)
-        {
-            praca=Praca_n(praca+2);
-            return true;
-        }
-        bool deg(void)
-        {
-            if((praca%2!=1)||(praca==prz)) return false;
-            else praca=Praca_n(praca+1);
-            return true;
-        }
-        bool zmien(int x)
-        {
-            if(x>7) return false;
-            else praca=Praca_n(x);
-            return true;
-        }
-        void druk(void);
+        virtual bool prom(void) {if((praca==prz)||(praca==doc)) return false; praca=Praca_n(praca+2);return true;}
+        virtual bool deg(void) {if((praca%2!=1)||(praca==prz)) return false; else praca=Praca_n(praca+1); return true;}
+        virtual bool zmien(int x) {if(x>7) return false; else praca=Praca_n(x); return true;}
+        virtual void druk(void);
 };
 
 class Pracownik_a : public Naukowiec
 {
     private:
         Praca_a praca;
-        Pracownik_a *alterego;
     public:
-        Pracownik_a(void) {praca=kza; Naukowiec(); alterego=NULL; return;}
+        Pracownik_a(void) {praca=kza; Naukowiec();return;}
         Pracownik_a(int x, int y, std::string nazwa) : Naukowiec(x, nazwa) {praca=Praca_a(y); return;}
-        bool zwiazany(void) {if(alterego) return true; return false;}
-        bool prom(void)
-        {
-            if((praca%2!=0)||(praca==kza)) return false;
-            praca=Praca_a(praca-1);
-            return true;
-        }
-        bool deg(void)
-        {
-            if(praca%2==0) return false;
-            praca=Praca_a(praca+1);
-            return true;
-        }
-        bool zmien(int x)
-        {
-            if(x>4) return false;
-            else praca=Praca_a(x);
-            return true;
-        }
-        void druk(void);
+        bool prom(void) {if((praca%2!=0)||(praca==kza)) return false; praca=Praca_a(praca-1); return true;}
+        bool deg(void) {if(praca%2==0) return false; praca=Praca_a(praca+1); return true;}
+        bool zmien(int x) {if(x>4) return false; else praca=Praca_a(x); return true;}
+        virtual void druk(void);
 };
 
 class Zaklad
@@ -103,13 +75,14 @@ class Zaklad
         Zaklad(std::string nazwa) {kierownik=Pracownik_a(0,0,"?");imie=nazwa;return;}
         Zaklad(int x,std::string nazwi, std::string nazwa) {kierownik=Pracownik_a(x,0,nazwi);imie=nazwa; return;}
         void druk(void) {if(kierownik.pusty()) return;else kierownik.druk();return;}
+        Naukowiec* toon(void) {return &kierownik;}
         std::string coto(void) {return imie;}
         std::string ktorzadzi(void) {return kierownik.coto();}
         bool pusty(void) {if(kierownik.pusty()) return true; return false;}
         void zmien_n(int x) {kierownik.zmien_n(x);return;}
 };
 
-class Instytut : public std::vector<Pracownik_n>
+class Instytut : private std::vector<Pracownik_n>
 {
     private:
         Pracownik_a dyrektor;
@@ -119,10 +92,13 @@ class Instytut : public std::vector<Pracownik_n>
     public:
         void dodaj(std::istream &inp, bool d);
         std::string coto(void) {return imie;}   //nazwa instytutu
-        bool pusty(void) {if(dyrektor.pusty()) return true; return false;}
-        bool istnieje(std::string nazwa, int &x) {if(dyrektor.coto()==nazwa){x=-1;return true;}for(int i=0;i<zastepcy.size();i++){if(zastepcy[i].coto()==nazwa){x=i;return true;}}return false;}
         void druk(void);
         void zmien_n(int x, int y) {if(!(y++)) dyrektor.zmien_n(x);else zastepcy[y].zmien(x); return;}
+        Naukowiec* znajdz(std::string command, bool d);
+        void deg(void) {zastepcy.push_back(dyrektor); dyrektor=Pracownik_a(); return;}
+        bool pusty(void) {if(dyrektor.pusty()) return true; return false;}
+        void prom(std::string command);
+        bool zwolnij(std::string command);
         Instytut(void) {dyrektor=Pracownik_a(0,3,"?");imie="?";return;}
         Instytut(std::string nazwa) {dyrektor=Pracownik_a(0,3,"?");imie=nazwa;return;}
         Instytut(std::string nazwa, bool d) {dyrektor=Pracownik_a(0,1,"?");imie=nazwa;return;}
