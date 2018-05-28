@@ -1,83 +1,88 @@
 #include "klasy.h"
 using namespace std;
-//enum Stopien {non, lic, eng, mag, dok, dhb, pro};
-//enum Praca_n {lkt, asy, wyk, adu, stw, pnz, doc, prz};
-//enum Praca_a {kza, dzi, prd, din, zdi};
-void pomoc(void);
-int wykryj(string command);
-int stop(istream & inp, bool d);
-void elka(void);
-bool dodaj(vector<Instytut> &wydzial, istream& inp, bool d);
-void pokaz(vector<Instytut> &wydzial);
-void klik(void);
-void operacja(vector<Instytut> &wydzial, int n);
-Naukowiec * lokalizuj(Instytut &instytut, bool d);
-Instytut * znajdz(vector<Instytut> &wydzial);
+
+void pomoc(void);   //wyswietl instrukcje
+
+void pokaz(vector<Instytut> &wydzial);  //wyswietl zawartosc pamieci
+
+void klik(void);    //kaze uzytkownikowi kliknac aby kontynuowac
+
+void operacja(vector<Instytut> &wydzial, int n);    //operacja wymagajaca uzycia pracownikow
+
 template <typename type>
-void sortuj(vector<type> &stringi);
+void sortuj(vector<type> &stringi); //sortowanie alfabetyczne przez proste wybieranie
+
+bool dodaj(vector<Instytut> &wydzial, istream& inp, bool d);    //dodawanie nowego pracownika (d - czy wyswietlac klik() przy funkcji)
+
+int wykryj(string command); //determinuje jaka komenda byla wpisana
+
+int stop(istream & inp, bool d);    //determinuje jaki stopien zostal zostal wpisany (definicja w klasy.cpp)
+
+int praca(string command);  //determinuje jaka praca zostala wpisana (definicja w klasy.cpp)
+
+Naukowiec * lokalizuj(Instytut &instytut, bool d);  //inicjalizuje znalezienie pracownika w instytucie (d==true - naukowego, d==false - administracyjnego)
+
+Instytut * znajdz(vector<Instytut> &wydzial);   //znajduje instytut na wydziale
+
 int main()
 {
-    Pracownik_a dziekan;
-    vector<Pracownik_a> prodziekani;
-    vector<Instytut> wydzial;
-    wydzial.push_back(Instytut("Dziekanat",1));
-    string command;
-    int numer, i;
-    bool d;
-    fstream file;
-    Instytut* instytut;
-    Naukowiec* n1,* n2;
+    vector<Instytut> wydzial;   //glowny vector danych
+    wydzial.push_back(Instytut("Dziekanat",1)); //Dziekanat jest instytutem na miejscu 0
+    string command; //string pomocniczy
+    int i;  //counter
+    fstream file;   //plik do czytania
+    Instytut* instytut; //pomocniczy pointer
+    Naukowiec* n1,* n2; //pomocnicze pointery
     while(1)
     {
-        pomoc();
+        pomoc();    //instrukcje
         getline(cin, command);
         system("CLS");
-        i=wykryj(command);
+        i=wykryj(command);  //co zrobic
         switch (i)
         {
-            case 1:
+            case 1: //inicjalizowac danymi z elka.txt
                 file.open("elka.txt", fstream::in);
-                while(file.peek())
+                while(1)
                 {
                     try
                     {
-                        dodaj(wydzial, file, 0);
+                        dodaj(wydzial, file, 0);    //ladowanie danych z filestreama, bez pomocniczych klikow()
                     }
-                    catch(int)
+                    catch(int)  //jak znajdzie exit
                     {
                         break;
                     }
-                    i++;
                 }
                 file.close();
                 system("CLS");
                 break;
-            case 2:
+            case 2: //dodawanie z cin
                 try
                 {
-                    d=dodaj(wydzial, cin, 1);
+                    dodaj(wydzial, cin, 1);   //ladowanie danych z cin, z pomocniczymi klikami()
                 }
-                catch(int)
+                catch(int)  //wpisane exit
                 {
                     break;
                 }
                 break;
-            case 3:
+            case 3: //zwolnienie
                 try
                 {
                 instytut=znajdz(wydzial);
                 }
-                catch(int)
+                catch(int)  //wpisane exit
                 {
                     break;
                 }
                 cout<<"Wpisz imie pracownika."<<endl;
                 getline(cin, command);
                 system("CLS");
-                if(command=="exit") break;
-                if(instytut->zwolnij(command))
+                if(command=="exit") break;  //wyjscie
+                if(instytut->zwolnij(command))     //usuwanie pracownika
                 {
-                    wydzial[0].zwolnij(command);
+                    wydzial[0].zwolnij(command);    //i jeszcze z dziekanatu, jezeli byly dwie instancje
                     cout<<"Pracownik zwolniony"<<endl;
                     klik();
                     break;
@@ -90,19 +95,29 @@ int main()
             case 6:
             case 7:
             case 8:
+            case 9: //degradacja, promocja, promocja naukowa, zmiana pracy naukowej, zmiana stopnia naukowego, szukanie
                 try
                 {
-                operacja(wydzial,i);
+                operacja(wydzial,i);    //jak wyzej
                 }
                 catch(int)
                 {
-                    break;
+                    break;  //wpisane exit
                 }
                 break;
-            case 9:
-                pokaz(wydzial);
-                break;
             case 10:
+                pokaz(wydzial); //wyswietlanie
+                break;
+            case 11:    //zapis do pliku
+                file.open("elka.txt", fstream::out);
+                for(i=0;i<wydzial.size();i++)
+                {
+                    wydzial[i].pisz(file);
+                }
+                file<<"exit"<<endl;
+                file.close();
+                break;
+            case 12:
                 return 0;
             default:
                 cout<<"Nieznana komenda"<<endl;
@@ -113,7 +128,7 @@ int main()
     return 0;
 }
 
-void pomoc(void)
+void pomoc(void)    //instrukcje
 {
     cout<<"MENU"<<endl;
     cout<<"Wpisz:"<<endl;
@@ -126,10 +141,12 @@ void pomoc(void)
     cout<<"-'zmien' zeby zmienic stanowisko zajmowane przez pracownika recznie"<<endl;
     cout<<"-'zmien_n' zeby zmienic tytul naukowy pracownika"<<endl;
     cout<<"-'pokaz' zeby wydrukowac obecny stan kadry"<<endl;
+    cout<<"-'zapisz' zeby zapisac dane do pliku elkat.txt"<<endl;
+    cout<<"-'zabij' zeby zakonczyc dzialanie programu"<<endl;
     return;
 }
 
-int wykryj(string command)
+int wykryj(string command)  //jaka komenda
 {
     if(command=="elka") return 1;
     if(command=="dodaj") return 2;
@@ -139,17 +156,19 @@ int wykryj(string command)
     if(command=="promuj_n") return 6;
     if(command=="zmien") return 7;
     if(command=="zmien_n") return 8;
-    if(command=="pokaz") return 9;
-    if(command=="zabij") return 10;
+    if(command=="znajdz") return 9;
+    if(command=="pokaz") return 10;
+    if(command=="zapisz") return 11;
+    if(command=="zabij") return 12;
     return 0;
 }
-void operacja(vector<Instytut> &wydzial, int n)
+void operacja(vector<Instytut> &wydzial, int n) //zajmowanie sie operacjami na pracownikach
 {
-    Instytut* instytut;
-    Naukowiec* n1,* n2;
-    string command;
-    int i;
-    instytut=znajdz(wydzial);
+    Instytut* instytut; //pointer pomocniczy
+    Naukowiec* n1,* n2; //pointery pomocnicze
+    string command; //string do przechowywania inputu
+    int i;  //counter
+    instytut=znajdz(wydzial);   //znajdz jaki instytut
     cout<<"Wpisz imie pracownika."<<endl;
     getline(cin, command);
     if(command=="exit") throw 1;
@@ -172,6 +191,8 @@ void operacja(vector<Instytut> &wydzial, int n)
         n2->druk();
         klik();
     }
+    else if(n1) n1->druk();
+    else n2->druk();
     switch(n)
     {
         case 4:
@@ -272,7 +293,30 @@ void operacja(vector<Instytut> &wydzial, int n)
             cout<<"Promocja naukowa dokonana."<<endl;
             klik();
         case 7:
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            if(n1)
+            {
+                cout<<"Sprecyzuj nowa prace naukowa pracownika"<<endl<<"lkt - lektor"<<endl<<"asy - asystent"<<endl<<"wyk - wykladowca"<<endl<<"adu - adiunkt"<<endl<<"stw - starszy wykladowca"<<endl<<"pnz - profesor nadzwyczajny"<<endl<<"doc - docent"<<endl<<"prz - profesor zwyczajny"<<endl;
+                getline(cin, command);
+                system("CLS");
+                if(command=="exit") throw 1;
+                i=praca(command);
+                if(!(i+1))
+                {
+                    cout<<"Nieznana praca. Powrot do menu."<<endl;
+                    klik();
+                    return;
+                }
+                n1->zmien(i);
+                cout<<"Praca zmieniona."<<endl;
+                klik();
+            }
+            if(n2)
+            {
+                cout<<"Nie mozna zmienic pracy pracownika administracyjnego. Powrot do menu."<<endl;
+                klik();
+                return;
+            }
+            return;
         case 8:
             i=stop(cin, 1);
             if(!(i+1)) break;
@@ -281,6 +325,8 @@ void operacja(vector<Instytut> &wydzial, int n)
             cout<<"Stopien naukowy zmieniony."<<endl;
             klik();
             return;
+        case 9:
+            klik();
         default:
             return;;
     }
@@ -347,16 +393,16 @@ Instytut* znajdz(vector<Instytut> &wydzial)
     string command;
     system("CLS");
     cout<<"Z jakim instytutem zwiazany jest pracownik?"<<endl<<"Jezeli pracownik jest zwiazany tylko z dziekanatem, wpisz 'Dziekanat'."<<endl<<"Aby wrocic do menu, wpisz 'exit'."<<endl;
-    if(wydzial.size()>1)
-    {
-        cout<<"Obecne instytuty:"<<endl;
-        for(i=1;i<wydzial.size();i++)
-        {
-            cout<<wydzial[i].coto()<<endl;
-        }
-    }
     while(1)
     {
+        if(wydzial.size()>1)
+        {
+            cout<<"Obecne instytuty:"<<endl;
+            for(i=1;i<wydzial.size();i++)
+            {
+                cout<<wydzial[i].coto()<<endl;
+            }
+        }
         getline(cin, command);
         system("CLS");
         if(command=="exit") throw 1;
@@ -371,79 +417,6 @@ Instytut* znajdz(vector<Instytut> &wydzial)
             continue;
         }
     }
-}
-bool zmien_n(vector<Instytut> &wydzial)
-{
-    /*string command;
-    int i,j,k,o;
-    bool d;
-    system("CLS");
-    d=lokalizuj(wydzial,i,j,k);
-    if((!d)&&(i==-1)) return false;
-    if((!d)&&(j==-1))
-    {
-        while(1)
-        {
-            system("CLS");
-            cout<<"Wpisz nowa profesje naukowa"<<endl<<"non - brak dyplomu"<<endl<<"lic - licencjat"<<endl<<"eng - inzynier"<<endl<<"mag - magister"<<endl<<"dok - doktor"<<endl<<"dhb - doktor habilitowany"<<endl<<"pro - profesor"<<endl;
-            getline(cin,command);
-            o=stop(command);
-            if(!(o+1))
-            {
-                cout<<"Nieznany stopien. Powtorz krok."<<endl;
-                klik();
-                system("CLS");
-                continue;
-            }
-            wydzial[i].zmien_n(o,k);
-            system("CLS");
-            cout<<"Stopien naukowy zmieniony."<<endl;
-            klik();
-            return true;
-        }
-    }
-    if((!d)&&(k==-1))
-    {
-        while(1)
-        {
-            system("CLS");
-            cout<<"Wpisz nowa profesje naukowa"<<endl<<"non - brak dyplomu"<<endl<<"lic - licencjat"<<endl<<"eng - inzynier"<<endl<<"mag - magister"<<endl<<"dok - doktor"<<endl<<"dhb - doktor habilitowany"<<endl<<"pro - profesor"<<endl;
-            getline(cin,command);
-            o=stop(command);
-            if(!(o+1))
-            {
-                cout<<"Nieznany stopien. Powtorz krok."<<endl;
-                klik();
-                continue;
-            }
-            wydzial[i][j].zmien_n(o);
-            system("CLS");
-            cout<<"Stopien naukowy zmieniony."<<endl;
-            klik();
-            return true;
-        }
-    }
-    system("CLS");
-    while(1)
-    {
-        system("CLS");
-        cout<<"Wpisz nowa profesje naukowa"<<endl<<"non - brak dyplomu"<<endl<<"lic - licencjat"<<endl<<"eng - inzynier"<<endl<<"mag - magister"<<endl<<"dok - doktor"<<endl<<"dhb - doktor habilitowany"<<endl<<"pro - profesor"<<endl;
-        getline(cin,command);
-        o=stop(command);
-        if(!(o+1))
-        {
-            system("CLS");
-            cout<<"Nieznany stopien. Powtorz krok."<<endl;
-            klik();
-            system("CLS");
-            continue;
-        }
-        wydzial[i][j][k].zmien_n(o);
-        system("CLS");
-        cout<<"Stopien naukowy zmieniony."<<endl;
-        klik();
-        return true;
-    }*/
 }
 void pokaz(vector<Instytut> &wydzial)
 {

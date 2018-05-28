@@ -46,6 +46,7 @@ class Pracownik_n : public Naukowiec
     public:
         Pracownik_n(void) {praca=lkt; Naukowiec(); return;}
         Pracownik_n(int x, int y, std::string nazwa) : Naukowiec(x, nazwa) {praca=Praca_n(y); return;}
+        void pisz(std::fstream &out);
         virtual bool prom(void) {if((praca==prz)||(praca==doc)) return false; praca=Praca_n(praca+2);return true;}
         virtual bool deg(void) {if((praca%2!=1)||(praca==prz)) return false; else praca=Praca_n(praca+1); return true;}
         virtual bool zmien(int x) {if(x>7) return false; else praca=Praca_n(x); return true;}
@@ -59,6 +60,7 @@ class Pracownik_a : public Naukowiec
     public:
         Pracownik_a(void) {praca=kza; Naukowiec();return;}
         Pracownik_a(int x, int y, std::string nazwa) : Naukowiec(x, nazwa) {praca=Praca_a(y); return;}
+        void pisz(std::fstream &out);
         bool prom(void) {if((praca%2!=0)||(praca==kza)) return false; praca=Praca_a(praca-1); return true;}
         bool deg(void) {if(praca%2==0) return false; praca=Praca_a(praca+1); return true;}
         bool zmien(int x) {if(x>4) return false; else praca=Praca_a(x); return true;}
@@ -75,6 +77,7 @@ class Zaklad
         Zaklad(std::string nazwa) {kierownik=Pracownik_a(0,0,"?");imie=nazwa;return;}
         Zaklad(int x,std::string nazwi, std::string nazwa) {kierownik=Pracownik_a(x,0,nazwi);imie=nazwa; return;}
         void druk(void) {if(kierownik.pusty()) return;else kierownik.druk();return;}
+        void pisz(std::fstream &out) {kierownik.pisz(out); return;}
         Naukowiec* toon(void) {return &kierownik;}
         std::string coto(void) {return imie;}
         std::string ktorzadzi(void) {return kierownik.coto();}
@@ -99,20 +102,11 @@ class Instytut : private std::vector<Pracownik_n>
         bool pusty(void) {if(dyrektor.pusty()) return true; return false;}
         void prom(std::string command);
         bool zwolnij(std::string command);
+        void pisz(std::fstream &out);
         Instytut(void) {dyrektor=Pracownik_a(0,3,"?");imie="?";return;}
         Instytut(std::string nazwa) {dyrektor=Pracownik_a(0,3,"?");imie=nazwa;return;}
         Instytut(std::string nazwa, bool d) {dyrektor=Pracownik_a(0,1,"?");imie=nazwa;return;}
         Instytut(int x, std::string nazwi, std::string nazwa) {dyrektor=Pracownik_a(x,3,nazwi);imie=nazwa;return;}
         ~Instytut(void) {this->clear();zastepcy.clear();zaklady.clear(); return;}
 };
-
-
-
-
-
-
-
-
-
-
 #endif

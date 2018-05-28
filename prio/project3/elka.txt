@@ -4,8 +4,8 @@ pro
 Zaremba Krzysztof
 Dziekanat
 prd
-pro
-Tatjewski Piotr
+dok
+Gajo Zbigniew
 Dziekanat
 prd
 dok
@@ -13,11 +13,11 @@ Paczesny Daniel
 Dziekanat
 prd
 pro
-Zielinski Cezary
+Tatjewski Piotr
 Dziekanat
 prd
-dok
-Gajo Zbigniew
+pro
+Zielinski Cezary
 +
 Instytut Automatyki i Informatyki Stosowanej
 din
@@ -32,53 +32,28 @@ zdi
 dok
 Traczyk Tomasz
 Instytut Automatyki i Informatyki Stosowanej
-prz
-pro
-Malinowski Krzysztof
-Instytut Automatyki i Informatyki Stosowanej
-prz
-pro
-Ogryczak Wlodzimierz
-Instytut Automatyki i Informatyki Stosowanej
-prz
-pro
-Pacut Andrzej
-Instytut Automatyki i Informatyki Stosowanej
-prz
-pro
-Sacha Krzysztof
-Instytut Automatyki i Informatyki Stosowanej
-prz
+kza
+Zaklad Automatyki i Inzynierii Oprogramowania
 pro
 Tatjewski Piotr
 Instytut Automatyki i Informatyki Stosowanej
-prz
+kza
+Zaklad Badan Operacyjnych i Systemowych
 pro
 Toczylowski Eugeniusz
 Instytut Automatyki i Informatyki Stosowanej
-prz
+kza
+Zaklad Sterowania Systemow
 pro
-Zielinski Cezary
-Instytut Automatyki i Informatyki Stosowanej
-pnz
-pro
-Kasprzak Wlodzimierz
-Instytut Automatyki i Informatyki Stosowanej
-pnz
-pro
-Niewiadomska-Szynkiewicz Ewa
-Instytut Automatyki i Informatyki Stosowanej
-pnz
-dhb
-Lawrynczuk Maciej
-Instytut Automatyki i Informatyki Stosowanej
-doc
-dok
-Traczyk Tomasz
+Malinowski Krzysztof
 Instytut Automatyki i Informatyki Stosowanej
 adu
 dok
 Arabas Piotr
+Instytut Automatyki i Informatyki Stosowanej
+asy
+mag
+Chaber Patryk
 Instytut Automatyki i Informatyki Stosowanej
 adu
 dok
@@ -87,6 +62,14 @@ Instytut Automatyki i Informatyki Stosowanej
 adu
 dok
 Granat Janusz
+Instytut Automatyki i Informatyki Stosowanej
+stw
+mag
+Gustowski Jerzy
+Instytut Automatyki i Informatyki Stosowanej
+stw
+dok
+Kaleta Mariusz
 Instytut Automatyki i Informatyki Stosowanej
 adu
 dok
@@ -99,6 +82,10 @@ Instytut Automatyki i Informatyki Stosowanej
 adu
 dok
 Karpowicz Michal
+Instytut Automatyki i Informatyki Stosowanej
+pnz
+pro
+Kasprzak Wlodzimierz
 Instytut Automatyki i Informatyki Stosowanej
 adu
 dok
@@ -120,9 +107,29 @@ adu
 dok
 Krzemieniowski Adam
 Instytut Automatyki i Informatyki Stosowanej
+pnz
+dhb
+Lawrynczuk Maciej
+Instytut Automatyki i Informatyki Stosowanej
+prz
+pro
+Malinowski Krzysztof
+Instytut Automatyki i Informatyki Stosowanej
 adu
 dok
 Marusak Piotr
+Instytut Automatyki i Informatyki Stosowanej
+pnz
+pro
+Niewiadomska-Szynkiewicz Ewa
+Instytut Automatyki i Informatyki Stosowanej
+prz
+pro
+Ogryczak Wlodzimierz
+Instytut Automatyki i Informatyki Stosowanej
+prz
+pro
+Pacut Andrzej
 Instytut Automatyki i Informatyki Stosowanej
 adu
 dok
@@ -140,13 +147,25 @@ adu
 dok
 Ratkowski Andrzej
 Instytut Automatyki i Informatyki Stosowanej
+prz
+pro
+Sacha Krzysztof
+Instytut Automatyki i Informatyki Stosowanej
 adu
 dok
 Sliwinski Tomasz
 Instytut Automatyki i Informatyki Stosowanej
+stw
+mag
+Sobczyk Jerzy
+Instytut Automatyki i Informatyki Stosowanej
 adu
 dhb
 Stachurski Andrzej
+Instytut Automatyki i Informatyki Stosowanej
+asy
+mag
+Stefanczyk Maciej
 Instytut Automatyki i Informatyki Stosowanej
 adu
 dok
@@ -156,56 +175,37 @@ adu
 dhb
 Szynkiewicz Wojciech
 Instytut Automatyki i Informatyki Stosowanej
+prz
+pro
+Tatjewski Piotr
+Instytut Automatyki i Informatyki Stosowanej
+prz
+pro
+Toczylowski Eugeniusz
+Instytut Automatyki i Informatyki Stosowanej
+doc
+dok
+Traczyk Tomasz
+Instytut Automatyki i Informatyki Stosowanej
 adu
 dok
 Winiarski Tomasz
-Instytut Automatyki i Informatyki Stosowanej
-adu
-dhb
-Zalewski Andrzej
-Instytut Automatyki i Informatyki Stosowanej
-adu
-dok
-Zoltowska Izabela
-Instytut Automatyki i Informatyki Stosowanej
-stw
-dok
-Kaleta Mariusz
-Instytut Automatyki i Informatyki Stosowanej
-stw
-mag
-Gustowski Jerzy
-Instytut Automatyki i Informatyki Stosowanej
-stw
-mag
-Sobczyk Jerzy
-Instytut Automatyki i Informatyki Stosowanej
-asy
-mag
-Chaber Patryk
 Instytut Automatyki i Informatyki Stosowanej
 asy
 mag
 Wojtulewicz Andrzej
 Instytut Automatyki i Informatyki Stosowanej
-asy
-mag
-Stefanczyk Maciej
+adu
+dhb
+Zalewski Andrzej
 Instytut Automatyki i Informatyki Stosowanej
-kza
-Zaklad Sterowania Systemow
+prz
 pro
-Malinowski Krzysztof
+Zielinski Cezary
 Instytut Automatyki i Informatyki Stosowanej
-kza
-Zaklad Automatyki i Inzynierii Oprogramowania
-pro
-Tatjewski Piotr
-Instytut Automatyki i Informatyki Stosowanej
-kza
-Zaklad Badan Operacyjnych i Systemowych
-pro
-Toczylowski Eugeniusz
+adu
+dok
+Zoltowska Izabela
 +
 Instytut Informatyki
 din
@@ -213,56 +213,20 @@ dhb
 Arabas Jaroslaw
 Instytut Informatyki
 zdi
-pro
-Muraszkiewicz Mieczyslaw
-Instytut Informatyki
-zdi
 mag
 Kozuszek Rajmund
 Instytut Informatyki
-prz
-pro
-Mulawka Jan
-Instytut Informatyki
-prz
-pro
-Rybinski Henryk
-Instytut Informatyki
-prz
-pro
-Sosnowksi Janusz
-Instytut Informatyki
-prz
-pro
-Rokita Przemyslaw
-Instytut Informatyki
-prz
-pro
-Kryszkiewicz Marzena
-Instytut Informatyki
-prz
+zdi
 pro
 Muraszkiewicz Mieczyslaw
-Instytut Informatyki
-pnz
-dhb
-Arabas Jaroslaw
-Instytut Informatyki
-pnz
-dhb
-Gawrysiak Piotr
-Instytut Informatyki
-pnz
-dhb
-Ras Zbigniew
-Instytut Informatyki
-doc
-dok
-Podraza Roman
 Instytut Informatyki
 adu
 dok
 Andruszkiewicz Piotr
+Instytut Informatyki
+pnz
+dhb
+Arabas Jaroslaw
 Instytut Informatyki
 adu
 dok
@@ -284,6 +248,10 @@ adu
 dok
 Cabaj Krzysztof
 Instytut Informatyki
+stw
+mag
+Chabko Krzysztof
+Instytut Informatyki
 adu
 dok
 Chrzaszcz Jerzy
@@ -299,6 +267,10 @@ Instytut Informatyki
 adu
 dok
 Ciecierski Konrad
+Instytut Informatyki
+stw
+dok
+Ciemski Andrzej
 Instytut Informatyki
 adu
 dok
@@ -320,6 +292,26 @@ adu
 dok
 Gambin Tomasz
 Instytut Informatyki
+asy
+dok
+Gawkowski Piotr
+Instytut Informatyki
+pnz
+dhb
+Gawrysiak Piotr
+Instytut Informatyki
+stw
+mag
+Grabski Waldemar
+Instytut Informatyki
+stw
+mag
+Gracki Krzysztof
+Instytut Informatyki
+asy
+mag
+Grochowski Konrad
+Instytut Informatyki
 adu
 dok
 Komorowski Jacek
@@ -332,6 +324,10 @@ adu
 dok
 Koperwas Jakub
 Instytut Informatyki
+stw
+mag
+Kowalski Henryk
+Instytut Informatyki
 adu
 dok
 Kozdrowski Stanislaw
@@ -340,13 +336,57 @@ adu
 dok
 Kozlowski Marek
 Instytut Informatyki
+stw
+mag
+Kozuszek Rajmund
+Instytut Informatyki
+prz
+pro
+Kryszkiewicz Marzena
+Instytut Informatyki
+asy
+mag
+Kusmirek Wiktor
+Instytut Informatyki
 adu
 dhb
 Martyn Tomasz
 Instytut Informatyki
+stw
+mag
+Mazur Grzegorz
+Instytut Informatyki
+prz
+pro
+Mulawka Jan
+Instytut Informatyki
+prz
+pro
+Muraszkiewicz Mieczyslaw
+Instytut Informatyki
+stw
+mag
+Myrcha Julian
+Instytut Informatyki
 adu
 dhb
 Nowak Robert
+Instytut Informatyki
+asy
+mag
+Oleszkiewicz Wiktor
+Instytut Informatyki
+stw
+mag
+Parewicz Piotr
+Instytut Informatyki
+stw
+mag
+Pawlowski Marek
+Instytut Informatyki
+doc
+dok
+Podraza Roman
 Instytut Informatyki
 adu
 dok
@@ -356,9 +396,25 @@ adu
 dok
 Raczkowski Jacek
 Instytut Informatyki
+stw
+mag
+Radziszewski Pawel
+Instytut Informatyki
+pnz
+dhb
+Ras Zbigniew
+Instytut Informatyki
+prz
+pro
+Rokita Przemyslaw
+Instytut Informatyki
 adu
 dok
 Rudowski Michal
+Instytut Informatyki
+prz
+pro
+Rybinski Henryk
 Instytut Informatyki
 adu
 dok
@@ -368,9 +424,21 @@ adu
 dok
 Rzeszut Janusz
 Instytut Informatyki
+stw
+mag
+Salata Piotr
+Instytut Informatyki
 adu
 dok
 Skonieczny Lukasz
+Instytut Informatyki
+prz
+pro
+Sosnowksi Janusz
+Instytut Informatyki
+stw
+mag
+Szymanski Zbigniew
 Instytut Informatyki
 adu
 dok
@@ -403,72 +471,1062 @@ Instytut Informatyki
 adu
 dok
 Zbikowski Kamil
-Instytut Informatyki
++
+Instytut Mikroelektroniki i Optoelektroniki
+din
+pro
+Malinowski Michal
+Instytut Mikroelektroniki i Optoelektroniki
+zdi
+pro
+Lukasiak Lidia
+Instytut Mikroelektroniki i Optoelektroniki
+kza
+Zaklad Fotoniki Obrazowej i Mikrofalowej
+pro
+Woznicki Jerzy
+Instytut Mikroelektroniki i Optoelektroniki
+kza
+Zaklad Metod Projektowania w Mikroelektronice
+pro
+Pfitzner Andrzej
+Instytut Mikroelektroniki i Optoelektroniki
+kza
+Zaklad Optoelektroniki
+pro
+Pawel Szczepanski
+Instytut Mikroelektroniki i Optoelektroniki
+kza
+Zaklad Przyrzadow Mikroelektroniki i Nanoelektroniki
+pro
+Beck Romuald B.
+Instytut Mikroelektroniki i Optoelektroniki
+kza
+Zaklad Technologii Mikrosystemow i Materialow Elektronicznych
+pro
+Szmidt Jan
+Instytut Mikroelektroniki i Optoelektroniki
+adu
+dok
+Baszun Mikolaj
+Instytut Mikroelektroniki i Optoelektroniki
+prz
+pro
+Beck Romuald B.
+Instytut Mikroelektroniki i Optoelektroniki
+adu
+dhb
+Borecki Michal
+Instytut Mikroelektroniki i Optoelektroniki
+adu
+dok
+Borejko Tomek
+Instytut Mikroelektroniki i Optoelektroniki
+adu
+dok
+Dawidczyk Jaroslaw
+Instytut Mikroelektroniki i Optoelektroniki
+adu
+dok
+Firek Piotr
+Instytut Mikroelektroniki i Optoelektroniki
+adu
+dok
+Garbat Piotr
+Instytut Mikroelektroniki i Optoelektroniki
+stw
+dok
+Gibki Jan
+Instytut Mikroelektroniki i Optoelektroniki
+prz
+pro
+Jakubowski Andrzej
+Instytut Mikroelektroniki i Optoelektroniki
+adu
+dok
+Janczyk Grzegorz
+Instytut Mikroelektroniki i Optoelektroniki
+asy
+mag
+Jasinski Jakub
+Instytut Mikroelektroniki i Optoelektroniki
+adu
+dok
+Jaworski Zbigniew
+Instytut Mikroelektroniki i Optoelektroniki
+adu
+dok
+Kaczkan Marcin
+Instytut Mikroelektroniki i Optoelektroniki
+adu
+dok
+Kalenik Jerzy
+Instytut Mikroelektroniki i Optoelektroniki
+adu
+dok
+Kasprowicz Dominik
+Instytut Mikroelektroniki i Optoelektroniki
+adu
+dok
+Kesik Jerzy
+Instytut Mikroelektroniki i Optoelektroniki
+pnz
+dhb
+Kisiel Ryszard
+Instytut Mikroelektroniki i Optoelektroniki
+prz
+pro
+Krupka Jerzy
+Instytut Mikroelektroniki i Optoelektroniki
+prz
+pro
+Kuzmicz Wieslaw
+Instytut Mikroelektroniki i Optoelektroniki
+asy
+mag
+Luczyk Arkadiusz
+Instytut Mikroelektroniki i Optoelektroniki
+pnz
+dhb
+Lukasiak Lidia
+Instytut Mikroelektroniki i Optoelektroniki
+adu
+dok
+Madziar Krzysztof
+Instytut Mikroelektroniki i Optoelektroniki
+prz
+pro
+Majkusiak Bogdan
+Instytut Mikroelektroniki i Optoelektroniki
+prz
+pro
+Malinowski Michal
+Instytut Mikroelektroniki i Optoelektroniki
+asy
+mag
+Marcinek Krzysztof
+Instytut Mikroelektroniki i Optoelektroniki
+adu
+dok
+Mazurak Andrzej
+Instytut Mikroelektroniki i Optoelektroniki
+adu
+dok
+Mossakowska-Wyszynska Agnieszka
+Instytut Mikroelektroniki i Optoelektroniki
+asy
+mag
+Mroczowski Mateusz
+Instytut Mikroelektroniki i Optoelektroniki
+adu
+dok
+Mroczynski Robert
+Instytut Mikroelektroniki i Optoelektroniki
+asy
+mag
+Narczyk Pawel
+Instytut Mikroelektroniki i Optoelektroniki
+adu
+dok
+Niewinski Marek
+Instytut Mikroelektroniki i Optoelektroniki
+pnz
+dhb
+Parka Janusz
+Instytut Mikroelektroniki i Optoelektroniki
+pnz
+dhb
+Parka janusz
+Instytut Mikroelektroniki i Optoelektroniki
+pnz
+dhb
+Pfitzner Andrzej
+Instytut Mikroelektroniki i Optoelektroniki
+adu
+dok
+Pietruszko Stanislaw
+Instytut Mikroelektroniki i Optoelektroniki
+adu
+dok
+Pioro Zbigniew
+Instytut Mikroelektroniki i Optoelektroniki
+adu
+dok
+Piotrowski Jerzy
+Instytut Mikroelektroniki i Optoelektroniki
+pnz
+pro
+Piramidowicz Ryszard
+Instytut Mikroelektroniki i Optoelektroniki
+doc
+dok
+Piwowarska Elzbieta
+Instytut Mikroelektroniki i Optoelektroniki
+pnz
+dhb
+Pleskacz Witold
+Instytut Mikroelektroniki i Optoelektroniki
+stw
+dok
+Siennicki Antoni
+Instytut Mikroelektroniki i Optoelektroniki
+asy
+mag
+Siwiec Krzysztof
+Instytut Mikroelektroniki i Optoelektroniki
+stw
+mag
+Skulski Jerzy
+Instytut Mikroelektroniki i Optoelektroniki
+adu
+dhb
+Smietana Mateusz
+Instytut Mikroelektroniki i Optoelektroniki
+adu
+dok
+Sochacki Mariusz
+Instytut Mikroelektroniki i Optoelektroniki
+adu
+dok
+Sutkowski Marek
+Instytut Mikroelektroniki i Optoelektroniki
+prz
+pro
+Szczepanski Pawel
+Instytut Mikroelektroniki i Optoelektroniki
+prz
+pro
+Szmidt Jan
+Instytut Mikroelektroniki i Optoelektroniki
+adu
+dok
+Szostak Slawomir
+Instytut Mikroelektroniki i Optoelektroniki
+stw
+dok
+Szymanska Agnieszka
+Instytut Mikroelektroniki i Optoelektroniki
+adu
+dok
+Walczak Jakub
+Instytut Mikroelektroniki i Optoelektroniki
+adu
+dok
+Warda Piotr
+Instytut Mikroelektroniki i Optoelektroniki
+adu
+dok
+Werbowy Aleksander
+Instytut Mikroelektroniki i Optoelektroniki
+adu
+dok
+Wielgus Andrzej
+Instytut Mikroelektroniki i Optoelektroniki
+adu
+dok
+Witonski Piotr
+Instytut Mikroelektroniki i Optoelektroniki
+adu
+dok
+Wojtasik Adam
+Instytut Mikroelektroniki i Optoelektroniki
+prz
+pro
+Woznicki Jerzy
+Instytut Mikroelektroniki i Optoelektroniki
+adu
+dok
+Zareba Agnieszka
+Instytut Mikroelektroniki i Optoelektroniki
+adu
+dok
+Zawadzka-Tyszka Anna
++
+Instytut Radioelektroniki i Technik Multimedialnych
+din
+pro
+Wieslaw Winiecki
+Instytut Radioelektroniki i Technik Multimedialnych
+zdi
+dok
+Cichocki Jacek
+Instytut Radioelektroniki i Technik Multimedialnych
+zdi
+pro
+Yashchyshyn Yevhen
+Instytut Radioelektroniki i Technik Multimedialnych
+kza
+Zaklad Elektroakustyki
+pro
+Zera Jan
+Instytut Radioelektroniki i Technik Multimedialnych
+kza
+Zaklad Elektroniki Jadrowej i Medycznej
+dhb
+Marzec Janusz
+Instytut Radioelektroniki i Technik Multimedialnych
+kza
+Zaklad Radiokomnikacji
+pro
+Modelski Jozef
+Instytut Radioelektroniki i Technik Multimedialnych
+kza
+Zaklad Techniki Mikrofalowej
+dhb
+Wojtasiak Wojciech
+Instytut Radioelektroniki i Technik Multimedialnych
+kza
+Zaklad Telewizji
+pro
+Skarbek Wladyslaw
+Instytut Radioelektroniki i Technik Multimedialnych
+adu
+eng
+Bajurko Pawel
+Instytut Radioelektroniki i Technik Multimedialnych
+pnz
+dhb
+Bilski Piotr
+Instytut Radioelektroniki i Technik Multimedialnych
+stw
+dok
+Bobinski Piotr
+Instytut Radioelektroniki i Technik Multimedialnych
+asy
+mag
+Bogdan Grzegorz
+Instytut Radioelektroniki i Technik Multimedialnych
+pnz
+dhb
+Bogorodzki Piotr
+Instytut Radioelektroniki i Technik Multimedialnych
+stw
+dok
+Brzeski Piotr
+Instytut Radioelektroniki i Technik Multimedialnych
+adu
+dok
+Buchowicz Andrzej
+Instytut Radioelektroniki i Technik Multimedialnych
+stw
+mag
+Chacinski Henryk
+Instytut Radioelektroniki i Technik Multimedialnych
+doc
+dok
+Cichocki Jacek
+Instytut Radioelektroniki i Technik Multimedialnych
+adu
+dok
+Derzakowski Krzysztof
+Instytut Radioelektroniki i Technik Multimedialnych
+asy
+mag
+Djaja-Josko Vitomir
+Instytut Radioelektroniki i Technik Multimedialnych
+adu
+dok
+Domanski Grzegorz
+Instytut Radioelektroniki i Technik Multimedialnych
+adu
+dok
+Dziewiecki Michal
+Instytut Radioelektroniki i Technik Multimedialnych
+adu
+dok
+Galinski Grzegorz
+Instytut Radioelektroniki i Technik Multimedialnych
+asy
+mag
+Godziszewski Konrad
+Instytut Radioelektroniki i Technik Multimedialnych
+adu
+dok
+Gryglewski Daniel
+Instytut Radioelektroniki i Technik Multimedialnych
+adu
+dok
+Ignasiak Krystian
+Instytut Radioelektroniki i Technik Multimedialnych
+stw
+mag
+Jamrogewicz Tomasz
+Instytut Radioelektroniki i Technik Multimedialnych
+pnz
+pro
+Jaszczyszyn Eugeniusz
+Instytut Radioelektroniki i Technik Multimedialnych
+stw
+dok
+Keller Tomasz
+Instytut Radioelektroniki i Technik Multimedialnych
+adu
+dok
+Kolakowski Jerzy
+Instytut Radioelektroniki i Technik Multimedialnych
+adu
+dok
+Konarzewski Bogumil
+Instytut Radioelektroniki i Technik Multimedialnych
+adu
+dok
+Kopyt Pawel
+Instytut Radioelektroniki i Technik Multimedialnych
+adu
+dok
+Korpas Przemyslaw
+Instytut Radioelektroniki i Technik Multimedialnych
+adu
+dok
+Kozlowski Sebastian
+Instytut Radioelektroniki i Technik Multimedialnych
+pnz
+pro
+Krawczyk Marek
+Instytut Radioelektroniki i Technik Multimedialnych
+asy
+mag
+Krysicki Mateusz
+Instytut Radioelektroniki i Technik Multimedialnych
+asy
+mag
+Kryszyn Jacen
+Instytut Radioelektroniki i Technik Multimedialnych
+stw
+mag
+Krzymien Tomasz
+Instytut Radioelektroniki i Technik Multimedialnych
+adu
+dok
+Kurek Krzysztof
+Instytut Radioelektroniki i Technik Multimedialnych
 asy
 dok
-Gawkowski Piotr
-Instytut Informatyki
+Kurjata Robert
+Instytut Radioelektroniki i Technik Multimedialnych
+adu
+dok
+Lewandowski Marcin
+Instytut Radioelektroniki i Technik Multimedialnych
+asy
+dok
+Lukaszewski Robert
+Instytut Radioelektroniki i Technik Multimedialnych
+adu
+dok
+MakarewiczGrzegorz
+Instytut Radioelektroniki i Technik Multimedialnych
+pnz
+dhb
+Marzec Janusz
+Instytut Radioelektroniki i Technik Multimedialnych
+adu
+dok
+Miazga Przemyslaw
+Instytut Radioelektroniki i Technik Multimedialnych
+adu
+dok
+Miekina Andrzej
+Instytut Radioelektroniki i Technik Multimedialnych
+adu
+dok
+Mikolajewski Miroslaw
+Instytut Radioelektroniki i Technik Multimedialnych
+prz
+pro
+Modelski Jozef
+Instytut Radioelektroniki i Technik Multimedialnych
+prz
+pro
+Morawski Roman
+Instytut Radioelektroniki i Technik Multimedialnych
+adu
+dok
+Mroczek Krzysztof
+Instytut Radioelektroniki i Technik Multimedialnych
+adu
+dok
+Naruniec Jacek
+Instytut Radioelektroniki i Technik Multimedialnych
 asy
 mag
-Grochowski Konrad
-Instytut Informatyki
-asy
-mag
-Kusmirek Wiktor
-Instytut Informatyki
-asy
-mag
-Oleszkiewicz Wiktor
-Instytut Informatyki
+Nyzovets Denys
+Instytut Radioelektroniki i Technik Multimedialnych
 stw
 mag
-Chabko Krzysztof
-Instytut Informatyki
+Olszewski Tomasz
+Instytut Radioelektroniki i Technik Multimedialnych
+asy
+mag
+Orzel Jaroslaw
+Instytut Radioelektroniki i Technik Multimedialnych
+pnz
+dhb
+Pastuszak Grzegorz
+Instytut Radioelektroniki i Technik Multimedialnych
+adu
+dok
+Piatkowska-Janko Ewa
+Instytut Radioelektroniki i Technik Multimedialnych
+asy
+mag
+Pietrzak Agnieszka
+Instytut Radioelektroniki i Technik Multimedialnych
+adu
+dok
+Podgorski Edmund Andrzej
+Instytut Radioelektroniki i Technik Multimedialnych
+adu
+dok
+Radomski Dariusz
+Instytut Radioelektroniki i Technik Multimedialnych
+prz
+pro
+Rosloniec Stanislaw
+Instytut Radioelektroniki i Technik Multimedialnych
+adu
+dok
+Rosolowski Dawid
+Instytut Radioelektroniki i Technik Multimedialnych
+adu
+dok
+Rubel Tymon
+Instytut Radioelektroniki i Technik Multimedialnych
+adu
+mag
+Rychter Andrzej
+Instytut Radioelektroniki i Technik Multimedialnych
+adu
+dhb
+Salski Bartlomiej
+Instytut Radioelektroniki i Technik Multimedialnych
+prz
+pro
+Skarbek Wladyslaw
+Instytut Radioelektroniki i Technik Multimedialnych
+pnz
+dhb
+Smolik Waldemar
+Instytut Radioelektroniki i Technik Multimedialnych
+adu
+dhb
+Snopek Kajetana
+Instytut Radioelektroniki i Technik Multimedialnych
+adu
+dok
+Snypiewski Maciej
+Instytut Radioelektroniki i Technik Multimedialnych
+adu
+dok
+Wojciech Kazubski
+Instytut Radioelektroniki i Technik Multimedialnych
+pnz
+dhb
+Wojtasiak Wojciech
+Instytut Radioelektroniki i Technik Multimedialnych
+prz
+pro
+Zaremba Krzysztof
+Instytut Radioelektroniki i Technik Multimedialnych
+pnz
+dhb
+Zera Jan
+Instytut Radioelektroniki i Technik Multimedialnych
+asy
+mag
+Ziemibicki Marcin
++
+Instytut Systemow Elektronicznych
+din
+dhb
+Starecki Tomasz
+Instytut Systemow Elektronicznych
+zdi
+dok
+Czuba Krzysztof
+Instytut Systemow Elektronicznych
+zdi
+dok
+Wieczorek Piotr Z.
+Instytut Systemow Elektronicznych
+kza
+Zaklad Mikrosystemow i Systemow Pomiarowych
+dhb
+Weremczuk Jerzy
+Instytut Systemow Elektronicznych
+kza
+Zaklad Teorii Obwodow i Sygnalow
+dhb
+Nalecz Marek
+Instytut Systemow Elektronicznych
+kza
+Zaklad Ukladow i Aparutury Mikrofalowej
+dhb
+Abramowicz Adam
+Instytut Systemow Elektronicznych
+kza
+Zaklad Ukladow i Systemow Elektronicznych
+dhb
+Opalski Leszek
+Instytut Systemow Elektronicznych
+pnz
+dhb
+Abramowicz Adam
+Instytut Systemow Elektronicznych
+pnz
+dhb
+Adamski Tomasz
+Instytut Systemow Elektronicznych
+adu
+dok
+Antoszkiewicz Krzysztof
+Instytut Systemow Elektronicznych
+adu
+dok
+Barmuta Pawel
+Instytut Systemow Elektronicznych
+asy
+mag
+Bohdanowicz Michal
+Instytut Systemow Elektronicznych
+adu
+dok
+Burd aleksander
+Instytut Systemow Elektronicznych
+asy
+mag
+Cieszewski Radoslaw
+Instytut Systemow Elektronicznych
+adu
+dok
+Czuba Krzysztof
+Instytut Systemow Elektronicznych
+adu
+dok
+Dusza Jacek
+Instytut Systemow Elektronicznych
+adu
+dok
+Edward Sliwa
+Instytut Systemow Elektronicznych
+adu
+dok
+Gajo Zbigniew
+Instytut Systemow Elektronicznych
+asy
+mag
+Gambrych Jacek
+Instytut Systemow Elektronicznych
+adu
+dok
+Gasior Pawel
+Instytut Systemow Elektronicznych
+adu
+dok
+Golofit Krzysztof
+Instytut Systemow Elektronicznych
+asy
+mag
+Gromek Damian
+Instytut Systemow Elektronicznych
+asy
+mag
+Habib Bou Samer
+Instytut Systemow Elektronicznych
+adu
+dok
+Jedrachowicz Jerzy
+Instytut Systemow Elektronicznych
+adu
+dhb
+Jedrzejewski Kazimierz
+Instytut Systemow Elektronicznych
+adu
+dhb
+Jedrzejewski Konrad
+Instytut Systemow Elektronicznych
+adu
+dok
+Kasprowicz Grzegorz
+Instytut Systemow Elektronicznych
+asy
+mag
+Krawczyk Rafal
+Instytut Systemow Elektronicznych
+asy
+mag
+Krysik Piotr
+Instytut Systemow Elektronicznych
+pnz
+pro
+Kulpa Krzysztof
+Instytut Systemow Elektronicznych
+adu
+dok
+Lewandowski Arkadiusz
+Instytut Systemow Elektronicznych
+adu
+dok
+Linczuk Maciej
+Instytut Systemow Elektronicznych
+pnz
+dhb
+Malanowski Mateusz
+Instytut Systemow Elektronicznych
+adu
+dok
+Malkiewicz Lukasz
+Instytut Systemow Elektronicznych
+adu
+dok
+Markowski Konrad
+Instytut Systemow Elektronicznych
+asy
+mag
+Marzecki Michal
+Instytut Systemow Elektronicznych
+asy
+dok
+Maslikowski Lukasz
+Instytut Systemow Elektronicznych
+adu
+dok
+Mazurek Gustaw
+Instytut Systemow Elektronicznych
+pnz
+dhb
+Misiurewicz Jacek
+Instytut Systemow Elektronicznych
+pnz
+dhb
+Nalecz Marek
+Instytut Systemow Elektronicznych
+adu
+dok
+Nieradka Grzegorz
+Instytut Systemow Elektronicznych
+pnz
+dhb
+Ogrodzki Jan
+Instytut Systemow Elektronicznych
+adu
+dok
+Opalska Katarzyna
+Instytut Systemow Elektronicznych
+pnz
+dhb
+Opalski Leszek
+Instytut Systemow Elektronicznych
+adu
+dhb
+Osuch Tomasz
+Instytut Systemow Elektronicznych
+adu
+dok
+Paczesny Daniel
+Instytut Systemow Elektronicznych
+pnz
+dhb
+Pankamin Grzegorz
+Instytut Systemow Elektronicznych
+pnz
+dhb
+Platonow Anatolij
+Instytut Systemow Elektronicznych
+pnz
+dhb
+Pozniak Krzysztof
+Instytut Systemow Elektronicznych
+stw
+mag
+Radtke Maciej
+Instytut Systemow Elektronicznych
+pnz
+pro
+Romaniuk Ryszard
+Instytut Systemow Elektronicznych
+asy
+dok
+Rupniewski Marek
+Instytut Systemow Elektronicznych
+asy
+dok
+Rytel-Andrianik Rafal
+Instytut Systemow Elektronicznych
+adu
+dhb
+Samczynski Piotr
+Instytut Systemow Elektronicznych
+stw
+mag
+Sochon Jacek
+Instytut Systemow Elektronicznych
+pnz
+dhb
+Starecki Tomasz
+Instytut Systemow Elektronicznych
+adu
+dok
+Suchenek Mariusz
+Instytut Systemow Elektronicznych
+adu
+dok
+Tarapata Grzegorz
+Instytut Systemow Elektronicznych
+adu
+dok
+Wawrzyniak Zbigniew
+Instytut Systemow Elektronicznych
+pnz
+dhb
+Weremczuk Jerzy
+Instytut Systemow Elektronicznych
+adu
+dhb
+Wiatr Wojciech
+Instytut Systemow Elektronicznych
+adu
+dok
+Wieczorek Piotr
+Instytut Systemow Elektronicznych
+asy
+mag
+Wojenski Andrzej
+Instytut Systemow Elektronicznych
+adu
+dok
+Zabolotny Wojciech
+Instytut Systemow Elektronicznych
+asy
+mag
+Zaitsev Ievgen
++
+Instytut Telekomunikacji
+din
+dhb
+Siuzdak Jerzy
+Instytut Telekomunikacji
+zdi
+dok
+Kula Slawomir
+Instytut Telekomunikacji
+zdi
+dok
+Slominski Miroslaw
+Instytut Telekomunikacji
+kza
+Zaklad Cyberbezpieczenstwa
+dhb
+Szczypiorski Krzysztof
+Instytut Telekomunikacji
+kza
+Zaklad Sieci i Uslug Teleinformatycznych
+dhb
+Tomaszewski Artur
+Instytut Telekomunikacji
+kza
+Zaklad Systemow Telekomunikacyjnych
+dhb
+Perlicki Krzysztof
+Instytut Telekomunikacji
+kza
+Zespol Architektur i Zastosowan Internetu
+pro
+Burakowski Wojciech
+Instytut Telekomunikacji
 stw
 dok
-Ciemski Andrzej
-Instytut Informatyki
+Bak Andrzej
+Instytut Telekomunikacji
+adu
+dhb
+Batalla Mongay Jordi
+Instytut Telekomunikacji
+adu
+dhb
+Beben Andrzej
+Instytut Telekomunikacji
+adu
+dok
+Brzezinski Krzysztof
+Instytut Telekomunikacji
+prz
+pro
+Burakowski Wojciech
+Instytut Telekomunikacji
+doc
+dok
+Bursztynowski Dariusz
+Instytut Telekomunikacji
+asy
+mag
+Chorchos Lukasz
+Instytut Telekomunikacji
+adu
+dok
+Czarnecki Tomasz
+Instytut Telekomunikacji
+pnz
+pro
+Dabrowski Andrzej
+Instytut Telekomunikacji
+adu
+dok
+Domaszewicz Jaroslaw
+Instytut Telekomunikacji
+adu
+dok
+Donado Solano Fernando
+Instytut Telekomunikacji
+pnz
+dhb
+Dymarski Przemyslaw
+Instytut Telekomunikacji
+stw
+dok
+Gajowniczek Piotr
+Instytut Telekomunikacji
 stw
 mag
-Grabski Waldemar
-Instytut Informatyki
+Golanski Marcin
+Instytut Telekomunikacji
+pnz
+pro
+Jakubiak Andrzej
+Instytut Telekomunikacji
+adu
+dhb
+Janicki Artur
+Instytut Telekomunikacji
+stw
+dok
+Jarocinski Michal
+Instytut Telekomunikacji
+pnz
+pro
+Kotulski Zbigniew
+Instytut Telekomunikacji
+adu
+dok
+Kowalczyk Marcin
+Instytut Telekomunikacji
+pnz
+pro
+Krasniewski Andrzej
+Instytut Telekomunikacji
+adu
+dok
+Kuklinski Slawomir
+Instytut Telekomunikacji
+doc
+dok
+Kula Slawomir
+Instytut Telekomunikacji
+asy
+mag
+Kulakowski Henryk
+Instytut Telekomunikacji
+prz
+pro
+Lubacz Jozef
+Instytut Telekomunikacji
+adu
+dok
+Maksymiuk Lukasz
+Instytut Telekomunikacji
+adu
+dhb
+Mazurczyk Wojciech
+Instytut Telekomunikacji
+adu
+dok
+Mycek Mariusz
+Instytut Telekomunikacji
 stw
 mag
-Gracki Krzysztof
-Instytut Informatyki
+Obarska Ewa
+Instytut Telekomunikacji
 stw
 mag
-Kowalski Henryk
-Instytut Informatyki
+Ojrzenska-Wojter Danuta
+Instytut Telekomunikacji
+pnz
+dhb
+Perlicki Krzysztof
+Instytut Telekomunikacji
+prz
+pro
+Pioro Michal
+Instytut Telekomunikacji
 stw
 mag
-Kozuszek Rajmund
-Instytut Informatyki
+Pruszkowski Aleksander
+Instytut Telekomunikacji
+adu
+dhb
+Rawski Mariusz
+Instytut Telekomunikacji
+adu
+dok
+Sapiecha Piotr
+Instytut Telekomunikacji
+adu
+dok
+Schoeneich Radoslaw
+Instytut Telekomunikacji
+pnz
+pro
+Siuzdak Jerzy
+Instytut Telekomunikacji
+doc
+dok
+Slominski Miroslaw
+Instytut Telekomunikacji
+asy
+mag
+Sosnowski Maciej
+Instytut Telekomunikacji
+doc
+dok
+Sredniawa Marek
+Instytut Telekomunikacji
+adu
+dhb
+Stepniak Grzegorz
+Instytut Telekomunikacji
+pnz
+dhb
+Szczypiorski Krzysztof
+Instytut Telekomunikacji
+adu
+dok
+Szotkowski Piotr
+Instytut Telekomunikacji
+adu
+dhb
+Tarasiuk Halina
+Instytut Telekomunikacji
+adu
+dok
+Tomaszewicz Pawel
+Instytut Telekomunikacji
+adu
+dhb
+Tomaszewski Artur
+Instytut Telekomunikacji
+adu
+dhb
+Turkiewicz Jaroslaw
+Instytut Telekomunikacji
 stw
 mag
-Mazur Grzegorz
-Instytut Informatyki
-stw
+Wlostowski Krzysztof
+Instytut Telekomunikacji
+adu
+dok
+Zotkiewicz Mateusz
+Instytut Telekomunikacji
+asy
 mag
-Myrcha Julian
-Instytut Informatyki
-stw
-mag
-Parewicz Piotr
-Instytut Informatyki
-stw
-mag
-Pawlowski Marek
-Instytut Informatyki
-stw
-mag
-Radziszewski Pawel
-Instytut Informatyki
-stw
-mag
-Salata Piotr
-Instytut Informatyki
-stw
-mag
-Szymanski Zbigniew
+Zych Piotr
 exit

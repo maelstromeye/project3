@@ -2,9 +2,10 @@
 using namespace std;
 void klik(void)
 {
-    string temp;
+    string command;
     cout<<"Kliknij enter aby kontynuowac."<<endl;
-    getline(cin,temp);
+    getline(cin,command);
+    if(command=="exit") throw 1;
     system("CLS");
 }
 int stop(istream &inp, bool d)
@@ -44,6 +45,7 @@ void Instytut::prom(string command)
     {
         if(command==zastepcy[i].coto()) break;
     }
+    if(i==zastepcy.size()) return;
     dyrektor=zastepcy[i];
     zastepcy.erase(zastepcy.begin()+i);
     return;
@@ -201,7 +203,7 @@ void Instytut::druk(void)
     if(imie=="Dziekanat") return;
     cout<<"Pracownicy naukowi to:"<<endl<<endl;
     for(i=0;i<this->size();this->at(i).druk(),cout<<endl,i++);
-    cout<<"Zaklady i ich kierownicy to:"<<endl<<endl;
+    if(!(zaklady.empty())) cout<<"Zaklady i ich kierownicy to:"<<endl<<endl;
     for(i=0;i<zaklady.size();i++)
     {
         cout<<"W zakladzie:"<<endl<<zaklady[i].coto()<<endl<<endl;
@@ -415,4 +417,137 @@ void Instytut::dodaj(istream &inp, bool d)
         return;
     }
 }
-
+void Pracownik_n::pisz(fstream &out)
+{
+    int i;
+    switch(praca)
+    {
+        case lkt:
+            out<<"lkt"<<endl;
+            break;
+        case asy:
+            out<<"asy"<<endl;
+            break;
+        case wyk:
+            out<<"wyk"<<endl;
+            break;
+        case adu:
+            out<<"adu"<<endl;
+            break;
+        case stw:
+            out<<"stw"<<endl;
+            break;
+        case pnz:
+            out<<"pnz"<<endl;
+            break;
+        case doc:
+            out<<"doc"<<endl;
+            break;
+        case prz:
+            out<<"prz"<<endl;
+            break;
+        default:
+            break;
+    }
+    switch(stop)
+    {
+        case non:
+            out<<"non"<<endl;
+            break;
+        case lic:
+            out<<"lic"<<endl;
+            break;
+        case eng:
+            out<<"eng"<<endl;
+            break;
+        case mag:
+            out<<"mag"<<endl;
+            break;
+        case dok:
+            out<<"dok"<<endl;
+            break;
+        case dhb:
+            out<<"dhb"<<endl;
+            break;
+        case pro:
+            out<<"pro"<<endl;
+            break;
+        default:
+            break;
+    }
+    out<<imie<<endl;
+    return;
+}
+void Pracownik_a::pisz(fstream &out)
+{
+    switch(praca)
+    {
+        case kza:
+            break;
+        case dzi:
+            out<<"dzi"<<endl;
+            break;
+        case prd:
+            out<<"prd"<<endl;
+            break;
+        case din:
+            out<<"din"<<endl;
+            break;
+        case zdi:
+            out<<"zdi"<<endl;
+            break;
+        default:
+            break;
+    }
+    switch(stop)
+    {
+        case non:
+            out<<"non"<<endl;
+            break;
+        case lic:
+            out<<"lic"<<endl;
+            break;
+        case eng:
+            out<<"eng"<<endl;
+            break;
+        case mag:
+            out<<"mag"<<endl;
+            break;
+        case dok:
+            out<<"dok"<<endl;
+            break;
+        case dhb:
+            out<<"dhb"<<endl;
+            break;
+        case pro:
+            out<<"pro"<<endl;
+            break;
+        default:
+            break;
+    }
+    out<<imie<<endl;
+    return;
+}
+void Instytut::pisz(fstream &out)
+{
+    int i;
+    if(this->coto()!="Dziekanat") out<<"+"<<endl;
+    out<<imie<<endl;
+    dyrektor.pisz(out);
+    for(i=0;i<zastepcy.size();i++)
+    {
+        out<<imie<<endl;
+        zastepcy[i].pisz(out);
+    }
+    for(i=0;i<zaklady.size();i++)
+    {
+        out<<imie<<endl<<"kza"<<endl<<zaklady[i].coto()<<endl;
+        zaklady[i].pisz(out);
+    }
+    for(i=0;i<this->size();i++)
+    {
+        out<<imie<<endl;
+        this->at(i).pisz(out);
+    }
+    return;
+}
