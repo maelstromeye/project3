@@ -1,0 +1,12 @@
+all: Wydzial run clean
+
+Wydzial: main.o klasy.o
+	g++ main.o klasy.o -o Wydzial
+main.o: main.cpp
+	g++ -c main.cpp
+klasy.o: klasy.cpp
+	g++ -c klasy.cpp
+clean:
+	rm -rf *.o
+run:
+	./Wydzial	
