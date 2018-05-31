@@ -1,11 +1,15 @@
 all: Wydzial run clean
 
-Wydzial: main.o klasy.o
-	g++ main.o klasy.o -o Wydzial
+Wydzial: main.o pracownicy.o zaklad.o Instytut.o
+	g++ main.o pracownicy.o zaklad.o Instytut.o -o Wydzial
 main.o: main.cpp
 	g++ -c main.cpp
-klasy.o: klasy.cpp
-	g++ -c klasy.cpp
+pracownicy.o: pracownicy.cpp
+	g++ -c pracownicy.cpp
+zaklad.o: zaklad.cpp
+	g++ -c zaklad.cpp
+Instytut.o: Instytut.cpp
+	g++ -c Instytut.cpp
 clean:
 	rm -rf *.o
 run:

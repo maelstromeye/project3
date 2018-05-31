@@ -1,29 +1,19 @@
-#include "klasy.h"
+#include "pracownicy.h"
+#include "Instytut.h"
+#include "zaklad.h"
 using namespace std;
-
 void pomoc(void);   //wyswietl instrukcje
-
 void pokaz(vector<Instytut> &wydzial);  //wyswietl zawartosc pamieci
-
 void klik(void);    //kaze uzytkownikowi kliknac aby kontynuowac
-
 void operacja(vector<Instytut> &wydzial, int n);    //operacja wymagajaca uzycia pracownikow
-
 template <typename type>
 void sortuj(vector<type> &stringi); //sortowanie alfabetyczne przez proste wybieranie
-
 bool dodaj(vector<Instytut> &wydzial, istream& inp, bool d);    //dodawanie nowego pracownika (d - czy wyswietlac klik() przy funkcji)
-
 int wykryj(string command); //determinuje jaka komenda byla wpisana
-
 int stop(istream & inp, bool d);    //determinuje jaki stopien zostal zostal wpisany (definicja w klasy.cpp)
-
 int praca(string command);  //determinuje jaka praca zostala wpisana (definicja w klasy.cpp)
-
 Naukowiec * lokalizuj(Instytut &instytut, bool d);  //inicjalizuje znalezienie pracownika w instytucie (d==true - naukowego, d==false - administracyjnego)
-
 Instytut * znajdz(vector<Instytut> &wydzial);   //znajduje instytut na wydziale
-
 int main()
 {
     vector<Instytut> wydzial;   //glowny vector danych
@@ -175,6 +165,39 @@ int wykryj(string command)  //jaka komenda
     return 0;
 }
 
+int stop(istream &inp, bool d)  //jaki ma stopien ktos, d - czy wyswietlac kliki
+{
+    string command;
+    cout<<"Wpisz profesje naukowa"<<endl<<"non - brak dyplomu"<<endl<<"lic - licencjat"<<endl<<"eng - inzynier"<<endl<<"mag - magister"<<endl<<"dok - doktor"<<endl<<"dhb - doktor habilitowany"<<endl<<"pro - profesor"<<endl;
+    getline(inp,command,'\n');
+    system("CLS");
+    if(command=="exit") throw 1;
+    if(command=="non") return 0;
+    if(command=="lic") return 1;
+    if(command=="eng") return 2;
+    if(command=="mag") return 3;
+    if(command=="dok") return 4;
+    if(command=="dhb") return 5;
+    if(command=="pro") return 6;
+    cout<<"Nieznany stopien. Powtorz krok."<<endl;
+    if(d) klik();
+    return -1;
+}
+
+int praca(string command) //jaka ma prace naukowa
+{
+    if(command=="exit") throw 1;
+    if(command=="lkt") return 0;
+    if(command=="asy") return 1;
+    if(command=="wyk") return 2;
+    if(command=="adu") return 3;
+    if(command=="stw") return 4;
+    if(command=="pnz") return 5;
+    if(command=="doc") return 6;
+    if(command=="prz") return 7;
+    return -1;
+}
+
 void pokaz(vector<Instytut> &wydzial)   //wypisz wszystko
 {
     int i;  //counter
@@ -189,6 +212,15 @@ void pokaz(vector<Instytut> &wydzial)   //wypisz wszystko
         klik();
     }
     return;
+}
+
+void klik(void) //kliknij aby isc dalej
+{
+    string command;
+    cout<<"Kliknij enter aby kontynuowac."<<endl;
+    getline(cin,command);
+    if(command=="exit") throw 1;
+    system("CLS");
 }
 
 template <typename type>
